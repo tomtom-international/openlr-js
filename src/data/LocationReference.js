@@ -21,9 +21,7 @@ export default class LocationReference {
     _version;
 
     /** The Constant VERSION_MASK. */
-    static get _VERSION_MASK() {
-        return 7;
-    }
+    static _VERSION_MASK = 7;
 
     static fromIdAndBuffer(id, data) {
         const locationReference = new LocationReference();

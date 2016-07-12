@@ -2,9 +2,7 @@ import BinaryInformation from './BinaryInformation';
 
 export default class Offset extends BinaryInformation {
     /** Number of bits used for offset */
-    static get _OFFSET_BITS() {
-        return 8;
-    }
+    static _OFFSET_BITS = 8;
 
     /** The offset information. */
     _offset;

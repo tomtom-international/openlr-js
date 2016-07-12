@@ -4,9 +4,7 @@ import Attr4 from './Attr4';
 
 export default class LastLRP extends AbstractLRP {
     /** Number of bits used for coordinates (relative) */
-    static get _COORD_BITS() {
-        return 16;
-    }
+    static _COORD_BITS = 16;
 
     /** The attrib4 information. */
     _attrib4;

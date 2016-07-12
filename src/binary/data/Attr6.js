@@ -2,14 +2,10 @@ import BinaryInformation from './BinaryInformation';
 
 export default class Attr6 extends BinaryInformation {
     /** number of bits used for lfrcnp */
-    static get _NR_RFU() {
-        return 3;
-    }
+    static _NR_RFU = 3;
 
     /** number of bits used for bear */
-    static get _BEAR_BITS() {
-        return 5;
-    }
+    static _BEAR_BITS = 5;
 
     /** The bearing information. */
     _bear;

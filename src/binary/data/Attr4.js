@@ -2,24 +2,16 @@ import BinaryInformation from './BinaryInformation';
 
 export default class Attr4 extends BinaryInformation {
     /** Number of unused bits */
-    static get _RFU_BITS() {
-        return 1;
-    }
+    static _RFU_BITS = 1;
 
     /** Number of bits used for positive offset flag */
-    static get _POFFF_BITS() {
-        return 1;
-    }
+    static _POFFF_BITS = 1;
 
     /** Number of bits used for negative offset flag */
-    static get _NOFFF_BITS() {
-        return 1;
-    }
+    static _NOFFF_BITS = 1;
 
     /** Number of bits used for bearing */
-    static get _BEAR_BITS() {
-        return 5;
-    }
+    static _BEAR_BITS = 5;
 
     /** The positive offset flag information. */
     _pOffsetF;

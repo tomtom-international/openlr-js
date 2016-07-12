@@ -6,44 +6,28 @@ const AGAINST_DIRECTION = Symbol();
 
 export default class GeometryUtils {
     /** The Constant MAX_LAT. */
-    static get MAX_LAT() {
-        return 90;
-    }
+    static MAX_LAT = 90;
 
     /** The Constant MIN_LAT. */
-    static get MIN_LAT() {
-        return -90;
-    }
+    static MIN_LAT = -90;
 
     /** The Constant MAX_LON. */
-    static get MAX_LON() {
-        return 180;
-    }
+    static MAX_LON = 180;
 
     /** The Constant MIN_LON. */
-    static get MIN_LON() {
-        return -180;
-    }
+    static MIN_LON = -180;
 
     /** The Constant ZERO_CIRCLE. */
-    static get ZERO_CIRCLE() {
-        return 0;
-    }
+    static ZERO_CIRCLE = 0;
 
     /** The Constant HALF_CIRCLE. */
-    static get HALF_CIRCLE() {
-        return 180;
-    }
+    static HALF_CIRCLE = 180;
 
     /** The Constant QUARTER_CIRCLE. */
-    static get QUARTER_CIRCLE() {
-        return 90;
-    }
+    static QUARTER_CIRCLE = 90;
 
     /** The Constant QUARTER_CIRCLE. */
-    static get THREE_QUARTER_CIRCLE() {
-        return 270;
-    }
+    static THREE_QUARTER_CIRCLE = 270;
 
     /** The default precision for rounding coordinate values. */
     static  _DEFAULT_PRECISION = 5;
@@ -55,12 +39,10 @@ export default class GeometryUtils {
         throw new Error('Cannot instantiate utility class');
     }
 
-    static get BearingDirection() {
-        return {
-            IN_DIRECTION,
-            AGAINST_DIRECTION
-        };
-    }
+    static BearingDirection = {
+        IN_DIRECTION,
+        AGAINST_DIRECTION
+    };
 
     /** The Constant divisionsPerDegree. */
     static  _DIVISIONS_PER_DEGREE = 100000; // 1000 * 100;

@@ -1,32 +1,20 @@
 import BinaryInformation from './BinaryInformation';
 
 export default class Header extends BinaryInformation {
-    static get _RFU_BITS() {
-        return 1;
-    }
+    static _RFU_BITS = 1;
 
-    static get _AREA_FLAG_BIT0() {
-        return 1;
-    }
+    static _AREA_FLAG_BIT0 = 1;
 
-    static get _AREA_FLAG_BIT1() {
-        return 1;
-    }
+    static _AREA_FLAG_BIT1 = 1;
 
     /** Number of bits used for attributes flag */
-    static get _ATTR_FLAG_BITS() {
-        return 1;
-    }
+    static _ATTR_FLAG_BITS = 1;
 
     /** Number of bits used for poflag */
-    static get _POINT_FLAG_BITS() {
-        return 1;
-    }
+    static _POINT_FLAG_BITS = 1;
 
     /** Number of bits used for version */
-    static get _VERSION_BITS() {
-        return 3;
-    }
+    static _VERSION_BITS = 3;
 
     /** The area flag information. */
     _arf;

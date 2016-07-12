@@ -2,9 +2,7 @@ import BinaryConstants from '../binary/BinaryConstants';
 
 export default class Offsets {
     /** The Constant PERCENTAGE. */
-    static get _PERCENTAGE() {
-        return 100;
-    }
+    static _PERCENTAGE = 100;
 
     /**
      * The positive offset of the binary data (0 if no positive offset available).

@@ -5,9 +5,7 @@ import Attr3 from './Attr3';
 
 export default class IntermediateLRP extends AbstractLRP {
     /** Number of bits used for coordinates (relative) */
-    static get _COORD_BITS() {
-        return 16;
-    }
+    static _COORD_BITS = 16;
 
     /** The attrib2. */
     _attrib2;

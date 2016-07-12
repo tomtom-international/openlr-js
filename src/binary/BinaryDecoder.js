@@ -7,9 +7,7 @@ import LineDecoder from './decoder/LineDecoder';
 import RawBinaryData from './data/RawBinaryData';
 
 export default class BinaryDecoder {
-    static get _VERSIONS() {
-        return [2, 3];
-    }
+    static _VERSIONS = [2, 3];
 
     _checkVersion(header) {
         const ver = header.ver;

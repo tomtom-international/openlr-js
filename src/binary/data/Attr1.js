@@ -2,19 +2,13 @@ import BinaryInformation from './BinaryInformation';
 
 export default class Attr1 extends BinaryInformation {
     /** The Constant SIDE_OR_ORIENTATION_BITS. */
-    static get _SIDE_OR_ORIENTATION_BITS() {
-        return 2;
-    }
+    static _SIDE_OR_ORIENTATION_BITS = 2;
 
     /** Number of bits used for frc */
-    static get _FRC_BITS() {
-        return 3;
-    }
+    static _FRC_BITS = 3;
 
     /** Number of bits used for fow */
-    static get _FOW_BITS() {
-        return 3;
-    }
+    static _FOW_BITS = 3;
 
     /** The functional road class information. */
     _frc;
