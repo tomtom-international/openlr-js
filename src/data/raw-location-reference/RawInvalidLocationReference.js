@@ -7,6 +7,7 @@ export default class RawInvalidLocationReference extends RawLocationReference {
         rawInvalidLocationReference._id = id;
         rawInvalidLocationReference._locationType = LocationType.UNKNOWN;
         rawInvalidLocationReference._returnCode = error;
+        return rawInvalidLocationReference;
     }
 
     static fromValues(id, error, locationType) {
@@ -14,5 +15,6 @@ export default class RawInvalidLocationReference extends RawLocationReference {
         rawInvalidLocationReference._id = id;
         rawInvalidLocationReference._locationType = locationType;
         rawInvalidLocationReference._returnCode = error;
+        return rawInvalidLocationReference;
     }
 };

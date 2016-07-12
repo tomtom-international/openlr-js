@@ -2,7 +2,9 @@ import BinaryInformation from './BinaryInformation';
 
 export default class Attr3 extends BinaryInformation {
     /** Number of bits used for dnp */
-    static _DNP_BITS = 8;
+    static get _DNP_BITS() {
+        return 8;
+    }
 
     /** The distance to next point information. */
     _dnp;

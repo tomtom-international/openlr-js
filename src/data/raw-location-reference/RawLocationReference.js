@@ -10,6 +10,7 @@ export default class RawLocationReference {
         rawLocationReference._id = id;
         rawLocationReference._locationType = locationType;
         rawLocationReference._returnCode = returnCode;
+        return rawLocationReference;
     }
 
     static fromIdAndLocationType(id, locationType) {
@@ -17,6 +18,7 @@ export default class RawLocationReference {
         rawLocationReference._id = id;
         rawLocationReference._locationType = locationType;
         rawLocationReference._returnCode = null;
+        return rawLocationReference;
     }
 
     get id() {

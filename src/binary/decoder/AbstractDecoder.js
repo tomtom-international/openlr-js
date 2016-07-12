@@ -6,7 +6,9 @@ import FormOfWay from '../../map/FormOfWay';
 import LocationReferencePoint from '../../data/LocationReferencePoint';
 
 export default class AbstractDecoder {
-    //decodeData(id, final bitStreamInput, totalBytes, version,  binaryData);
+    decodeData(id, bitStreamInput, totalBytes, version, binaryData) {
+        throw new Error('This method is abstract');
+    }
 
     _resolveSideOfRoad(attrib1) {
         const value = attrib1.sideOrOrientation;

@@ -2,10 +2,14 @@ import BinaryInformation from './BinaryInformation';
 
 export default class Attr2 extends BinaryInformation {
     /** Number of bits used for lfrcnp */
-    static _LFRCNP_BITS = 3;
+    static get _LFRCNP_BITS() {
+        return 3;
+    }
 
     /** Number of bits used for bear */
-    static _BEAR_BITS = 5;
+    static get _BEAR_BITS() {
+        return 5;
+    }
 
     /** The lowest functional road class information. */
     _lfrcnp;

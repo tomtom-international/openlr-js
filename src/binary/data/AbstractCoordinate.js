@@ -10,6 +10,7 @@ export default class AbstractCoordinate extends BinaryInformation {
     static fromBitCount(countBits) {
         const abstractCoordinate = new AbstractCoordinate();
         abstractCoordinate._coordBits = countBits;
+        return abstractCoordinate;
     }
 
     get lon() {

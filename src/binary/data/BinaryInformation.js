@@ -1,3 +1,5 @@
 export default class BinaryInformation {
-    static _RFU_VALUE = 0;
+    static get _RFU_VALUE() {
+        return 0;
+    }
 };

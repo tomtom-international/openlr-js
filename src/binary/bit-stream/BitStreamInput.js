@@ -12,6 +12,7 @@ export default class BitStreamInput extends BitStreamAbstract {
         bitStreamInput._currentBit = 0;
         bitStreamInput._bufferFilledBytes = 0;
         bitStreamInput._fillBufferFromInput();
+        return bitStreamInput;
     }
 
     static fromStringAndLength(string, encoding, length) {
@@ -21,6 +22,7 @@ export default class BitStreamInput extends BitStreamAbstract {
         bitStreamInput._currentBit = 0;
         bitStreamInput._bufferFilledBytes = 0;
         bitStreamInput._fillBufferFromInput();
+        return bitStreamInput;
     }
 
     static fromBuffer(buffer) {
@@ -30,6 +32,7 @@ export default class BitStreamInput extends BitStreamAbstract {
         bitStreamInput._currentBit = 0;
         bitStreamInput._bufferFilledBytes = 0;
         bitStreamInput._fillBufferFromInput();
+        return bitStreamInput;
     }
 
     static fromBufferAndLength(buffer, length) {
@@ -39,6 +42,7 @@ export default class BitStreamInput extends BitStreamAbstract {
         bitStreamInput._currentBit = 0;
         bitStreamInput._bufferFilledBytes = 0;
         bitStreamInput._fillBufferFromInput();
+        return bitStreamInput;
     }
 
     _getNextBits(count) {
@@ -46,48 +50,48 @@ export default class BitStreamInput extends BitStreamAbstract {
             return 0;
         }
 
-        if (count > BitStreamAbstract.MAX_BIT_SIZE || count < 1) {
+        if (count > BitStreamAbstract._MAX_BIT_SIZE || count < 1) {
             throw new Error('Invalid bit size');
         }
 
-        if (this.position + count > this._bufferFilledBytes << BitStreamAbstract.BIT_BYTE_SHIFT) {
+        if (this.position + count > this._bufferFilledBytes << BitStreamAbstract._BIT_BYTE_SHIFT) {
             // Forward check if we reach the end of the buffer
             this._fillBufferFromInput();
         }
 
-        if ((this._totalBufferLengthBytes << BitStreamAbstract.BIT_BYTE_SHIFT) - this._currentBit < count) {
+        if ((this._totalBufferLengthBytes << BitStreamAbstract._BIT_BYTE_SHIFT) - this._currentBit < count) {
             // Check if there is enough data in the buffer (after reading from stream)
             throw new Error('Not enough data');
         }
 
         let returnValue = 0;
-        let currentByteIndex = this._currentBit >>> BitStreamAbstract.BIT_BYTE_SHIFT;
-        const endByteIndex = (this._currentBit + count - 1) >>> BitStreamAbstract.BIT_BYTE_SHIFT;
-        const room = BitStreamAbstract.BYTE_SIZE - (this._currentBit % BitStreamAbstract.BYTE_SIZE); // unread bits in the first byte
+        let currentByteIndex = this._currentBit >>> BitStreamAbstract._BIT_BYTE_SHIFT;
+        const endByteIndex = (this._currentBit + count - 1) >>> BitStreamAbstract._BIT_BYTE_SHIFT;
+        const room = BitStreamAbstract._BYTE_SIZE - (this._currentBit % BitStreamAbstract._BYTE_SIZE); // unread bits in the first byte
 
         if (room >= count) {
             // The requested value is completely in the first byte so read the data
-            returnValue = (this._buffer[currentByteIndex] >> room - count) & BitStreamAbstract.BITMASK[count];
+            returnValue = (this._buffer[currentByteIndex] >> room - count) & BitStreamAbstract._BITMASK[count];
         } else {
             // Leftover bits in the last byte
-            const leftover = (this._currentBit + count) % BitStreamAbstract.BYTE_SIZE;
-            returnValue |= this._buffer[currentByteIndex] & BitStreamAbstract.BITMASK[room];
+            const leftover = (this._currentBit + count) % BitStreamAbstract._BYTE_SIZE;
+            returnValue |= this._buffer[currentByteIndex] & BitStreamAbstract._BITMASK[room];
 
             // Now iterate byte-wise, stop before last byte
             for (currentByteIndex++; currentByteIndex < endByteIndex; currentByteIndex++) {
                 // Shift return value
-                returnValue <<= BitStreamAbstract.BYTE_SIZE;
+                returnValue <<= BitStreamAbstract._BYTE_SIZE;
                 // and put the bits read instead (full byte)
-                returnValue |= this._buffer[currentByteIndex] & BitStreamAbstract.BITMASK[BitStreamAbstract.BYTE_SIZE];
+                returnValue |= this._buffer[currentByteIndex] & BitStreamAbstract._BITMASK[BitStreamAbstract._BYTE_SIZE];
             }
             // Now deal with the last part
             if (leftover > 0) {
                 returnValue <<= leftover; // Make room for remaining bits
-                returnValue |= (this._buffer[currentByteIndex] >> (BitStreamAbstract.BYTE_SIZE - leftover)) & BitStreamAbstract.BITMASK[leftover];
+                returnValue |= (this._buffer[currentByteIndex] >> (BitStreamAbstract._BYTE_SIZE - leftover)) & BitStreamAbstract._BITMASK[leftover];
             } else {
                 // Last byte will be read completely
-                returnValue <<= BitStreamAbstract.BYTE_SIZE;
-                returnValue |= this._buffer[currentByteIndex] & BitStreamAbstract.BITMASK[BitStreamAbstract.BYTE_SIZE];
+                returnValue <<= BitStreamAbstract._BYTE_SIZE;
+                returnValue |= this._buffer[currentByteIndex] & BitStreamAbstract._BITMASK[BitStreamAbstract._BYTE_SIZE];
             }
         }
         return returnValue;
@@ -97,9 +101,9 @@ export default class BitStreamInput extends BitStreamAbstract {
         // Get the (unsigned) bits
         const x = this._getNextBits(count);
         // Check if the number read is negative?
-        if (count > 1 && ((BitStreamAbstract.SIGNED_MASK[count] & x) != 0)) {
+        if (count > 1 && ((BitStreamAbstract._SIGNED_MASK[count] & x) != 0)) {
             // Number is negative so transform into an integer including the sign
-            return x | BitStreamAbstract.COMPLEMENT_MASK[count];
+            return x | BitStreamAbstract._COMPLEMENT_MASK[count];
         } else {
             // Number is positive, no transformation needed
             return x;
@@ -123,7 +127,7 @@ export default class BitStreamInput extends BitStreamAbstract {
     }
 
     _fillBufferFromInput() {
-        const currentByteIndex = this._currentBit >>> BitStreamAbstract.BIT_BYTE_SHIFT; // Current byte offset
+        const currentByteIndex = this._currentBit >>> BitStreamAbstract._BIT_BYTE_SHIFT; // Current byte offset
         const remainingBytes = this._bufferFilledBytes - currentByteIndex; // Remaining bytes
 
         // Copy remaining data (not read yet) into the head of the buffer and overwrite already read data
@@ -135,11 +139,11 @@ export default class BitStreamInput extends BitStreamAbstract {
             // No more data available but application should read more, that is an error
             throw new Error('End of Data');
         }
-        // adjust buffer size being used
-        // the total buffer size might be larger but this should only happen
-        // the last reading data from stream!
+        // Adjust buffer size being used
+        // The total buffer size might be larger but this should only happen
+        // The last reading data from stream!
         this._bufferFilledBytes = remainingBytes + bytesReadFromStream;
-        // set bit pointer according to the part already being processed
-        this._currentBit &= BitStreamAbstract.HIGHEST_BIT;
+        // Set bit pointer according to the part already being processed
+        this._currentBit &= BitStreamAbstract._HIGHEST_BIT;
     }
 };

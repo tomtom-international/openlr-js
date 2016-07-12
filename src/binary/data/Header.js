@@ -1,23 +1,32 @@
 import BinaryInformation from './BinaryInformation';
 
 export default class Header extends BinaryInformation {
-    static RFU_BITS = 1;
+    static get _RFU_BITS() {
+        return 1;
+    }
 
-    static AREA_FLAG_BIT0 = 1;
+    static get _AREA_FLAG_BIT0() {
+        return 1;
+    }
 
-    static AREA_FLAG_BIT1 = 1;
+    static get _AREA_FLAG_BIT1() {
+        return 1;
+    }
 
-    /** number bits used for area flag */
-    //static AREA_FLAG_BITS = Header.AREA_FLAG_BIT0 + Header.AREA_FLAG_BIT1;
+    /** Number of bits used for attributes flag */
+    static get _ATTR_FLAG_BITS() {
+        return 1;
+    }
 
-    /** number of bits used for attributes flag */
-    static ATTR_FLAG_BITS = 1;
+    /** Number of bits used for poflag */
+    static get _POINT_FLAG_BITS() {
+        return 1;
+    }
 
-    /** number of bits used for poflag */
-    static POINT_FLAG_BITS = 1;
-
-    /** number of bits used for version */
-    static VERSION_BITS = 3;
+    /** Number of bits used for version */
+    static get _VERSION_BITS() {
+        return 3;
+    }
 
     /** The area flag information. */
     _arf;
@@ -41,27 +50,29 @@ export default class Header extends BinaryInformation {
     }
 
     static fromBitStreamInput(bitStreamInput) {
-        const rfu = bitStreamInput.getBits(Header.RFU_BITS);
-        if (rfu != BinaryInformation.RFU_VALUE) {
+        const rfu = bitStreamInput.getBits(Header._RFU_BITS);
+        if (rfu != BinaryInformation._RFU_VALUE) {
             throw new Error('Const value mismatch');
         }
-        const arf1 = bitStreamInput.getBits(Header.AREA_FLAG_BIT0);
-        this._pf = bitStreamInput.getBits(Header.POINT_FLAG_BITS);
-        const arf0 = bitStreamInput.getBits(Header.AREA_FLAG_BIT1);
-        this._arf = 2 * arf1 + arf0;
-        this._af = bitStreamInput.getBits(Header.ATTR_FLAG_BITS);
-        this._ver = bitStreamInput.getBits(Header.VERSION_BITS);
+        const header = new Header();
+        const arf1 = bitStreamInput.getBits(Header._AREA_FLAG_BIT0);
+        header._pf = bitStreamInput.getBits(Header._POINT_FLAG_BITS);
+        const arf0 = bitStreamInput.getBits(Header._AREA_FLAG_BIT1);
+        header._arf = 2 * arf1 + arf0;
+        header._af = bitStreamInput.getBits(Header._ATTR_FLAG_BITS);
+        header._ver = bitStreamInput.getBits(Header._VERSION_BITS);
+        return header;
     }
 
     put(bitStreamOutput) {
-        bitStreamOutput.putBits(BinaryInformation.RFU_VALUE, Header.RFU_BITS);
+        bitStreamOutput.putBits(BinaryInformation._RFU_VALUE, Header._RFU_BITS);
         const arf1 = this._arf / 2;
         const arf0 = this._arf % 2;
-        bitStreamOutput.putBits(arf1, Header.AREA_FLAG_BIT1);
-        bitStreamOutput.putBits(this._pf, Header.POINT_FLAG_BITS);
-        bitStreamOutput.putBits(arf0, Header.AREA_FLAG_BIT0);
-        bitStreamOutput.putBits(this._af, Header.ATTR_FLAG_BITS);
-        bitStreamOutput.putBits(this._ver, Header.VERSION_BITS);
+        bitStreamOutput.putBits(arf1, Header._AREA_FLAG_BIT1);
+        bitStreamOutput.putBits(this._pf, Header._POINT_FLAG_BITS);
+        bitStreamOutput.putBits(arf0, Header._AREA_FLAG_BIT0);
+        bitStreamOutput.putBits(this._af, Header._ATTR_FLAG_BITS);
+        bitStreamOutput.putBits(this._ver, Header._VERSION_BITS);
     }
 
     get arf() {

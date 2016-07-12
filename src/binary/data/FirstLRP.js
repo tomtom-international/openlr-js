@@ -4,7 +4,9 @@ import Attr2 from './Attr2';
 import Attr3 from './Attr3';
 
 export default class FirstLRP extends AbstractLRP {
-    static _COORD_BITS = 24;
+    static get _COORD_BITS() {
+        return 24;
+    }
 
     _attrib2;
 
