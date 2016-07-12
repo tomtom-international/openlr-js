@@ -54,6 +54,14 @@ export default class LocationReferencePoint {
         return lrp;
     }
 
+    getLongitudeDeg() {
+        return this._longitude;
+    }
+
+    getLatitudeDeg() {
+        return this._latitude;
+    }
+
     getBearing() {
         return this._bearing;
     }

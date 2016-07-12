@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "build": "babel src -d lib"
+    "build": "babel src -d lib",
+    "sanity": "babel-node test/sanity.js --source-maps"
   },
   "devDependencies": {
     "babel-cli": "^6.10.1",

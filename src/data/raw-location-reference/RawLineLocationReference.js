@@ -1,4 +1,4 @@
-import RawLocationReference from './RawLineLocationReference';
+import RawLocationReference from './RawLocationReference';
 import LocationType from '../LocationType';
 
 export default class RawLineLocationReference extends RawLocationReference {

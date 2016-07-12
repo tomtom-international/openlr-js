@@ -1,6 +1,6 @@
 import {Buffer} from 'buffer';
-import LocationReference from '../lib/data/LocationReference';
-import BinaryDecoder from '../lib/binary/BinaryDecoder';
+import LocationReference from '../src/data/LocationReference';
+import BinaryDecoder from '../src/binary/BinaryDecoder';
 
 const openLrString = 'CwNhbCU+jzPLAwD0/34zGw==';
 const openLrBinary = Buffer.from(openLrString, 'base64');
