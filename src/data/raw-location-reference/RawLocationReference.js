@@ -21,7 +21,7 @@ export default class RawLocationReference {
         return rawLocationReference;
     }
 
-    get id() {
+    getId() {
         return this._id;
     }
 
@@ -29,11 +29,11 @@ export default class RawLocationReference {
         return !!this._id;
     }
 
-    get locationType() {
+    getLocationType() {
         return this._locationType;
     }
 
-    get returnCode() {
+    getReturnCode() {
         return this._returnCode;
     }
 

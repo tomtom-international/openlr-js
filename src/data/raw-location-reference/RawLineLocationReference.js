@@ -18,11 +18,11 @@ export default class RawLineLocationReference extends RawLocationReference {
         return rawLineLocationReference;
     }
 
-    get points() {
+    getLocationReferencePoints() {
         return this._points;
     }
 
-    get offsets() {
+    getOffsets() {
         return this._offsets;
     }
 };

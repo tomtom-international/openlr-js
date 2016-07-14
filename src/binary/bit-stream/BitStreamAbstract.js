@@ -72,6 +72,13 @@ export default class BitStreamAbstract {
     /** Creates the internal data buffer of size length. */
     _createBuffer(length) {
         this._totalBufferLengthBytes = length;
-        this._buffer = new Buffer(length);
+        this._buffer = Buffer.alloc(length);
+    }
+
+    _getData() {
+        const byteLength = this._currentBit >>> BitStreamAbstract._BIT_BYTE_SHIFT;
+        const copyBuffer = Buffer.alloc(byteLength);
+        this._buffer.copy(copyBuffer, 0, 0, byteLength);
+        return copyBuffer;
     }
 };

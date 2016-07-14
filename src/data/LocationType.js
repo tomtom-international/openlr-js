@@ -38,5 +38,7 @@ export default {
     POLYGON,
     CLOSED_LINE,
     RECTANGLE,
-    GRID
+    GRID,
+    AREA_LOCATIONS: new Set([CIRCLE, GRID]),
+    POINTS_LOCATIONS: new Set([GEO_COORDINATES, POI_WITH_ACCESS_POINT])
 };
