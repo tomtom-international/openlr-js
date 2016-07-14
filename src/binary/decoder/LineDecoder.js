@@ -26,7 +26,7 @@ import RawLineLocationReference from '../../data/raw-location-reference/RawLineL
 export default class LineDecoder extends AbstractDecoder {
     decodeData(id, bitStreamInput, totalBytes, version, binaryData) {
         // Calculate number of intermediates (integer division: get rid of possible offset information)
-        const nrIntermediates = (totalBytes - (BinaryConstants.MIN_BYTES_LINE_LOCATION)) / BinaryConstants.LRP_SIZE;
+        const nrIntermediates = Math.floor((totalBytes - (BinaryConstants.MIN_BYTES_LINE_LOCATION)) / BinaryConstants.LRP_SIZE);
 
         // Read first location reference point
         const firstLRP = FirstLRP.fromBitStreamInput(bitStreamInput);

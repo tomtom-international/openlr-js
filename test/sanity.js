@@ -6,7 +6,7 @@ import BinaryEncoder from '../src/binary/BinaryEncoder';
 const binaryDecoder = new BinaryDecoder();
 const binaryEncoder = new BinaryEncoder();
 
-const openLrString = 'CwNhbCU+jzPLAwD0/34zGw==';
+const openLrString = 'CwhpSyMqAgosFQWS/aoKWQY=';
 const openLrBinary = Buffer.from(openLrString, 'base64');
 const locationReference = LocationReference.fromIdAndBuffer('binary', openLrBinary);
 
