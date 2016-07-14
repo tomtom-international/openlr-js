@@ -37,6 +37,7 @@ export default class IntermediateLRP extends AbstractLRP {
         intermediateLrp._attrib1 = attrib1;
         intermediateLrp._attrib2 = attrib2;
         intermediateLrp._attrib3 = attrib3;
+        return intermediateLrp;
     }
 
     static fromBitStreamInput(bitStreamInput) {
