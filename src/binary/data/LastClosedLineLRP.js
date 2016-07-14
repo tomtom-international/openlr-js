@@ -34,9 +34,4 @@ export default class LastClosedLineLRP extends BinaryInformation {
     get attrib6() {
         return this._attrib6;
     }
-
-    equals(otherLastClosedLineLrp) {
-        return this._attrib5.equals(otherLastClosedLineLrp._attrib5)
-            && this._attrib6.equals(otherLastClosedLineLrp._attrib6);
-    }
 };

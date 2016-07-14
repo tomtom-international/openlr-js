@@ -24,9 +24,4 @@ export default class GeoCoordinates {
     getLongitudeDeg() {
         return this._longitude;
     }
-
-    equals(otherGeoCoordinates) {
-        return this._longitude == otherGeoCoordinates._longitude
-            && this._latitude == otherGeoCoordinates._latitude;
-    }
 };

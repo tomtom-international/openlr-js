@@ -1,7 +1,7 @@
-const NO_ORIENTATION_OR_UNKNOWN = Symbol();
-const WITH_LINE_DIRECTION = Symbol();
-const AGAINST_LINE_DIRECTION = Symbol();
-const BOTH = Symbol();
+const NO_ORIENTATION_OR_UNKNOWN = Symbol('NO_ORIENTATION_OR_UNKNOWN');
+const WITH_LINE_DIRECTION = Symbol('WITH_LINE_DIRECTION');
+const AGAINST_LINE_DIRECTION = Symbol('AGAINST_LINE_DIRECTION');
+const BOTH = Symbol('BOTH');
 
 export default {
     NO_ORIENTATION_OR_UNKNOWN,

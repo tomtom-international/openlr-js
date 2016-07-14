@@ -53,10 +53,4 @@ export default class Attr1 extends BinaryInformation {
     get sideOrOrientation() {
         return this._sideOrOrientation;
     }
-
-    equals(otherAttr1) {
-        return this._frc == otherAttr1._frc
-            && this._fow == otherAttr1._fow
-            && this._sideOrOrientation == otherAttr1._sideOrOrientation;
-    }
 };

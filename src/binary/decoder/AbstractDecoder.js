@@ -31,7 +31,7 @@ export default class AbstractDecoder {
         const fow = FormOfWay.getFormOfWayValues()[firstLRP.attrib1.fow];
         const lon = this._calculate32BitRepresentation(firstLRP.lon);
         const lat = this._calculate32BitRepresentation(firstLRP.lat);
-        const bearing = this._calculate32BitRepresentation(firstLRP.attrib2.bear);
+        const bearing = this._calculateBearingEstimate(firstLRP.attrib2.bear);
         const dnp = this._calculateDistanceEstimate(firstLRP.attrib3.dnp);
         const lfrc = FunctionalRoadClass.getFRCValues()[firstLRP.attrib2.lfrcnp];
         return LocationReferencePoint.fromValues(seqNr, frc, fow, lon, lat, bearing, dnp, lfrc, false);

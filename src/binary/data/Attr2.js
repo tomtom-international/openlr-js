@@ -39,9 +39,4 @@ export default class Attr2 extends BinaryInformation {
     get bear() {
         return this._bear;
     }
-
-    equals(otherAttr2) {
-        return this._lfrcnp == otherAttr2._lfrcnp
-            && this._bear == otherAttr2._bear;
-    }
 };

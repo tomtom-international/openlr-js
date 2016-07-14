@@ -47,9 +47,4 @@ export default class Attr5 extends BinaryInformation {
     get fow() {
         return this._fow;
     }
-
-    equals(otherAttr5) {
-        return this._frc == otherAttr5._frc
-            && this._fow == otherAttr5._fow;
-    }
 };

@@ -25,8 +25,4 @@ export default class RawLineLocationReference extends RawLocationReference {
     get offsets() {
         return this._offsets;
     }
-
-    equals(otherRawLineLocationReference) {
-        throw new Error('Needs proper implementation');
-    }
 };

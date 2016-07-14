@@ -47,12 +47,4 @@ export default class IntermediateLRP extends AbstractLRP {
     get attrib3() {
         return this._attrib3;
     }
-
-    equals(otherIntermediateLrp) {
-        return this._lon == otherIntermediateLrp._lon
-            && this._lat == otherIntermediateLrp._lat
-            && this._attrib1.equals(otherIntermediateLrp._attrib1)
-            && this._attrib2.equals(otherIntermediateLrp._attrib2)
-            && this._attrib3.equals(otherIntermediateLrp._attrib3);
-    }
 };

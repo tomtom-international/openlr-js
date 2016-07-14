@@ -85,15 +85,4 @@ export default class LocationReferencePoint {
     isLastLRP() {
         return this._isLast;
     }
-
-    equals(otherLocationReferencePoint) {
-        return this._bearing == otherLocationReferencePoint._bearing
-            && this._distanceToNext == otherLocationReferencePoint._distanceToNext
-            && this._frc.equals(otherLocationReferencePoint._frc)
-            && this._fow.equals(otherLocationReferencePoint._fow)
-            && this._lfrcnp.equals(otherLocationReferencePoint._lfrcnp)
-            && this._isLast == otherLocationReferencePoint._isLast
-            && this._longitude == otherLocationReferencePoint._longitude
-            && this._latitude == otherLocationReferencePoint._latitude;
-    }
 };

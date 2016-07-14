@@ -37,11 +37,4 @@ export default class LastLRP extends AbstractLRP {
     get attrib4() {
         return this._attrib4;
     }
-
-    equals(otherFirstLRP) {
-        return this._lon == otherFirstLRP._lon
-            && this._lat == otherFirstLRP._lat
-            && this._attrib1.equals(otherFirstLRP._attrib1)
-            && this._attrib4.equals(otherFirstLRP._attrib4);
-    }
 };

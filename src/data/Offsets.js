@@ -72,12 +72,4 @@ export default class Offsets {
         }
         return 0;
     }
-
-    equals(otherOffsets) {
-        return this._version = otherOffsets._version
-            && this._pOffRelative == otherOffsets._pOffRelative
-            && this._nOffRelative == otherOffsets._nOffRelative
-            && this._pOffset == otherOffsets._pOffset
-            && this._nOffset == otherOffsets._nOffset;
-    }
 };

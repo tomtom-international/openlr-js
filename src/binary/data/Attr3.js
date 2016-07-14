@@ -27,8 +27,4 @@ export default class Attr3 extends BinaryInformation {
     get dnp() {
         return this._dnp;
     }
-
-    equals(otherAttr3) {
-        return this._dnp == otherAttr3._dnp;
-    }
 };

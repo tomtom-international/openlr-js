@@ -26,8 +26,4 @@ export default class Offset extends BinaryInformation {
     get offset() {
         return this._offset;
     }
-
-    equals(otherOffset) {
-        return this._offset == otherOffset._offset;
-    }
 };

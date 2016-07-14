@@ -157,8 +157,4 @@ export default class LocationReference {
     getVersion() {
         return this._version;
     }
-
-    equals(otherLocationReference) {
-        throw new Error('Needs proper implementation');
-    }
 };

@@ -60,10 +60,4 @@ export default class Attr4 extends BinaryInformation {
     get bear() {
         return this._bear;
     }
-
-    equals(otherAttr4) {
-        return this._pOffsetF == otherAttr4._pOffsetF
-            && this._nOffsetF == otherAttr4._nOffsetF
-            && this._bear == otherAttr4._bear;
-    }
 };

@@ -78,11 +78,4 @@ export default class Header extends BinaryInformation {
     get ver() {
         return this._ver;
     }
-
-    equals(otherHeader) {
-        return this._arf == otherHeader._arf
-            && this._af == otherHeader._af
-            && this._pf == otherHeader._pf
-            && this._ver == otherHeader._ver;
-    }
 };

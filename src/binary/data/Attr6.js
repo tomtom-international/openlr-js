@@ -34,8 +34,4 @@ export default class Attr6 extends BinaryInformation {
     get bear() {
         return this._bear;
     }
-
-    equals(otherAttr6) {
-        return this._bear == otherAttr6._bear;
-    }
 };
