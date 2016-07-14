@@ -1,4 +1,16 @@
 {
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Wouter van Heeswijk",
+    "email": "woutervh@gmail.com",
+    "url": "https://github.com/woutervh-/"
+  },
+  "name": "openlr-js",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/woutervh-/openlr-js.git"
+  },
   "scripts": {
     "build": "babel src -d lib",
     "sanity": "babel-node test/sanity.js --source-maps"
