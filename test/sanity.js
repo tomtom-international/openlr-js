@@ -1,8 +1,5 @@
 import {Buffer} from 'buffer';
-import LocationReference from '../src/data/LocationReference';
-import BinaryDecoder from '../src/binary/BinaryDecoder';
-import BinaryEncoder from '../src/binary/BinaryEncoder';
-import Serializer from '../src/data/Serializer';
+import {BinaryDecoder, BinaryEncoder, LocationReference, Serializer} from '../src';
 
 const binaryDecoder = new BinaryDecoder();
 const binaryEncoder = new BinaryEncoder();
@@ -17,7 +14,7 @@ const encodedLocationReference = binaryEncoder.encodeDataFromRLR(rawLocationRefe
 const encodedOpenLrBinary = encodedLocationReference.getLocationReferenceData();
 const encodedOpenLrString = encodedOpenLrBinary.toString('base64');
 
-if(openLrString != encodedOpenLrString) {
+if (openLrString != encodedOpenLrString) {
     throw new Error('Expected OpenLR string to be equal: ' + openLrString + ' and ' + encodedOpenLrString);
 }
 
