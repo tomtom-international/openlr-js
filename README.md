@@ -32,5 +32,4 @@ const locationReference = binaryEncoder.encodeDataFromRLR(rawLocationReference);
 const openLrBinary = locationReference.getLocationReferenceData();
 const openLrString = openLrBinary.toString('base64');
 console.log(openLrString); // CwNhbCU+jzPLAwD0/34zGw==
-
 ```
