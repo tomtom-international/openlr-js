@@ -2,6 +2,7 @@ import {Buffer} from 'buffer';
 import LocationReference from '../src/data/LocationReference';
 import BinaryDecoder from '../src/binary/BinaryDecoder';
 import BinaryEncoder from '../src/binary/BinaryEncoder';
+import Serializer from '../src/data/Serializer';
 
 const binaryDecoder = new BinaryDecoder();
 const binaryEncoder = new BinaryEncoder();
@@ -20,4 +21,6 @@ if(openLrString != encodedOpenLrString) {
     throw new Error('Expected OpenLR string to be equal: ' + openLrString + ' and ' + encodedOpenLrString);
 }
 
+//console.log(JSON.stringify(Serializer.serialize(rawLocationReference), null, 2));
+//console.log(Serializer.deserialize(Serializer.serialize(rawLocationReference), null, 2));
 console.log(rawLocationReference);

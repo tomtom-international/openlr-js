@@ -17,8 +17,8 @@
 import GeoCoordinates from '../GeoCoordinates';
 import Line from '../../geometry/Line';
 
-const IN_DIRECTION = Symbol('IN_DIRECTION');
-const AGAINST_DIRECTION = Symbol('AGAINST_DIRECTION');
+const IN_DIRECTION = 1;
+const AGAINST_DIRECTION = 2;
 
 export default class GeometryUtils {
     /** The Constant MAX_LAT. */

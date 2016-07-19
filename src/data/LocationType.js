@@ -15,34 +15,34 @@
  */
 
 /** Location is UNKNOWN. */
-const UNKNOWN = Symbol('UNKNOWN');
+const UNKNOWN = 0;
 
 /** line location. */
-const LINE_LOCATION = Symbol('LINE_LOCATION');
+const LINE_LOCATION = 1;
 
 /** simple geo coordinates */
-const GEO_COORDINATES = Symbol('GEO_COORDINATES');
+const GEO_COORDINATES = 2;
 
 /** point along a line */
-const POINT_ALONG_LINE = Symbol('POINT_ALONG_LINE');
+const POINT_ALONG_LINE = 3;
 
 /** point of interest with an access point along a line */
-const POI_WITH_ACCESS_POINT = Symbol('POI_WITH_ACCESS_POINT');
+const POI_WITH_ACCESS_POINT = 4;
 
 /** circle area location */
-const CIRCLE = Symbol('CIRCLE');
+const CIRCLE = 5;
 
 /** polygon area location */
-const POLYGON = Symbol('POLYGON');
+const POLYGON = 6;
 
 /** closed line area location */
-const CLOSED_LINE = Symbol('CLOSED_LINE');
+const CLOSED_LINE = 7;
 
 /** rectangular area location */
-const RECTANGLE = Symbol('RECTANGLE');
+const RECTANGLE = 8;
 
 /** grid area location */
-const GRID = Symbol('GRID');
+const GRID = 9;
 
 export default {
     UNKNOWN,
