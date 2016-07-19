@@ -22,7 +22,7 @@ console.log(jsonObject); // {"type":"RawLineLocationReference","properties":{"_i
 ```
 
 ```js
-import {BinaryDecoder, BinaryEncoder, LocationReference, Serializer} from 'openlr-js';
+import {BinaryEncoder, Serializer} from 'openlr-js';
 
 const encoder = new BinaryEncoder();
 
