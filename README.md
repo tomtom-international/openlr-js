@@ -17,7 +17,7 @@ npm install --save openlr-js
 ## Example usage
 
 ```js
-import {BinaryDecoder, BinaryEncoder, LocationReference, Serializer} from 'openlr-js';
+import {BinaryDecoder, LocationReference, Serializer} from 'openlr-js';
 
 const binaryDecoder = new BinaryDecoder();
 
