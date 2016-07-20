@@ -6,6 +6,14 @@ Java binaries and the OpenLR specification can be found at [OpenLR.org](http://w
 Currently only supports **line** encoding and decoding.
 This project is open to contributions, and will likely support more OpenLR geometries in the future.
 
+Supports both Node.js and Browsers by using the [buffer](https://www.npmjs.com/package/buffer) package.
+
+## Installation
+
+```bash
+npm install --save openlr-js
+```
+
 ## Example usage
 
 ```js
