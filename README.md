@@ -1,9 +1,9 @@
 # Readme for openlr-js
 
+OpenLR implementation in JavaScript
+
 Copyright (C) 2016, TomTom International BV. All rights reserved.
 ----
-
-OpenLR implementation in JavaScript
 
 Java binaries and the OpenLR specification can be found at [OpenLR.org](http://www.openlr.org/)
 
