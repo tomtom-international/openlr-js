@@ -132,7 +132,7 @@ export default class AbstractEncoder {
     }
 
     _generateLastLrpFromPointsAndOffsetAndSideOfRoad(points, pOff, sideOfRoad) {
-        const pSize = points.size();
+        const pSize = points.length;
         const lrp = points[pSize - 1];
         const prev = points[pSize - 2];
         return LastLRP.fromValues(this._getRelativeRepresentation(prev.getLongitudeDeg(), lrp.getLongitudeDeg()), this._getRelativeRepresentation(prev.getLatitudeDeg(), lrp.getLatitudeDeg()), this._generateAttribute1FromLRPAndSideOfRoad(lrp, sideOfRoad), this._generateAttribute4(lrp, pOff, null));

@@ -16,7 +16,7 @@
 
 export default class RawBinaryData {
     /** The header. */
-     header;
+    header;
 
     /** The first lrp. */
     firstLRP;

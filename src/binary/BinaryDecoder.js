@@ -20,6 +20,7 @@ import BitStreamInput from './bit-stream/BitStreamInput';
 import RawInvalidLocationReference from '../data/raw-location-reference/RawInvalidLocationReference';
 import Header from './data/Header';
 import LineDecoder from './decoder/LineDecoder';
+import PointAlongLineDecoder from './decoder/PointAlongLineDecoder';
 import RawBinaryData from './data/RawBinaryData';
 
 export default class BinaryDecoder {
@@ -79,8 +80,7 @@ export default class BinaryDecoder {
                 }
             } else {
                 if (totalBytes == BinaryConstants.POINT_ALONG_LINE_SIZE || totalBytes == BinaryConstants.POINT_ALONG_LINE_SIZE + BinaryConstants.POINT_OFFSET_SIZE) {
-                    //decoder = new PointAlongDecoder();
-                    throw new Error('PointAlonDecoder not implemented');
+                    decoder = new PointAlongLineDecoder();
                 } else if (totalBytes == BinaryConstants.POINT_WITH_ACCESS_SIZE || totalBytes == BinaryConstants.POINT_WITH_ACCESS_SIZE + BinaryConstants.POINT_OFFSET_SIZE) {
                     //decoder = new PoiAccessDecoder();
                     throw new Error('PoiAccessDecider not implemented');

@@ -19,6 +19,7 @@ import LocationReference from '../data/LocationReference';
 import BinaryReturnCode from './BinaryReturnCode';
 import LocationType from '../data/LocationType';
 import LineEncoder from './encoder/LineEncoder';
+import PointAlongLineEncoder from './encoder/PointAlongLineEncoder';
 
 export default class BinaryEncoder {
     /** The Constant VERSIONS. */
@@ -71,8 +72,7 @@ export default class BinaryEncoder {
                 throw new Error('PoiAccessEncoder not implemented');
                 break;
             case LocationType.POINT_ALONG_LINE:
-                //encoder = new PointAlongEncoder();
-                throw new Error('PointAlongEncoder not implemented');
+                encoder = new PointAlongLineEncoder();
                 break;
             case LocationType.CIRCLE:
                 //encoder = new CircleEncoder();

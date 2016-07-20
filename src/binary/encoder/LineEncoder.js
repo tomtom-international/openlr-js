@@ -30,12 +30,12 @@ export default class LineEncoder extends AbstractEncoder {
         if (locationReferences == null || offsets == null || locationReferences.length <= 0) {
             return LocationReference.fromValues(rawLocationReference.getId(), BinaryReturnCode.MISSING_DATA, LocationType.LINE_LOCATION, version);
         }
-        let retCode = this._checkOffsets(offsets, true, locationReferences);
-        if (!retCode) {
+        let returnCode = this._checkOffsets(offsets, true, locationReferences);
+        if (!returnCode) {
             return LocationReference.fromValues(rawLocationReference.getId(), BinaryReturnCode.INVALID_OFFSET, LocationType.LINE_LOCATION, version);
         }
-        retCode = this._checkOffsets(offsets, false, locationReferences);
-        if (!retCode) {
+        returnCode = this._checkOffsets(offsets, false, locationReferences);
+        if (!returnCode) {
             return LocationReference.fromValues(rawLocationReference.getId(), BinaryReturnCode.INVALID_OFFSET, LocationType.LINE_LOCATION, version);
         }
         return LocationReference.fromIdAndBuffer(rawLocationReference.getId(), this._generateBinaryLineLocation(locationReferences, offsets, version));

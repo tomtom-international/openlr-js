@@ -3,6 +3,7 @@ import LocationReference from './LocationReference';
 import LocationReferencePoint from './LocationReferencePoint';
 import RawInvalidLocationReference from './raw-location-reference/RawInvalidLocationReference';
 import RawLineLocationReference from './raw-location-reference/RawLineLocationReference';
+import RawPointAlongLineLocationReference from './raw-location-reference/RawPointAlongLineLocationReference';
 
 const constructors = {
     Object,
@@ -11,7 +12,8 @@ const constructors = {
     LocationReference,
     LocationReferencePoint,
     RawInvalidLocationReference,
-    RawLineLocationReference
+    RawLineLocationReference,
+    RawPointAlongLineLocationReference
 };
 
 export default class Serializer {
