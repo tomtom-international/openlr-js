@@ -10,7 +10,7 @@
   "version": "1.0.7",
   "repository": {
     "type": "git",
-    "url": "https://github.com/woutervh-/openlr-js.git"
+    "url": "https://github.com/tomtom-international/openlr-js.git"
   },
   "scripts": {
     "build": "babel src -d lib",
