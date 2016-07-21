@@ -1,16 +1,16 @@
-# Readme for openlr-js
-
-OpenLR implementation in JavaScript
+# Read Me for openlr-js
 
 Copyright (C) 2016, TomTom International BV. All rights reserved.
 ----
 
-Java binaries and the OpenLR specification can be found at [OpenLR.org](http://www.openlr.org/)
+This library contain an OpenLR implementation for JavaScript.
 
-Currently only supports **line & point along line geometries** encoding/decoding to/from binary.
-This project is open to contributions, and will likely support more OpenLR geometries in the future.
+Java binaries and the OpenLR specification can be found at [OpenLR.org](http://www.openlr.org).
 
-Supports both Node.js (v5+) and Browsers by using the [buffer](https://www.npmjs.com/package/buffer) package.
+Currently only supports **line** and **point along line geometries** encoding/decoding to/from binary.
+This project is open to contributions, and will likely support more OpenLR geometries in future.
+
+Supports both [Node.js](http://nodejs.org) (v5+) and web browsers by using the [Buffer](https://www.npmjs.com/package/buffer) package.
 
 ## License
 
@@ -28,7 +28,9 @@ See the License for the specific language governing permissions and limitations 
 npm install --save openlr-js
 ```
 
-## Example usage
+## Example Usage
+
+### Decoding OpenLR to a JSON Object 
 
 ```js
 import {BinaryDecoder, LocationReference, Serializer} from 'openlr-js';
@@ -40,8 +42,64 @@ const openLrBinary = Buffer.from(openLrString, 'base64');
 const locationReference = LocationReference.fromIdAndBuffer('binary', openLrBinary);
 const rawLocationReference = binaryDecoder.decodeData(locationReference);
 const jsonObject = Serializer.serialize(rawLocationReference);
-console.log(jsonObject); // {"type":"RawLineLocationReference","properties":{"_id":"binary","_locationType":1,"_returnCode":null,"_points":{"type":"Array","properties":[{"type":"LocationReferencePoint","properties":{"_bearing":129.375,"_distanceToNext":205,"_frc":6,"_fow":3,"_lfrcnp":6,"_isLast":false,"_longitude":4.7538936137926395,"_latitude":52.374883889902236,"_sequenceNumber":1}},{"type":"LocationReferencePoint","properties":{"_bearing":309.375,"_distanceToNext":0,"_frc":6,"_fow":3,"_lfrcnp":7,"_isLast":true,"_longitude":4.7563336137926395,"_latitude":52.373583889902235,"_sequenceNumber":2}}]},"_offsets":{"type":"Offsets","properties":{"_pOffset":0,"_nOffset":0,"_version":3,"_pOffRelative":0,"_nOffRelative":0}}}}
+console.log(jsonObject);
 ```
+
+This produces the following JSON: 
+```json
+{
+  "type": "RawLineLocationReference",
+  "properties": {
+    "_id": "binary",
+    "_locationType": 1,
+    "_returnCode": null,
+    "_points": {
+      "type": "Array",
+      "properties": [
+        {
+          "type": "LocationReferencePoint",
+          "properties": {
+            "_bearing": 129.375,
+            "_distanceToNext": 205,
+            "_frc": 6,
+            "_fow": 3,
+            "_lfrcnp": 6,
+            "_isLast": false,
+            "_longitude": 4.7538936137926395,
+            "_latitude": 52.374883889902236,
+            "_sequenceNumber": 1
+          }
+        }, {
+          "type": "LocationReferencePoint",
+          "properties": {
+            "_bearing": 309.375,
+            "_distanceToNext": 0,
+            "_frc": 6,
+            "_fow": 3,
+            "_lfrcnp": 7,
+            "_isLast": true,
+            "_longitude": 4.7563336137926395,
+            "_latitude": 52.373583889902235,
+            "_sequenceNumber": 2
+          }
+        }
+      ]
+    },
+    "_offsets": {
+      "type": "Offsets",
+      "properties": {
+        "_pOffset": 0,
+        "_nOffset": 0,
+        "_version": 3,
+        "_pOffRelative": 0,
+        "_nOffRelative": 0
+      }
+    }
+  }
+}
+```
+
+### Encoding a JSON OBject to OpenLR
 
 ```js
 import {BinaryEncoder, Serializer} from 'openlr-js';
@@ -53,8 +111,15 @@ const rawLocationReference = Serializer.deserialize(jsonObject);
 const locationReference = binaryEncoder.encodeDataFromRLR(rawLocationReference);
 const openLrBinary = locationReference.getLocationReferenceData();
 const openLrString = openLrBinary.toString('base64');
-console.log(openLrString); // CwNhbCU+jzPLAwD0/34zGw==
+console.log(openLrString); 
 ```
+
+This produces the followign OpenLR string:
+
+```
+CwNhbCU+jzPLAwD0/34zGw==
+```
+
 ## Using Git and `.gitignore`
 
 It's good practice to set up a personal global `.gitignore` file on your machine which filters a number of files on your file systems that you do not wish to submit to the Git repository.
