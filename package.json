@@ -6,6 +6,7 @@
     "url": "https://github.com/woutervh-/"
   },
   "name": "openlr-js",
+  "description": "OpenLR implementation in JavaScript",
   "main": "lib/index.js",
   "version": "1.0.9",
   "repository": {
