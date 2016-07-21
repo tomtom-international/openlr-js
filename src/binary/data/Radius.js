@@ -53,7 +53,7 @@ export default class Radius {
 
     };
 
-    /** The radius (up to 4 bytes) according to OpenLR white paper */
+    // The radius (up to 4 bytes) according to OpenLR white paper.
     _radius;
 
     static fromValues(radiusValue) {
