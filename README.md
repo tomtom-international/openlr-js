@@ -7,11 +7,10 @@ This library contain an OpenLR implementation for JavaScript.
 
 Java binaries and the OpenLR specification can be found at [OpenLR.org](http://www.openlr.org).
 
-Currently only supports **line** and **point along line geometries** encoding and decoding.
+Currently only supports **line** and **point along line geometries** encoding/decoding to/from binary.
 This project is open to contributions, and will likely support more OpenLR geometries in future.
 
-Supports both [Node.js](http://nodejs.org) and web browsers by using 
-the [Buffer](https://www.npmjs.com/package/buffer) package.
+Supports both [Node.js](http://nodejs.org) (v5+) and web browsers by using the [Buffer](https://www.npmjs.com/package/buffer) package.
 
 ## License
 
@@ -124,7 +123,7 @@ CwNhbCU+jzPLAwD0/34zGw==
 ## Using Git and `.gitignore`
 
 It's good practice to set up a personal global `.gitignore` file on your machine which filters a number of files on your file systems that you do not wish to submit to the Git repository.
-You can set up your own global`~/.gitignore`  file by executing:
+You can set up your own global `~/.gitignore`  file by executing:
 `git config --global core.excludesfile ~/.gitignore`
 
 In general, add the following file types to `~/.gitignore` (each entry should be on a separate line):
