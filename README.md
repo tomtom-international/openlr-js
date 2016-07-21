@@ -3,6 +3,11 @@
 Copyright (C) 2016, TomTom International BV. All rights reserved.
 ----
 
+[downloads-image]: https://img.shields.io/npm/dm/openlr-js.svg
+[npm-image]: https://img.shields.io/npm/v/openlr-js.svg
+[npm-url]: https://npmjs.org/package/openlr-js
+[![npm][npm-image]][npm-url] [![downloads][downloads-image]][npm-url]
+
 This library contain an OpenLR implementation for JavaScript.
 
 Java binaries and the OpenLR specification can be found at [OpenLR.org](http://www.openlr.org).
