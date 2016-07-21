@@ -99,7 +99,7 @@ This produces the following JSON:
 }
 ```
 
-### Encoding a JSON OBject to OpenLR
+### Encoding a JSON Object to OpenLR
 
 ```js
 import {BinaryEncoder, Serializer} from 'openlr-js';
@@ -114,7 +114,7 @@ const openLrString = openLrBinary.toString('base64');
 console.log(openLrString); 
 ```
 
-This produces the followign OpenLR string:
+This produces the following OpenLR string:
 
 ```
 CwNhbCU+jzPLAwD0/34zGw==
