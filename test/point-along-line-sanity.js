@@ -15,7 +15,7 @@
  */
 
 import {Buffer} from 'buffer';
-import {BinaryDecoder, BinaryEncoder, LocationReference, Serializer} from '../src';
+import {BinaryDecoder, BinaryEncoder, LocationReference, Serializer} from '../lib';
 
 const binaryDecoder = new BinaryDecoder();
 const binaryEncoder = new BinaryEncoder();
