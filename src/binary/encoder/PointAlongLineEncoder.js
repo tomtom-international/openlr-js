@@ -23,7 +23,7 @@ import BitStreamOutput from '../bit-stream/BitStreamOutput';
 
 export default class PointAlongLineEncoder extends AbstractEncoder {
     encodeData(rawLocationReference, version) {
-        if (rawLocationReference == null || rawLocationReference.getLocationReferencePoints() == null || rawLocationReference.getLocationReferencePoints().length <= 0) {
+        if (rawLocationReference === null || rawLocationReference.getLocationReferencePoints() === null || rawLocationReference.getLocationReferencePoints().length <= 0) {
             return LocationReference.fromValues("", BinaryReturnCode.MISSING_DATA, LocationType.POINT_ALONG_LINE, version);
         }
         const startLRP = rawLocationReference.getLocationReferencePoints()[0];
@@ -31,7 +31,7 @@ export default class PointAlongLineEncoder extends AbstractEncoder {
         const offsets = rawLocationReference.getOffsets();
         const sideOfRoad = rawLocationReference.getSideOfRoad();
         const orientation = rawLocationReference.getOrientation();
-        if (startLRP == null || endLRP == null || offsets == null) {
+        if (startLRP === null || endLRP === null || offsets === null) {
             return LocationReference.fromValues(rawLocationReference.getId(), BinaryReturnCode.MISSING_DATA, LocationType.POINT_ALONG_LINE, version);
         }
         if (version < BinaryConstants.BINARY_VERSION_3) {
@@ -55,7 +55,7 @@ export default class PointAlongLineEncoder extends AbstractEncoder {
         header.put(out);
         first.put(out);
         last.put(out);
-        if (pOff != null) {
+        if (pOff !== null) {
             pOff.put(out);
         }
         return out.getData();

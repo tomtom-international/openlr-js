@@ -67,9 +67,9 @@ export default class AbstractEncoder {
         let offset = null;
         if (value > 0) {
             let offValue = -1;
-            if (version == BinaryConstants.BINARY_VERSION_2) {
+            if (version === BinaryConstants.BINARY_VERSION_2) {
                 offValue = this._calculateLengthInterval(value);
-            } else if (version == BinaryConstants.BINARY_VERSION_3) {
+            } else if (version === BinaryConstants.BINARY_VERSION_3) {
                 offValue = this._calculateRelativeInterval(value, length);
             } else {
                 throw new Error('Invalid version');
@@ -84,7 +84,7 @@ export default class AbstractEncoder {
     }
 
     _calculateRelativeInterval(value, length) {
-        if (value == length) {
+        if (value === length) {
             return BinaryConstants.OFFSET_BUCKETS - 1;
         }
         return Math.floor((BinaryConstants.OFFSET_BUCKETS * value) / length);
@@ -97,15 +97,15 @@ export default class AbstractEncoder {
         if (LocationType.POINTS_LOCATIONS.has(locationType)) {
             pF = BinaryConstants.IS_POINT;
         } else if (LocationType.AREA_LOCATIONS.has(locationType)) {
-            if (locationType == LocationType.CIRCLE) {
+            if (locationType === LocationType.CIRCLE) {
                 arF = BinaryConstants.AREA_CODE_CIRCLE;
-            } else if (locationType == LocationType.RECTANGLE) {
+            } else if (locationType === LocationType.RECTANGLE) {
                 arF = BinaryConstants.AREA_CODE_RECTANGLE;
-            } else if (locationType == LocationType.GRID) {
+            } else if (locationType === LocationType.GRID) {
                 arF = BinaryConstants.AREA_CODE_GRID;
-            } else if (locationType == LocationType.POLYGON) {
+            } else if (locationType === LocationType.POLYGON) {
                 arF = BinaryConstants.AREA_CODE_POLYGON;
-            } else if (locationType == LocationType.CLOSED_LINE) {
+            } else if (locationType === LocationType.CLOSED_LINE) {
                 arF = BinaryConstants.AREA_CODE_CLOSEDLINE;
             }
         }
@@ -183,11 +183,11 @@ export default class AbstractEncoder {
 
     _generateAttribute4(lrp, pOff, nOff) {
         let pF = 0;
-        if (pOff != null) {
+        if (pOff !== null) {
             pF = 1;
         }
         let nF = 0;
-        if (nOff != null) {
+        if (nOff !== null) {
             nF = 1;
         }
         return Attr4.fromValues(pF, nF, this._calculateBearingInterval(lrp.getBearing()));

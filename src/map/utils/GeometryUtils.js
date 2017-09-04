@@ -87,7 +87,7 @@ export default class GeometryUtils {
     }
 
     static latitudeLongitudeDistance(longitude1, latitude1, longitude2, latitude2) {
-        if (latitude2 == latitude1 && longitude2 == longitude1) {
+        if (latitude2 === latitude1 && longitude2 === longitude1) {
             return 0.0;
         }
         const f = GeometryUtils._toRadians((latitude2 + latitude1) / 2.0);
@@ -101,15 +101,15 @@ export default class GeometryUtils {
         const sinl = Math.sin(l);
         const cosl = Math.cos(l);
         const s = sinG * sinG * cosl * cosl + cosF * cosF * sinl * sinl;
-        if (s == 0) {
+        if (s === 0) {
             return 0.0;
         }
         const c = cosG * cosG * cosl * cosl + sinF * sinF * sinl * sinl;
-        if (c == 0) {
+        if (c === 0) {
             return 0.0;
         }
         const w = Math.atan(Math.sqrt(s / c));
-        if (w == 0) {
+        if (w === 0) {
             return 0.0;
         }
         const d = 2 * w * GeometryUtils._EQUATORIAL_RADIUS;
@@ -143,13 +143,13 @@ export default class GeometryUtils {
     }
 
     static calculateLineBearing(line, dir, pointDistance, projectionAlongLine) {
-        if (line == null) {
+        if (line === null) {
             return -1.0;
         }
         let p1 = null;
         let p2 = null;
 
-        if (dir == GeometryUtils.BearingDirection.IN_DIRECTION) {
+        if (dir === GeometryUtils.BearingDirection.IN_DIRECTION) {
             if (projectionAlongLine > 0) {
                 p1 = line.getGeoCoordinateAlongLine(projectionAlongLine);
                 if (line.getLineLength() < projectionAlongLine + pointDistance) {
@@ -198,8 +198,8 @@ export default class GeometryUtils {
         const m2 = Math.tan(GeometryUtils.toRadians(GeometryUtils.QUARTER_CIRCLE - bear2));
         let x;
         let y;
-        if (bear1 == 0.0) {
-            if (bear2 == 0.0) {
+        if (bear1 === 0.0) {
+            if (bear2 === 0.0) {
                 return null;
             }
             x = longitude1;
@@ -209,8 +209,8 @@ export default class GeometryUtils {
             }
             return GeoCoordinates.fromValues(x, y);
         }
-        if (bear2 == 0.0) {
-            if (bear1 == 0.0) {
+        if (bear2 === 0.0) {
+            if (bear1 === 0.0) {
                 return null;
             }
             x = longitude2;
@@ -223,7 +223,7 @@ export default class GeometryUtils {
         if (isNaN(m1) || !isFinite(m1) || isNaN(m2) || !isFinite(m2)) {
             return null;
         }
-        if (m1 == m2) {
+        if (m1 === m2) {
             return null;
         }
         x = (m1 * longitude1 - m2 * longitude2 + latitude2 - latitude1) / (m1 - m2);

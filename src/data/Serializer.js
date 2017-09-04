@@ -29,7 +29,7 @@ export default class Serializer {
                 case 'Object':
                 case 'Array':
                 default:
-                    const properties = instance.constructor.name == 'Array' ? [] : {};
+                    const properties = instance.constructor.name === 'Array' ? [] : {};
                     for (const property in instance) {
                         if (instance.hasOwnProperty(property)) {
                             properties[property] = Serializer.serialize(instance[property]);

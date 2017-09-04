@@ -28,7 +28,7 @@ export default class BinaryEncoder {
     _checkVersion(version, locationType) {
         let valid = false;
         for (let ver of BinaryEncoder._VERSIONS) {
-            if (version == ver) {
+            if (version === ver) {
                 valid = true;
             }
         }

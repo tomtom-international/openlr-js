@@ -33,7 +33,7 @@ export default class BitStreamOutput extends BitStreamAbstract {
 
     putBits(value, countBitsToPut) {
         // Sanity check
-        if (countBitsToPut == 0) {
+        if (countBitsToPut === 0) {
             return value;
         }
         if (countBitsToPut > BitStreamAbstract._MAX_BIT_SIZE || countBitsToPut < 1) {

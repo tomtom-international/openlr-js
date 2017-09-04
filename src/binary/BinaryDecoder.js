@@ -29,7 +29,7 @@ export default class BinaryDecoder {
     _checkVersion(header) {
         const ver = header.ver;
         for (let v of BinaryDecoder._VERSIONS) {
-            if (v == ver) {
+            if (v === ver) {
                 return true;
             }
         }
@@ -50,7 +50,7 @@ export default class BinaryDecoder {
         // Read header information
         try {
             header = Header.fromBitStreamInput(bitStreamInput);
-            if (binaryData != null) {
+            if (binaryData !== null) {
                 binaryData.header = header;
             }
         } catch (error) {
@@ -62,26 +62,26 @@ export default class BinaryDecoder {
             return RawInvalidLocationReference.fromIdAndStatusCode(id, BinaryReturnCode.INVALID_VERSION);
         }
 
-        const isPointLocation = header.pf == BinaryConstants.IS_POINT;
-        const hasAttributes = header.af == BinaryConstants.HAS_ATTRIBUTES;
+        const isPointLocation = header.pf === BinaryConstants.IS_POINT;
+        const hasAttributes = header.af === BinaryConstants.HAS_ATTRIBUTES;
         const areaLocationCode = header.arf;
-        const isAreaLocation = ((areaLocationCode == 0 && !isPointLocation && !hasAttributes) || areaLocationCode > 0);
+        const isAreaLocation = ((areaLocationCode === 0 && !isPointLocation && !hasAttributes) || areaLocationCode > 0);
         let rawLocRef = null;
         let decoder = null;
         if (!isPointLocation && !isAreaLocation && hasAttributes) {
             decoder = new LineDecoder();
         } else if (isPointLocation && !isAreaLocation) {
             if (!hasAttributes) {
-                if (totalBytes == BinaryConstants.GEOCOORD_SIZE) {
+                if (totalBytes === BinaryConstants.GEOCOORD_SIZE) {
                     //decoder = new GeoCoordDecoder();
                     throw new Error('GeoCoordDecoder not implemented');
                 } else {
                     rawLocRef = RawInvalidLocationReference.fromIdAndStatusCode(id, BinaryReturnCode.INVALID_BYTE_SIZE);
                 }
             } else {
-                if (totalBytes == BinaryConstants.POINT_ALONG_LINE_SIZE || totalBytes == BinaryConstants.POINT_ALONG_LINE_SIZE + BinaryConstants.POINT_OFFSET_SIZE) {
+                if (totalBytes === BinaryConstants.POINT_ALONG_LINE_SIZE || totalBytes === BinaryConstants.POINT_ALONG_LINE_SIZE + BinaryConstants.POINT_OFFSET_SIZE) {
                     decoder = new PointAlongLineDecoder();
-                } else if (totalBytes == BinaryConstants.POINT_WITH_ACCESS_SIZE || totalBytes == BinaryConstants.POINT_WITH_ACCESS_SIZE + BinaryConstants.POINT_OFFSET_SIZE) {
+                } else if (totalBytes === BinaryConstants.POINT_WITH_ACCESS_SIZE || totalBytes === BinaryConstants.POINT_WITH_ACCESS_SIZE + BinaryConstants.POINT_OFFSET_SIZE) {
                     //decoder = new PoiAccessDecoder();
                     throw new Error('PoiAccessDecider not implemented');
                 } else {
@@ -103,10 +103,10 @@ export default class BinaryDecoder {
                     break;
                 case BinaryConstants.AREA_CODE_RECTANGLE:
                     /* includes case OpenLRBinaryConstants.AREA_CODE_GRID */
-                    if (totalBytes == BinaryConstants.RECTANGLE_SIZE || totalBytes == BinaryConstants.LARGE_RECTANGLE_SIZE) {
+                    if (totalBytes === BinaryConstants.RECTANGLE_SIZE || totalBytes === BinaryConstants.LARGE_RECTANGLE_SIZE) {
                         //decoder = new RectangleDecoder();
                         throw new Error('RectangleDecoder not implemented');
-                    } else if (totalBytes == BinaryConstants.GRID_SIZE || totalBytes == BinaryConstants.LARGE_GRID_SIZE) {
+                    } else if (totalBytes === BinaryConstants.GRID_SIZE || totalBytes === BinaryConstants.LARGE_GRID_SIZE) {
                         //decoder = new GridDecoder();
                         throw new Error('GridDecoder not implemented');
                     } else {
@@ -125,7 +125,7 @@ export default class BinaryDecoder {
                     rawLocRef = RawInvalidLocationReference.fromIdAndStatusCode(id, BinaryReturnCode.INVALID_HEADER);
             }
         }
-        if (decoder != null) {
+        if (decoder !== null) {
             rawLocRef = decoder.decodeData(id, bitStreamInput, totalBytes, header.ver, binaryData);
         }
         return rawLocRef;

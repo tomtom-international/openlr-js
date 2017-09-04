@@ -22,12 +22,12 @@ import BitStreamOutput from '../bit-stream/BitStreamOutput';
 
 export default class LineEncoder extends AbstractEncoder {
     encodeData(rawLocationReference, version) {
-        if (rawLocationReference == null) {
+        if (rawLocationReference === null) {
             return LocationReference.fromValues('', BinaryReturnCode.MISSING_DATA, LocationType.LINE_LOCATION, version);
         }
         const locationReferences = rawLocationReference.getLocationReferencePoints();
         const offsets = rawLocationReference.getOffsets();
-        if (locationReferences == null || offsets == null || locationReferences.length <= 0) {
+        if (locationReferences === null || offsets === null || locationReferences.length <= 0) {
             return LocationReference.fromValues(rawLocationReference.getId(), BinaryReturnCode.MISSING_DATA, LocationType.LINE_LOCATION, version);
         }
         let returnCode = this._checkOffsets(offsets, true, locationReferences);
@@ -55,10 +55,10 @@ export default class LineEncoder extends AbstractEncoder {
             lrps[i].put(out);
         }
         lastLRP.put(out);
-        if (pOff != null) {
+        if (pOff !== null) {
             pOff.put(out);
         }
-        if (nOff != null) {
+        if (nOff !== null) {
             nOff.put(out);
         }
         return out.getData();

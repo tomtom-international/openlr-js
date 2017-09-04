@@ -55,7 +55,7 @@ export default class Header extends BinaryInformation {
 
     static fromBitStreamInput(bitStreamInput) {
         const rfu = bitStreamInput.getBits(Header._RFU_BITS);
-        if (rfu != BinaryInformation._RFU_VALUE) {
+        if (rfu !== BinaryInformation._RFU_VALUE) {
             throw new Error('Const value mismatch');
         }
         const header = new Header();

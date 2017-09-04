@@ -65,7 +65,7 @@ export default class LocationReference {
 
     static _checkVersion(ver) {
         for (let v of BinaryDecoder.getVersions()) {
-            if (ver == v) {
+            if (ver === v) {
                 return true;
             }
         }
@@ -73,7 +73,7 @@ export default class LocationReference {
     }
 
     static _resolveVersion(data) {
-        if (data == null || data.length == 0) {
+        if (data === null || data.length === 0) {
             throw new Error('Invalid binary data');
         }
         return data[0] & LocationReference._VERSION_MASK;
@@ -84,24 +84,24 @@ export default class LocationReference {
         const totalBytes = data.length;
         const bitStreamInput = BitStreamInput.fromBufferAndLength(data, totalBytes);
         const header = Header.fromBitStreamInput(bitStreamInput);
-        const hasAttributes = header.af == BinaryConstants.HAS_ATTRIBUTES;
-        const isPointLocation = header.pf == BinaryConstants.IS_POINT;
+        const hasAttributes = header.af === BinaryConstants.HAS_ATTRIBUTES;
+        const isPointLocation = header.pf === BinaryConstants.IS_POINT;
         const areaLocationCode = header.arf;
-        const isAreaLocation = ((areaLocationCode == 0 && !isPointLocation && !hasAttributes) || areaLocationCode > 0);
+        const isAreaLocation = ((areaLocationCode === 0 && !isPointLocation && !hasAttributes) || areaLocationCode > 0);
 
         if (!isPointLocation && !isAreaLocation && hasAttributes) {
             locationType = LocationType.LINE_LOCATION;
         } else if (isPointLocation && !isAreaLocation) {
             if (!hasAttributes) {
-                if (totalBytes == BinaryConstants.GEOCOORD_SIZE) {
+                if (totalBytes === BinaryConstants.GEOCOORD_SIZE) {
                     locationType = LocationType.GEO_COORDINATES;
                 } else {
                     throw new Error('Byte size does not match geo coordinate location');
                 }
             } else {
-                if (totalBytes == BinaryConstants.POINT_ALONG_LINE_SIZE || totalBytes == BinaryConstants.POINT_ALONG_LINE_SIZE + BinaryConstants.POINT_OFFSET_SIZE) {
+                if (totalBytes === BinaryConstants.POINT_ALONG_LINE_SIZE || totalBytes === BinaryConstants.POINT_ALONG_LINE_SIZE + BinaryConstants.POINT_OFFSET_SIZE) {
                     locationType = LocationType.POINT_ALONG_LINE;
-                } else if (totalBytes == BinaryConstants.POINT_WITH_ACCESS_SIZE || totalBytes == BinaryConstants.POINT_WITH_ACCESS_SIZE + BinaryConstants.POINT_OFFSET_SIZE) {
+                } else if (totalBytes === BinaryConstants.POINT_WITH_ACCESS_SIZE || totalBytes === BinaryConstants.POINT_WITH_ACCESS_SIZE + BinaryConstants.POINT_OFFSET_SIZE) {
                     locationType = LocationType.POI_WITH_ACCESS_POINT;
                 } else {
                     throw new Error('Bye size does not match point location');
@@ -120,9 +120,9 @@ export default class LocationReference {
                     break;
                 case BinaryConstants.AREA_CODE_RECTANGLE:
                     /* Includes case BinaryConstants.AREA_CODE_GRID */
-                    if (totalBytes == BinaryConstants.RECTANGLE_SIZE || totalBytes == BinaryConstants.LARGE_RECTANGLE_SIZE) {
+                    if (totalBytes === BinaryConstants.RECTANGLE_SIZE || totalBytes === BinaryConstants.LARGE_RECTANGLE_SIZE) {
                         locationType = LocationType.RECTANGLE;
-                    } else if (totalBytes == BinaryConstants.GRID_SIZE || totalBytes == BinaryConstants.LARGE_GRID_SIZE) {
+                    } else if (totalBytes === BinaryConstants.GRID_SIZE || totalBytes === BinaryConstants.LARGE_GRID_SIZE) {
                         locationType = LocationType.GRID;
                     } else {
                         throw new Error('Byte size does not match area rectangle location');
@@ -151,7 +151,7 @@ export default class LocationReference {
     }
 
     isValid() {
-        return this._returnCode == null;
+        return this._returnCode === null;
     }
 
     getDataIdentifier() {

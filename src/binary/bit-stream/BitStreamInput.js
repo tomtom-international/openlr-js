@@ -62,7 +62,7 @@ export default class BitStreamInput extends BitStreamAbstract {
     }
 
     _getNextBits(count) {
-        if (count == 0) {
+        if (count === 0) {
             return 0;
         }
 
@@ -117,7 +117,7 @@ export default class BitStreamInput extends BitStreamAbstract {
         // Get the (unsigned) bits
         const x = this._getNextBits(count);
         // Check if the number read is negative?
-        if (count > 1 && ((BitStreamAbstract._SIGNED_MASK[count] & x) != 0)) {
+        if (count > 1 && ((BitStreamAbstract._SIGNED_MASK[count] & x) !== 0)) {
             // Number is negative so transform into an integer including the sign
             return x | BitStreamAbstract._COMPLEMENT_MASK[count];
         } else {

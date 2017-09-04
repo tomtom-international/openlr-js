@@ -31,14 +31,14 @@ export default class PointAlongLineDecoder extends AbstractDecoder {
         const sideOfRoad = this._resolveSideOfRoad(lastLRP.attrib1);
         let offsets = Offsets.fromValues(0, 0);
         let posOff;
-        if (lastLRP.attrib4.pOffsetF == 1) {
+        if (lastLRP.attrib4.pOffsetF === 1) {
             posOff = Offset.fromBitStreamInput(bitStreamInput);
             const rawLocRef = this._calculateRelativeDistance(posOff.offset);
             offsets = Offsets.fromRelativeValues(rawLocRef, 0.0);
         }
 
         const rawLocationReference = RawPointAlongLineLocationReference.fromValues(id, lrp1, lrp2, offsets, sideOfRoad, orientation);
-        if (binaryData != null) {
+        if (binaryData !== null) {
             binaryData.firstLRP = firstLRP;
             binaryData.lastLRP = lastLRP;
             binaryData.posOffset = posOff;

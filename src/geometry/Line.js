@@ -62,7 +62,7 @@ export default class Line {
         px -= x1;
         py -= y1;
         let ccw = px * y2 - py * x2;
-        if (ccw == 0.0) {
+        if (ccw === 0.0) {
             ccw = px * x2 + py * y2;
             if (ccw > 0.0) {
                 px -= x2;

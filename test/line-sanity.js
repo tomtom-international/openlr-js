@@ -30,6 +30,6 @@ const encodedLocationReference = binaryEncoder.encodeDataFromRLR(deserializerRaw
 const encodedOpenLrBinary = encodedLocationReference.getLocationReferenceData();
 const encodedOpenLrString = encodedOpenLrBinary.toString('base64');
 
-if (openLrString != encodedOpenLrString) {
+if (openLrString !== encodedOpenLrString) {
     throw new Error('Expected OpenLR string to be equal: ' + openLrString + ' and ' + encodedOpenLrString);
 }

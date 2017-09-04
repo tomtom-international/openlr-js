@@ -43,34 +43,34 @@ export default class LineDecoder extends AbstractDecoder {
         let posOff = null;
         let negOff = null;
         // Check for positive offset and read in
-        if (lastLRP.attrib4.pOffsetF == BinaryConstants.HAS_OFFSET) {
+        if (lastLRP.attrib4.pOffsetF === BinaryConstants.HAS_OFFSET) {
             posOff = Offset.fromBitStreamInput(bitStreamInput);
         }
         // Check for negative offset and read in
-        if (lastLRP.attrib4.nOffsetF == BinaryConstants.HAS_OFFSET) {
+        if (lastLRP.attrib4.nOffsetF === BinaryConstants.HAS_OFFSET) {
             negOff = Offset.fromBitStreamInput(bitStreamInput);
         }
         let offsets = Offsets.fromValues(0, 0);
-        if (version == BinaryConstants.BINARY_VERSION_2) {
+        if (version === BinaryConstants.BINARY_VERSION_2) {
             let pOffValue = 0;
             let nOffValue = 0;
-            if (posOff != null) {
+            if (posOff !== null) {
                 pOffValue = this._calculateDistanceEstimate(posOff.offset);
             }
-            if (negOff != null) {
+            if (negOff !== null) {
                 nOffValue = this._calculateDistanceEstimate(negOff.offset);
             }
             offsets = Offsets.fromValues(pOffValue, nOffValue);
-        } else if (version == BinaryConstants.BINARY_VERSION_3) {
+        } else if (version === BinaryConstants.BINARY_VERSION_3) {
             let pOffValue = 0;
             let nOffValue = 0;
-            if (posOff != null) {
+            if (posOff !== null) {
                 pOffValue = this._calculateRelativeDistance(posOff.offset);
             }
-            if (negOff != null) {
+            if (negOff !== null) {
                 nOffValue = this._calculateRelativeDistance(negOff.offset);
             }
-            offsets = new Offsets.fromRelativeValues(pOffValue, nOffValue);
+            offsets = Offsets.fromRelativeValues(pOffValue, nOffValue);
         }
         let lrpCount = 1;
         const points = [];
@@ -89,7 +89,7 @@ export default class LineDecoder extends AbstractDecoder {
         const lp = this._createLastLRP(lrpCount, lastLRP, prevLon, prevLat);
         points.push(lp);
         const rawLocRef = RawLineLocationReference.fromValues(id, points, offsets);
-        if (binaryData != null) {
+        if (binaryData !== null) {
             binaryData.negOffset = negOff;
             binaryData.posOffset = posOff;
             binaryData.lastLRP = lastLRP;

@@ -60,18 +60,18 @@ export default class Offsets {
     }
 
     hasPositiveOffset() {
-        return (this._pOffset != 0 || this._pOffRelative != 0);
+        return (this._pOffset !== 0 || this._pOffRelative !== 0);
     }
 
     hasNegativeOffset() {
-        return (this._nOffset != 0 || this._nOffRelative != 0);
+        return (this._nOffset !== 0 || this._nOffRelative !== 0);
     }
 
     getPositiveOffset(length) {
         if (this.hasPositiveOffset()) {
-            if (this._version == BinaryConstants.BINARY_VERSION_2) {
+            if (this._version === BinaryConstants.BINARY_VERSION_2) {
                 return this._pOffset;
-            } else if (this._version == BinaryConstants.BINARY_VERSION_3) {
+            } else if (this._version === BinaryConstants.BINARY_VERSION_3) {
                 return Math.round(this._pOffRelative * length / Offsets._PERCENTAGE);
             }
         }
@@ -80,9 +80,9 @@ export default class Offsets {
 
     getNegativeOffset(length) {
         if (this.hasNegativeOffset()) {
-            if (this._version == BinaryConstants.BINARY_VERSION_2) {
+            if (this._version === BinaryConstants.BINARY_VERSION_2) {
                 return this._nOffset;
-            } else if (this._version == BinaryConstants.BINARY_VERSION_3) {
+            } else if (this._version === BinaryConstants.BINARY_VERSION_3) {
                 return Math.round(this._nOffRelative * length / Offsets._PERCENTAGE);
             }
         }

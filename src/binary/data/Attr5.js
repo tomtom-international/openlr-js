@@ -41,7 +41,7 @@ export default class Attr5 extends BinaryInformation {
 
     static fromBitStreamInput(bitStreamInput) {
         const rfu = bitStreamInput.getBits(Attr5._NR_RFU);
-        if (rfu != Attr5._RFU_VALUE) {
+        if (rfu !== Attr5._RFU_VALUE) {
             throw new Error('RFU in use');
         }
         const attr5 = new Attr5();

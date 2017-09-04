@@ -48,7 +48,7 @@ export default class Attr4 extends BinaryInformation {
 
     static fromBitStreamInput(bitStreamInput) {
         const rfu = bitStreamInput.getBits(Attr4._RFU_BITS);
-        if (rfu != Attr4._RFU_VALUE) {
+        if (rfu !== Attr4._RFU_VALUE) {
             throw new Error('RFU in use');
         }
         const attr4 = new Attr4();
