@@ -1,5 +1,5 @@
 /**
- * Copyright 2016 TomTom International B.V
+ * Copyright 2017 TomTom International B.V
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,5 +16,6 @@
 
 import './line-sanity';
 import './point-along-line-sanity';
+import './geo-coord-sanity';
 
 console.log('Completed sanity tests');

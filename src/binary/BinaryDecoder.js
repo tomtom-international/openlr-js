@@ -1,5 +1,5 @@
 /**
- * Copyright 2016 TomTom International B.V
+ * Copyright 2017 TomTom International B.V
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ import RawInvalidLocationReference from '../data/raw-location-reference/RawInval
 import Header from './data/Header';
 import LineDecoder from './decoder/LineDecoder';
 import PointAlongLineDecoder from './decoder/PointAlongLineDecoder';
+import GeoCoordDecoder from './decoder/GeoCoordDecoder';
 import RawBinaryData from './data/RawBinaryData';
 
 export default class BinaryDecoder {
@@ -73,8 +74,7 @@ export default class BinaryDecoder {
         } else if (isPointLocation && !isAreaLocation) {
             if (!hasAttributes) {
                 if (totalBytes === BinaryConstants.GEOCOORD_SIZE) {
-                    //decoder = new GeoCoordDecoder();
-                    throw new Error('GeoCoordDecoder not implemented');
+                    decoder = new GeoCoordDecoder();
                 } else {
                     rawLocRef = RawInvalidLocationReference.fromIdAndStatusCode(id, BinaryReturnCode.INVALID_BYTE_SIZE);
                 }

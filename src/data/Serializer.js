@@ -1,9 +1,11 @@
 import Offsets from './Offsets';
 import LocationReference from './LocationReference';
 import LocationReferencePoint from './LocationReferencePoint';
+import GeoCoordinates from '../map/GeoCoordinates';
 import RawInvalidLocationReference from './raw-location-reference/RawInvalidLocationReference';
 import RawLineLocationReference from './raw-location-reference/RawLineLocationReference';
 import RawPointAlongLineLocationReference from './raw-location-reference/RawPointAlongLineLocationReference';
+import RawGeoCoordLocationReference from './raw-location-reference/RawGeoCoordLocationReference';
 
 const constructors = {
     Object,
@@ -11,9 +13,11 @@ const constructors = {
     Offsets,
     LocationReference,
     LocationReferencePoint,
+    GeoCoordinates,
     RawInvalidLocationReference,
     RawLineLocationReference,
-    RawPointAlongLineLocationReference
+    RawPointAlongLineLocationReference,
+    RawGeoCoordLocationReference
 };
 
 export default class Serializer {

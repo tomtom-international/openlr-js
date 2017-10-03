@@ -1,5 +1,5 @@
 /**
- * Copyright 2016 TomTom International B.V
+ * Copyright 2017 TomTom International B.V
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ import BinaryReturnCode from './BinaryReturnCode';
 import LocationType from '../data/LocationType';
 import LineEncoder from './encoder/LineEncoder';
 import PointAlongLineEncoder from './encoder/PointAlongLineEncoder';
+import GeoCoordEncoder from './encoder/GeoCoordEncoder';
 
 export default class BinaryEncoder {
     /** The Constant VERSIONS. */
@@ -61,8 +62,7 @@ export default class BinaryEncoder {
         let encoder = null;
         switch (locationType) {
             case LocationType.GEO_COORDINATES:
-                //encoder = new GeoCoordEncoder();
-                throw new Error('GeoCoordEncoder not implemented');
+                encoder = new GeoCoordEncoder();
                 break;
             case LocationType.LINE_LOCATION:
                 encoder = new LineEncoder();
