@@ -20,7 +20,7 @@ import {BinaryDecoder, BinaryEncoder, LocationReference, Serializer} from '../li
 const binaryDecoder = new BinaryDecoder();
 const binaryEncoder = new BinaryEncoder();
 
-const openLrString = 'IwXB2SPTtA==';
+const openLrString = 'IwXBoSPT4w==';
 const openLrBinary = Buffer.from(openLrString, 'base64');
 const locationReference = LocationReference.fromIdAndBuffer('binary', openLrBinary);
 const rawLocationReference = binaryDecoder.decodeData(locationReference);

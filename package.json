@@ -8,21 +8,24 @@
   "name": "openlr-js",
   "description": "OpenLR implementation in JavaScript",
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "version": "1.1.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/tomtom-international/openlr-js.git"
   },
   "scripts": {
-    "build": "babel src -d lib",
+    "build": "tsc",
     "sanity": "babel-node test/sanity.js --source-maps"
   },
   "dependencies": {
     "buffer": "^5.0.0"
   },
   "devDependencies": {
+    "@types/node": "^8.0.47",
     "babel-cli": "^6.10.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-preset-env": "^1.6.0"
+    "babel-preset-env": "^1.6.0",
+    "typescript": "^2.6.1"
   }
 }
