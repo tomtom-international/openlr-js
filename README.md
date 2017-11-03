@@ -19,7 +19,7 @@ Java binaries and the OpenLR specification can be found at [OpenLR.org](http://w
 Currently only supports **geo-coordinate**, **line** and **point along line** geometries encoding/decoding to/from **binary**.
 This project is open to contributions, and will likely support more OpenLR geometries in future.
 
-Supports both [Node.js](http://nodejs.org) (v5+) and web browsers by using the [Buffer](https://www.npmjs.com/package/buffer) package.
+Supports both [Node.js](http://nodejs.org) (v4+) and web browsers by using the [Buffer](https://www.npmjs.com/package/buffer) package.
 
 ## License
 
