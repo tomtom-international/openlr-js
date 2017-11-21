@@ -7,15 +7,21 @@
   },
   "name": "openlr-js",
   "description": "OpenLR implementation in JavaScript",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "lib-es5/index.js",
+  "module": "lib-es6/index.js",
+  "types": "lib-types/index.d.ts",
   "version": "2.0.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/tomtom-international/openlr-js.git"
   },
   "scripts": {
-    "build": "tsc",
+    "clean": "rimraf lib-types lib-browser lib-es5 lib-es6",
+    "build": "npm run clean && npm run build:es6 && npm run build:es5 && npm run build:browser && npm run build:browser:min",
+    "build:browser": "cross-env ROLLUP_UGLIFY=false rollup --config --output.file lib-browser/bundle.js",
+    "build:browser:min": "cross-env ROLLUP_UGLIFY=true rollup --config --output.file lib-browser/bundle.min.js",
+    "build:es5": "tsc --target ES5 --module CommonJS --outDir lib-es5",
+    "build:es6": "tsc --target ES6 --module ES6 --outDir lib-es6",
     "sanity": "babel-node test/sanity.js --source-maps"
   },
   "dependencies": {
@@ -24,8 +30,13 @@
   "devDependencies": {
     "@types/node": "^8.0.47",
     "babel-cli": "^6.10.1",
-    "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-env": "^1.6.0",
+    "cross-env": "^5.1.1",
+    "rimraf": "^2.6.2",
+    "rollup": "^0.51.8",
+    "rollup-plugin-commonjs": "^8.2.6",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-uglify": "^2.0.1",
     "typescript": "^2.6.1"
   }
 }

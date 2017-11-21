@@ -1,21 +1,19 @@
 {
     "compilerOptions": {
-        "target": "es6",
-        "module": "CommonJS",
         "moduleResolution": "node",
         "removeComments": true,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "sourceMap": true,
-        "declarationDir": "lib",
-        "outDir": "lib",
+        "declarationDir": "lib-types",
         "allowSyntheticDefaultImports": false,
         "noImplicitAny": true,
         "strict": true,
         "declaration": true,
         "typeRoots": [
             "node_modules/@types"
-        ]
+        ],
+        "lib": ["es2015", "es2015.core"]
     },
     "include": [
         "src"
