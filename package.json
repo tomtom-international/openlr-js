@@ -10,7 +10,7 @@
   "main": "lib-es5/index.js",
   "module": "lib-es6/index.js",
   "types": "lib-types/index.d.ts",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "repository": {
     "type": "git",
     "url": "https://github.com/tomtom-international/openlr-js.git"
