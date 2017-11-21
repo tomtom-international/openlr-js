@@ -42,9 +42,9 @@ npm install --save openlr-js
 ### Browser
 
 ```html
-<script src="//cdn.jsdelivr.net/npm/openlr-js@2.0.3/lib-browser/bundle.js"></script>
+<script src="//cdn.jsdelivr.net/npm/openlr-js@latest/lib-browser/bundle.js"></script>
 // or
-<script src="//cdn.jsdelivr.net/npm/openlr-js@2.0.3/lib-browser/bundle.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/openlr-js@latest/lib-browser/bundle.min.js"></script>
 
 <script>
 // window.OpenLR contains exports
