@@ -33,8 +33,22 @@ See the License for the specific language governing permissions and limitations 
 
 ## Installation
 
+### NodeJS
+
 ```bash
 npm install --save openlr-js
+```
+
+### Browser
+
+```html
+<script src="//cdn.jsdelivr.net/npm/openlr-js@2.0.3/lib-browser/bundle.js"></script>
+// or
+<script src="//cdn.jsdelivr.net/npm/openlr-js@2.0.3/lib-browser/bundle.min.js"></script>
+
+<script>
+// window.OpenLR contains exports
+</script>
 ```
 
 ## Example Usage
@@ -127,6 +141,21 @@ This produces the following OpenLR string:
 
 ```
 CwNhbCU+jzPLAwD0/34zGw==
+```
+
+### In browser
+
+```html
+<script>
+const binaryDecoder = new OpenLR.BinaryDecoder();
+
+const openLrString = 'CwNhbCU+jzPLAwD0/34zGw==';
+const openLrBinary = OpenLR.Buffer.from(openLrString, 'base64');
+const locationReference = OpenLR.LocationReference.fromIdAndBuffer('binary', openLrBinary);
+const rawLocationReference = binaryDecoder.decodeData(locationReference);
+const jsonObject = OpenLR.Serializer.serialize(rawLocationReference);
+console.log(jsonObject);
+</script>
 ```
 
 ## Using Git and `.gitignore`
