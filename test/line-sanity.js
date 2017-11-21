@@ -15,7 +15,7 @@
  */
 
 import {Buffer} from 'buffer';
-import {BinaryDecoder, BinaryEncoder, LocationReference, Serializer} from '../lib';
+import {BinaryDecoder, BinaryEncoder, LocationReference, Serializer} from '../lib-es6';
 
 const binaryDecoder = new BinaryDecoder();
 const binaryEncoder = new BinaryEncoder();
