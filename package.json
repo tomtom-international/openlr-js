@@ -9,7 +9,7 @@
   "description": "OpenLR implementation in JavaScript",
   "main": "lib-es5/index.js",
   "module": "lib-es6/index.js",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "repository": {
     "type": "git",
     "url": "https://github.com/tomtom-international/openlr-js.git"
