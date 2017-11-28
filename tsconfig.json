@@ -5,7 +5,6 @@
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "sourceMap": true,
-        "declarationDir": "lib-types",
         "allowSyntheticDefaultImports": false,
         "noImplicitAny": true,
         "strict": true,
