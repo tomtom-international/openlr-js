@@ -10,6 +10,9 @@
   "main": "lib-es5/index.js",
   "module": "lib-es6/index.js",
   "types": "lib-es6/index.d.js",
+  "files": [
+    "lib-*"
+  ],
   "version": "2.0.8",
   "repository": {
     "type": "git",
