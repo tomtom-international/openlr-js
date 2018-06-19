@@ -6,11 +6,14 @@ Copyright (C) 2017, TomTom International BV. All rights reserved.
 [downloads-image]: https://img.shields.io/npm/dm/openlr-js.svg
 [npm-image]: https://img.shields.io/npm/v/openlr-js.svg
 [npm-url]: https://npmjs.org/package/openlr-js
+[jsdelivr-image]: https://data.jsdelivr.com/v1/package/npm/openlr-js/badge
+[jsdelivr-url]: https://www.jsdelivr.com/package/npm/openlr-js
+[![](https://data.jsdelivr.com/v1/package/npm/openlr-js/badge)](https://www.jsdelivr.com/package/npm/openlr-js)
 [dependency-status-image]: https://david-dm.org/tomtom-international/openlr-js.svg
 [dependency-status-url]: https://david-dm.org/tomtom-international/openlr-js
 [devDependency-status-image]: https://david-dm.org/tomtom-international/openlr-js/dev-status.svg
 [devDependency-status-url]: https://david-dm.org/tomtom-international/openlr-js#info=devDependencies
-[![npm][npm-image]][npm-url] [![downloads][downloads-image]][npm-url] [![dependency  status][dependency-status-image]][dependency-status-url] [![devDependency  status][devDependency-status-image]][devDependency-status-url]
+[![npm][npm-image]][npm-url] [![downloads][downloads-image]][npm-url] [![jsdelivr download][jsdelivr-image]][jsdelivr-url] [![dependency  status][dependency-status-image]][dependency-status-url] [![devDependency  status][devDependency-status-image]][devDependency-status-url]
 
 This library contains an OpenLR implementation for JavaScript.
 
