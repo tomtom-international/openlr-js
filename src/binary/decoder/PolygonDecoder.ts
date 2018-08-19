@@ -52,8 +52,8 @@ export default class PolygonDecoder extends AbstractDecoder {
 			while (counter > 0) {
                 counter--;
 				const remainingCoord = RelativeCoordinates.fromBitStreamInput(bitStreamInput);
-				const lon = this._calculate32BitRepresentation(prevCornerAbsCoord.lon) + (remainingCoord.lon / BinaryConstants.DECA_MICRO_DEG_FACTOR);
-				const lat = this._calculate32BitRepresentation(prevCornerAbsCoord.lat) + (remainingCoord.lat / BinaryConstants.DECA_MICRO_DEG_FACTOR);
+                const lon = this._calculate32BitRepresentation(prevCornerAbsCoord.lon) + Math.fround(remainingCoord.lon / BinaryConstants.DECA_MICRO_DEG_FACTOR);
+                const lat = this._calculate32BitRepresentation(prevCornerAbsCoord.lat) + Math.fround(remainingCoord.lat / BinaryConstants.DECA_MICRO_DEG_FACTOR);
 				const cornerCoord = GeoCoordinates.fromValues(lon, lat);
                 cornersCoords.push(cornerCoord);
                 prevCornerAbsCoord = AbsoluteCoordinates.fromValues(this._get24BitRepresentation(cornerCoord.getLongitudeDeg()), this._get24BitRepresentation(cornerCoord.getLatitudeDeg()));
