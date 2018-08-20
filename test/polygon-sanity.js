@@ -15,7 +15,7 @@
  */
 
 const { Buffer } = require('buffer');
-const { BinaryDecoder, BinaryEncoder, LocationReference, Serializer } = require('../lib-es5');
+const { BinaryDecoder, BinaryEncoder, LocationReference, Serializer } = require('../lib/es5');
 
 const binaryDecoder = new BinaryDecoder();
 const binaryEncoder = new BinaryEncoder();
