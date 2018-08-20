@@ -27,15 +27,15 @@ export default class CircleDecoder extends AbstractDecoder {
     protected BASE_SIZE: number = BinaryConstants.HEADER_SIZE + BinaryConstants.ABS_COORD_SIZE;
 
     public decodeData(id: string, bitStreamInput: BitStreamInput, totalBytes: number, version: number, binaryData: RawBinaryData | null) {
-		const radiusSize: number = totalBytes - this.BASE_SIZE;
-		const rt = resolveRadius(radiusSize);
+        const radiusSize: number = totalBytes - this.BASE_SIZE;
+        const rt = resolveRadius(radiusSize);
         const absCoord = AbsoluteCoordinates.fromBitStreamInput(bitStreamInput);
         const geoCoord = GeoCoordinates.fromValues(this._calculate32BitRepresentation(absCoord.lon), this._calculate32BitRepresentation(absCoord.lat));
-		const radius: Radius = Radius.fromBitStreamInput(bitStreamInput, rt);
-		const rawLocRef = RawCircleLocationReference.fromCircleValues(id, geoCoord, radius.radius);
-		if (binaryData !== null) {
+        const radius: Radius = Radius.fromBitStreamInput(bitStreamInput, rt);
+        const rawLocRef = RawCircleLocationReference.fromCircleValues(id, geoCoord, radius.radius);
+        if (binaryData !== null) {
             binaryData.absCoord = absCoord;
         }
-		return rawLocRef;
+        return rawLocRef;
     }
 };

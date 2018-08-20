@@ -23,12 +23,12 @@ export default class RawCircleLocationReference extends RawPointLocationReferenc
 	protected _radius: number;
 
 	public static fromCircleValues(id: string, center: GeoCoordinates, radius: number) {
-        const rawCircleLocationReference = new RawCircleLocationReference();
+		const rawCircleLocationReference = new RawCircleLocationReference();
 		rawCircleLocationReference._id = id;
 		rawCircleLocationReference._locationType = LocationType.CIRCLE;
 		rawCircleLocationReference._center = center;
 		rawCircleLocationReference._radius = radius;
-        return rawCircleLocationReference;
+		return rawCircleLocationReference;
 	}
 
 	public getCenterPoint() {

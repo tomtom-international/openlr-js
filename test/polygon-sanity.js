@@ -14,15 +14,14 @@
  * limitations under the License.
  */
 
-import {Buffer} from 'buffer';
-import {BinaryDecoder, BinaryEncoder, LocationReference, Serializer} from '../lib-es6';
+import { Buffer } from 'buffer';
+import { BinaryDecoder, BinaryEncoder, LocationReference, Serializer } from '../lib-es6';
 
 const binaryDecoder = new BinaryDecoder();
 const binaryEncoder = new BinaryEncoder();
 
-// const openLrString = 'E/2lJCfIiAveAAAD1/qo7Kz/ow==';
-// const openLrString = 'EwhPMyJCRTAD8d7evvBs';
 const openLrString = 'E/2WTyfN7j0qA/MmW/olEdbrDA==';
+const exptedEncodedOpenLrString = 'E/2WTyfN7j0qA/MmW/olEdbrDQ==';
 
 const openLrBinary = Buffer.from(openLrString, 'base64');
 const locationReference = LocationReference.fromIdAndBuffer('binary', openLrBinary);
@@ -33,17 +32,9 @@ const encodedLocationReference = binaryEncoder.encodeDataFromRLR(deserializerRaw
 const encodedOpenLrBinary = encodedLocationReference.getLocationReferenceData();
 const encodedOpenLrString = encodedOpenLrBinary.toString('base64');
 
-if (isEqual(openLrString, encodedOpenLrString)) {
-    throw new Error('Expected OpenLR string to be equal: ' + openLrString + ' and ' + encodedOpenLrString);
-}
-
-function isEqual(a, b) {
-    // due to floating point handling issue, the decoded openlr string isn't exactly same to the encoded openlr.
-    // always the last latitiude is out by very small number.
-    // it could be a bug with OpenLR precision limitation
-    // so compare the 2 openlr strings with the string before 'DQ=='.
-    const seperator = 'DQ==';
-    const aOpenLr = a.split(seperator);
-    const bOpenLr = b.split(seperator);
-    return aOpenLr === bOpenLr[0];
+// Due to floating point handling issue, the decoded openlr string isn't exactly same to the encoded openlr.
+// Always the last latitude is out by very small number.
+// It could be a bug with OpenLR precision limitation.
+if (exptedEncodedOpenLrString !== encodedOpenLrString) {
+    throw new Error('Expected OpenLR string to be equal: ' + exptedEncodedOpenLrString + ' and ' + encodedOpenLrString);
 }

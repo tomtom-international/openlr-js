@@ -34,18 +34,18 @@ export default class PolygonEncoder extends AbstractEncoder {
 
         if (cornerPoints === null) {
             return LocationReference.fromValues(id, BinaryReturnCode.MISSING_DATA, LocationType.POLYGON, version);
-		}
-		if (version < BinaryConstants.BINARY_VERSION_3) {
-			return LocationReference.fromValues(id, BinaryReturnCode.INVALID_VERSION, LocationType.POLYGON, version);
+        }
+        if (version < BinaryConstants.BINARY_VERSION_3) {
+            return LocationReference.fromValues(id, BinaryReturnCode.INVALID_VERSION, LocationType.POLYGON, version);
         }
 
         let lr: LocationReference | null = null;
 
-		try {
+        try {
             lr = LocationReference.fromIdAndBuffer(rawLocationReference.getId(), this._generateBinaryPolygonLocation(cornerPoints, version));
-		} catch (error) {
+        } catch (error) {
             lr = LocationReference.fromValues(id, BinaryReturnCode.INVALID_BINARY_DATA, LocationType.POLYGON, version);
-		}
+        }
         return lr;
     }
 
@@ -71,7 +71,7 @@ export default class PolygonEncoder extends AbstractEncoder {
         const out = BitStreamOutput.fromValues();
         header.put(out);
         firstCornerPoint.put(out);
-		relCornerCoords.forEach((relCoord) => relCoord.put(out));
+        relCornerCoords.forEach((relCoord) => relCoord.put(out));
 
         return out.getData();
     }

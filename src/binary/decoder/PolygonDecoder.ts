@@ -45,6 +45,6 @@ export default class PolygonDecoder extends AbstractDecoder {
             prevCornerAbsCoord = AbsoluteCoordinates.fromValues(this._get24BitRepresentation(cornerCoord.getLongitudeDeg()), this._get24BitRepresentation(cornerCoord.getLatitudeDeg()));
         }
         const rawLocRef = RawPolygonLocationReference.fromPolygonValues(id, cornersCoords);
-		return rawLocRef;
+        return rawLocRef;
     }
 };

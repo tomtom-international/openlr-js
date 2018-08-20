@@ -49,7 +49,7 @@ export default class CircleEncoder extends AbstractEncoder {
         const out = BitStreamOutput.fromValues();
         header.put(out);
         absCoord.put(out);
-		if (radius != null) {
+        if (radius != null) {
             radius.put(out);
         }
         return out.getData();

@@ -20,7 +20,7 @@ export default class RawPolygonLocationReference extends RawLocationReference {
         return rawPolygonLocationReference;
     }
 
-	public getCornerPoints() {
-		return this._corners;
-	}
+    public getCornerPoints() {
+        return this._corners;
+    }
 }

@@ -118,7 +118,6 @@ export default class BinaryDecoder {
                 case BinaryConstants.AREA_CODE_POLYGON:
                     if (!hasAttributes && totalBytes >= BinaryConstants.MIN_BYTES_POLYGON) {
                         decoder = new PolygonDecoder();
-                        // throw new Error('PolygonDecoder not implemented');
                     } else {
                         rawLocRef = RawInvalidLocationReference.fromIdAndStatusCode(id, BinaryReturnCode.INVALID_BYTE_SIZE);
                     }

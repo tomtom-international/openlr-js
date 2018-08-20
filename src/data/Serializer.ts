@@ -9,7 +9,7 @@ import RawGeoCoordLocationReference from './raw-location-reference/RawGeoCoordLo
 import RawPolygonLocationReference from './raw-location-reference/RawPolygonLocationReference';
 import RawCircleLocationReference from './raw-location-reference/RawCircleLocationReference';
 
-const constructors: {[key: string]: any} = {
+const constructors: { [Key: string]: any } = {
     Object,
     Array,
     Offsets,
@@ -37,13 +37,13 @@ export default class Serializer {
                 case 'Object':
                 case 'Array':
                 default:
-                    const properties: {[key: string]: any} = instance.constructor.name === 'Array' ? [] : {};
+                    const properties: { [Key: string]: any } = instance.constructor.name === 'Array' ? [] : {};
                     for (const property in instance) {
                         if (instance.hasOwnProperty(property)) {
                             properties[property] = Serializer.serialize(instance[property]);
                         }
                     }
-                    return {type: instance.constructor.name, properties};
+                    return { type: instance.constructor.name, properties };
             }
         }
     }
