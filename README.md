@@ -167,6 +167,8 @@ CwNhbCU+jzPLAwD0/34zGw==
 
 ### In browser
 
+[See example on CodePen.io](https://codepen.io/woutervh/pen/QVWwLR?editors=1010)
+
 ```html
 <script>
 const binaryDecoder = new OpenLR.BinaryDecoder();
