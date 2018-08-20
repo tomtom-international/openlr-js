@@ -18,7 +18,7 @@ This library contains an OpenLR implementation for JavaScript.
 
 Java binaries and the OpenLR specification can be found at [OpenLR.org](http://www.openlr.org).
 
-Currently only supports **geo-coordinate**, **line** and **point along line** geometries encoding/decoding to/from **binary**.
+Currently only supports **geo-coordinate**, **line**, **point along line**, **polygon** and **circle** geometries encoding/decoding to/from **binary**.
 This project is open to contributions, and will likely support more OpenLR geometries in future.
 
 Supports both [Node.js](http://nodejs.org) (v4+) and web browsers by using the [Buffer](https://www.npmjs.com/package/buffer) package.
@@ -54,6 +54,9 @@ npm install --save openlr-js
 ```
 
 ## Example Usage
+
+The following examples will give you a quick overview of how to use the library.
+For more examples, you may also check out the tests in the `test/` folder.
 
 ### Decoding OpenLR to a JSON Object 
 
