@@ -1,6 +1,6 @@
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
-import uglify from 'rollup-plugin-uglify';
+import { uglify } from 'rollup-plugin-uglify';
 
 const plugins = [
     resolve({
@@ -17,8 +17,8 @@ export default {
     input: 'lib/es5/index.js',
     output: {
         format: 'umd',
-        exports: 'named'
+        exports: 'named',
+        name: 'OpenLR'
     },
-    name: 'OpenLR',
     plugins
 };

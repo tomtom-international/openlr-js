@@ -14,9 +14,19 @@
  * limitations under the License.
  */
 
-import { GeometryUtils } from './utils/GeometryUtils';
-
 export class GeoCoordinates {
+    /** The Constant MAX_LAT. */
+    public static MAX_LAT = 90;
+
+    /** The Constant MIN_LAT. */
+    public static MIN_LAT = -90;
+
+    /** The Constant MAX_LON. */
+    public static MAX_LON = 180;
+
+    /** The Constant MIN_LON. */
+    public static MIN_LON = -180;
+
     /** The longitude. */
     protected _longitude!: number;
 
@@ -31,8 +41,12 @@ export class GeoCoordinates {
         return this._longitude;
     }
 
+    public static checkCoordinateBounds(lon: number, lat: number) {
+        return (lon >= GeoCoordinates.MIN_LON && lon <= GeoCoordinates.MAX_LON && lat >= GeoCoordinates.MIN_LAT && lat <= GeoCoordinates.MAX_LAT);
+    }
+
     public static fromValues(longitude: number, latitude: number) {
-        if (!GeometryUtils.checkCoordinateBounds(longitude, latitude)) {
+        if (!GeoCoordinates.checkCoordinateBounds(longitude, latitude)) {
             throw new Error('Coordinates out of bounds');
         }
         const geoCoordinates = new GeoCoordinates();

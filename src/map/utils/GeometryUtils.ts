@@ -32,18 +32,6 @@ export class GeometryUtils {
     /** Degree in a full circle */
     public static FULL_CIRCLE_DEGREE = 360;
 
-    /** The Constant MAX_LAT. */
-    public static MAX_LAT = 90;
-
-    /** The Constant MIN_LAT. */
-    public static MIN_LAT = -90;
-
-    /** The Constant MAX_LON. */
-    public static MAX_LON = 180;
-
-    /** The Constant MIN_LON. */
-    public static MIN_LON = -180;
-
     /** The Constant ZERO_CIRCLE. */
     public static ZERO_CIRCLE = 0;
 
@@ -174,10 +162,6 @@ export class GeometryUtils {
             }
         }
         return GeometryUtils.geoCoordinatesBearing(p1, p2);
-    }
-
-    public static checkCoordinateBounds(lon: number, lat: number) {
-        return (lon >= GeometryUtils.MIN_LON && lon <= GeometryUtils.MAX_LON && lat >= GeometryUtils.MIN_LAT && lat <= GeometryUtils.MAX_LAT);
     }
 
     public static geoCoordinatesIntersectStraights(coord1: GeoCoordinates, bear1: number, coord2: GeoCoordinates, bear2: number) {
