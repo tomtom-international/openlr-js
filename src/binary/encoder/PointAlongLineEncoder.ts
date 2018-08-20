@@ -28,8 +28,8 @@ import Orientation from '../../data/location/data/Orientation';
 
 export default class PointAlongLineEncoder extends AbstractEncoder {
     public encodeData(rawLocationReference: RawLocationReference, version: number) {
-        if (rawLocationReference === null || rawLocationReference.getLocationReferencePoints() === null) {
-            return LocationReference.fromValues('', BinaryReturnCode.MISSING_DATA, LocationType.POINT_ALONG_LINE, version);
+        if (rawLocationReference.getLocationReferencePoints() === null) {
+            return LocationReference.fromValues(rawLocationReference.getId(), BinaryReturnCode.MISSING_DATA, LocationType.POINT_ALONG_LINE, version);
         }
         const locationReferencePoints = rawLocationReference.getLocationReferencePoints();
         if (locationReferencePoints === null || locationReferencePoints.length <= 0) {

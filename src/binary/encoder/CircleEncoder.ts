@@ -25,19 +25,16 @@ import GeoCoordinates from '../../map/GeoCoordinates';
 
 export default class CircleEncoder extends AbstractEncoder {
     public encodeData(rawLocationReference: RawLocationReference, version: number) {
-        if (rawLocationReference == null) {
-            return LocationReference.fromValues('', BinaryReturnCode.MISSING_DATA, LocationType.CIRCLE, version);
-        }
         const center = rawLocationReference.getCenterPoint();
         const radius = rawLocationReference.getRadius();
         if (center === null) {
-            return LocationReference.fromValues('', BinaryReturnCode.MISSING_DATA, LocationType.CIRCLE, version);
+            return LocationReference.fromValues(rawLocationReference.getId(), BinaryReturnCode.MISSING_DATA, LocationType.CIRCLE, version);
         }
         if (radius < 0) {
-            return LocationReference.fromValues('', BinaryReturnCode.INVALID_RADIUS, LocationType.CIRCLE, version);
+            return LocationReference.fromValues(rawLocationReference.getId(), BinaryReturnCode.INVALID_RADIUS, LocationType.CIRCLE, version);
         }
         if (version < BinaryConstants.BINARY_VERSION_3) {
-            return LocationReference.fromValues('', BinaryReturnCode.INVALID_VERSION, LocationType.CIRCLE, version);
+            return LocationReference.fromValues(rawLocationReference.getId(), BinaryReturnCode.INVALID_VERSION, LocationType.CIRCLE, version);
         }
         return LocationReference.fromIdAndBuffer(rawLocationReference.getId(), this._generateBinaryCircleLocation(center, radius, version));
     }

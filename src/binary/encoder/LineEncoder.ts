@@ -25,9 +25,6 @@ import LocationReferencePoint from '../../data/LocationReferencePoint';
 
 export default class LineEncoder extends AbstractEncoder {
     public encodeData(rawLocationReference: RawLocationReference, version: number) {
-        if (rawLocationReference === null) {
-            return LocationReference.fromValues('', BinaryReturnCode.MISSING_DATA, LocationType.LINE_LOCATION, version);
-        }
         const locationReferences = rawLocationReference.getLocationReferencePoints();
         if (locationReferences !== null) {
             const offsets = rawLocationReference.getOffsets();

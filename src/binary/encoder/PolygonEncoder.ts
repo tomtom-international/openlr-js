@@ -26,9 +26,6 @@ import RelativeCoordinates from '../data/RelativeCoordinates';
 
 export default class PolygonEncoder extends AbstractEncoder {
     public encodeData(rawLocationReference: RawLocationReference, version: number) {
-        if (rawLocationReference === null) {
-            return LocationReference.fromValues('', BinaryReturnCode.MISSING_DATA, LocationType.POLYGON, version);
-        }
         const id = rawLocationReference.getId();
         const cornerPoints = rawLocationReference.getCornerPoints();
 
