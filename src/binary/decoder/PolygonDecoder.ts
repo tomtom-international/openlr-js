@@ -34,9 +34,7 @@ export default class PolygonDecoder extends AbstractDecoder {
         cornersCoords.push(firstCornerCoord);
 
         let prevCornerAbsCoord = firstCornerAbsCoord;
-        let counter = numRemainingCorners;
-        while (counter > 0) {
-            counter--;
+        for (let i = 0; i < numRemainingCorners; i++) {
             const remainingCoord = RelativeCoordinates.fromBitStreamInput(bitStreamInput);
             const lon = this._calculate32BitRepresentation(prevCornerAbsCoord.lon) + Math.fround(remainingCoord.lon / BinaryConstants.DECA_MICRO_DEG_FACTOR);
             const lat = this._calculate32BitRepresentation(prevCornerAbsCoord.lat) + Math.fround(remainingCoord.lat / BinaryConstants.DECA_MICRO_DEG_FACTOR);
