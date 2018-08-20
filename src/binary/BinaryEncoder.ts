@@ -14,36 +14,21 @@
  * limitations under the License.
  */
 
-import BinaryConstants from './BinaryConstants';
-import LocationReference from '../data/LocationReference';
-import BinaryReturnCode from './BinaryReturnCode';
-import LocationType from '../data/LocationType';
-import LineEncoder from './encoder/LineEncoder';
-import PointAlongLineEncoder from './encoder/PointAlongLineEncoder';
-import GeoCoordEncoder from './encoder/GeoCoordEncoder';
-import PolygonEncoder from './encoder/PolygonEncoder';
-import CircleEncoder from './encoder/CircleEncoder'
-import RawLocationReference from '../data/raw-location-reference/RawLocationReference';
+import * as BinaryConstants from './BinaryConstants';
+import { LocationReference } from '../data/LocationReference';
+import { BinaryReturnCode } from './BinaryReturnCode';
+import { LocationType } from '../data/LocationType';
+import { LineEncoder } from './encoder/LineEncoder';
+import { PointAlongLineEncoder } from './encoder/PointAlongLineEncoder';
+import { GeoCoordEncoder } from './encoder/GeoCoordEncoder';
+import { PolygonEncoder } from './encoder/PolygonEncoder';
+import { CircleEncoder } from './encoder/CircleEncoder';
+import { RawLocationReference } from '../data/raw-location-reference/RawLocationReference';
+import { AbstractEncoder } from './encoder/AbstractEncoder';
 
-export default class BinaryEncoder {
+export class BinaryEncoder {
     /** The Constant VERSIONS. */
     protected static _VERSIONS = [2, 3];
-
-    protected _checkVersion(version: number, locationType: LocationType) {
-        let valid = false;
-        for (let ver of BinaryEncoder._VERSIONS) {
-            if (version === ver) {
-                valid = true;
-            }
-        }
-        if (BinaryConstants.POINT_LOCATION_TYPES.has(locationType) && version < BinaryConstants.POINT_LOCATION_VERSION) {
-            valid = false;
-        }
-        if (BinaryConstants.AREA_LOCATION_TYPES.has(locationType) && version < BinaryConstants.AREA_LOCATION_VERSION) {
-            valid = false;
-        }
-        return valid;
-    }
 
     public getDataFormatIdentifier() {
         return BinaryConstants.IDENTIFIER;
@@ -62,7 +47,7 @@ export default class BinaryEncoder {
         if (!this._checkVersion(version, locationType)) {
             return LocationReference.fromValues(rawLocationReference.getId(), BinaryReturnCode.INVALID_VERSION, locationType, version);
         }
-        let encoder = null;
+        let encoder: AbstractEncoder | null = null;
         switch (locationType) {
             case LocationType.GEO_COORDINATES:
                 encoder = new GeoCoordEncoder();
@@ -71,7 +56,7 @@ export default class BinaryEncoder {
                 encoder = new LineEncoder();
                 break;
             case LocationType.POI_WITH_ACCESS_POINT:
-                //encoder = new PoiAccessEncoder();
+                // encoder = new PoiAccessEncoder();
                 throw new Error('PoiAccessEncoder not implemented');
             case LocationType.POINT_ALONG_LINE:
                 encoder = new PointAlongLineEncoder();
@@ -80,16 +65,16 @@ export default class BinaryEncoder {
                 encoder = new CircleEncoder();
                 break;
             case LocationType.RECTANGLE:
-                //encoder = new RectangleEncoder();
+                // encoder = new RectangleEncoder();
                 throw new Error('RectangleEncoder not implemented');
             case LocationType.GRID:
-                //encoder = new GridEncoder();
+                // encoder = new GridEncoder();
                 throw new Error('GridEncoder not implemented');
             case LocationType.POLYGON:
                 encoder = new PolygonEncoder();
                 break;
             case LocationType.CLOSED_LINE:
-                //encoder = new ClosedLineEncoder();
+                // encoder = new ClosedLineEncoder();
                 throw new Error('ClosedLineEncoder not implemented');
             case LocationType.UNKNOWN:
             default:
@@ -97,4 +82,20 @@ export default class BinaryEncoder {
         }
         return encoder.encodeData(rawLocationReference, version);
     }
-};
+
+    protected _checkVersion(version: number, locationType: LocationType) {
+        let valid = false;
+        for (const ver of BinaryEncoder._VERSIONS) {
+            if (version === ver) {
+                valid = true;
+            }
+        }
+        if (BinaryConstants.POINT_LOCATION_TYPES.has(locationType) && version < BinaryConstants.POINT_LOCATION_VERSION) {
+            valid = false;
+        }
+        if (BinaryConstants.AREA_LOCATION_TYPES.has(locationType) && version < BinaryConstants.AREA_LOCATION_VERSION) {
+            valid = false;
+        }
+        return valid;
+    }
+}

@@ -1,9 +1,6 @@
 {
     "compilerOptions": {
         "moduleResolution": "node",
-        "removeComments": true,
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true,
         "sourceMap": true,
         "allowSyntheticDefaultImports": false,
         "noImplicitAny": true,
@@ -12,7 +9,8 @@
         "typeRoots": [
             "node_modules/@types"
         ],
-        "lib": ["es2015", "es2015.core"]
+        "lib": ["es2015", "es2015.core"],
+        "target": "es5"
     },
     "include": [
         "src"

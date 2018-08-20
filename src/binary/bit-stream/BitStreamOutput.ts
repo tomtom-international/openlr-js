@@ -14,23 +14,9 @@
  * limitations under the License.
  */
 
-import BitStreamAbstract from './BitStreamAbstract';
+import { BitStreamAbstract } from './BitStreamAbstract';
 
-export default class BitStreamOutput extends BitStreamAbstract {
-    public static fromValues() {
-        const bitStreamOutput = new BitStreamOutput();
-        bitStreamOutput._createBuffer(BitStreamOutput._DEFAULT_BUFFER_LENGTH);
-        bitStreamOutput._currentBit = 0;
-        return bitStreamOutput;
-    }
-
-    public static fromLength(length: number) {
-        const bitStreamOutput = new BitStreamOutput();
-        bitStreamOutput._createBuffer(length);
-        bitStreamOutput._currentBit = 0;
-        return bitStreamOutput;
-    }
-
+export class BitStreamOutput extends BitStreamAbstract {
     public putBits(value: number, countBitsToPut: number) {
         // Sanity check
         if (countBitsToPut === 0) {
@@ -86,4 +72,18 @@ export default class BitStreamOutput extends BitStreamAbstract {
     public getData() {
         return this._getData();
     }
-};
+
+    public static fromValues() {
+        const bitStreamOutput = new BitStreamOutput();
+        bitStreamOutput._createBuffer(BitStreamOutput._DEFAULT_BUFFER_LENGTH);
+        bitStreamOutput._currentBit = 0;
+        return bitStreamOutput;
+    }
+
+    public static fromLength(length: number) {
+        const bitStreamOutput = new BitStreamOutput();
+        bitStreamOutput._createBuffer(length);
+        bitStreamOutput._currentBit = 0;
+        return bitStreamOutput;
+    }
+}

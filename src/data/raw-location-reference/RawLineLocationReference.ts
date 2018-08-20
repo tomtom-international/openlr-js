@@ -14,17 +14,25 @@
  * limitations under the License.
  */
 
-import RawLocationReference from './RawLocationReference';
-import LocationType from '../LocationType';
-import LocationReferencePoint from '../LocationReferencePoint';
-import Offsets from '../Offsets';
+import { RawLocationReference } from './RawLocationReference';
+import { LocationType } from '../LocationType';
+import { LocationReferencePoint } from '../LocationReferencePoint';
+import { Offsets } from '../Offsets';
 
-export default class RawLineLocationReference extends RawLocationReference {
+export class RawLineLocationReference extends RawLocationReference {
     /** The points. */
-    protected _points: Array<LocationReferencePoint>;
+    protected _points!: Array<LocationReferencePoint>;
 
     /** The offsets. */
-    protected _offsets: Offsets;
+    protected _offsets!: Offsets;
+
+    public getLocationReferencePoints() {
+        return this._points;
+    }
+
+    public getOffsets() {
+        return this._offsets;
+    }
 
     public static fromLineValues(id: string, points: Array<LocationReferencePoint>, offsets: Offsets) {
         const rawLineLocationReference = new RawLineLocationReference();
@@ -35,12 +43,4 @@ export default class RawLineLocationReference extends RawLocationReference {
         rawLineLocationReference._offsets = offsets;
         return rawLineLocationReference;
     }
-
-    public getLocationReferencePoints() {
-        return this._points;
-    }
-
-    public getOffsets() {
-        return this._offsets;
-    }
-};
+}

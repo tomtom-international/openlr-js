@@ -14,37 +14,25 @@
  * limitations under the License.
  */
 
-import RawLocationReference from './RawLocationReference';
-import LocationReferencePoint from '../LocationReferencePoint';
-import Offsets from '../Offsets';
-import SideOfRoad from '../location/data/SideOfRoad';
-import Orientation from '../location/data/Orientation';
-import LocationType from '../LocationType';
+import { RawLocationReference } from './RawLocationReference';
+import { LocationReferencePoint } from '../LocationReferencePoint';
+import { Offsets } from '../Offsets';
+import { SideOfRoad } from '../location/data/SideOfRoad';
+import { Orientation } from '../location/data/Orientation';
+import { LocationType } from '../LocationType';
 
-export default class RawPointLocationReference extends RawLocationReference {
+export class RawPointLocationReference extends RawLocationReference {
     /** The points. */
-    protected _points: Array<LocationReferencePoint>;
+    protected _points!: Array<LocationReferencePoint>;
 
     /** The offsets. */
-    protected _offsets: Offsets;
+    protected _offsets!: Offsets;
 
     /** The orientation. */
-    protected _orientation: Orientation;
+    protected _orientation!: Orientation;
 
     /** The side of road. */
-    protected _sideOfRoad: SideOfRoad;
-
-    public static fromPointValues(id: string, locationType: LocationType, lrp1: LocationReferencePoint, lrp2: LocationReferencePoint, offsets: Offsets, sideOfRoad: SideOfRoad, orientation: Orientation) {
-        const rawPointLocationReference = new RawPointLocationReference();
-        rawPointLocationReference._id = id;
-        rawPointLocationReference._locationType = locationType;
-        rawPointLocationReference._returnCode = null;
-        rawPointLocationReference._points = [lrp1, lrp2];
-        rawPointLocationReference._offsets = offsets;
-        rawPointLocationReference._orientation = orientation;
-        rawPointLocationReference._sideOfRoad = sideOfRoad;
-        return rawPointLocationReference;
-    }
+    protected _sideOfRoad!: SideOfRoad;
 
     public getLocationReferencePoints() {
         return this._points;
@@ -61,4 +49,16 @@ export default class RawPointLocationReference extends RawLocationReference {
     public getSideOfRoad() {
         return this._sideOfRoad;
     }
-};
+
+    public static fromPointValues(id: string, locationType: LocationType, lrp1: LocationReferencePoint, lrp2: LocationReferencePoint, offsets: Offsets, sideOfRoad: SideOfRoad, orientation: Orientation) {
+        const rawPointLocationReference = new RawPointLocationReference();
+        rawPointLocationReference._id = id;
+        rawPointLocationReference._locationType = locationType;
+        rawPointLocationReference._returnCode = null;
+        rawPointLocationReference._points = [lrp1, lrp2];
+        rawPointLocationReference._offsets = offsets;
+        rawPointLocationReference._orientation = orientation;
+        rawPointLocationReference._sideOfRoad = sideOfRoad;
+        return rawPointLocationReference;
+    }
+}

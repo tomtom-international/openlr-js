@@ -14,25 +14,46 @@
  * limitations under the License.
  */
 
-import BinaryConstants from './BinaryConstants';
-import BinaryReturnCode from './BinaryReturnCode';
-import BitStreamInput from './bit-stream/BitStreamInput';
-import RawInvalidLocationReference from '../data/raw-location-reference/RawInvalidLocationReference';
-import Header from './data/Header';
-import LineDecoder from './decoder/LineDecoder';
-import PointAlongLineDecoder from './decoder/PointAlongLineDecoder';
-import GeoCoordDecoder from './decoder/GeoCoordDecoder';
-import PolygonDecoder from './decoder/PolygonDecoder'
-import CircleDecoder from './decoder/CircleDecoder';
-import RawBinaryData from './data/RawBinaryData';
-import LocationReference from '../data/LocationReference';
+import * as BinaryConstants from './BinaryConstants';
+import { BinaryReturnCode } from './BinaryReturnCode';
+import { BitStreamInput } from './bit-stream/BitStreamInput';
+import { RawInvalidLocationReference } from '../data/raw-location-reference/RawInvalidLocationReference';
+import { Header } from './data/Header';
+import { LineDecoder } from './decoder/LineDecoder';
+import { PointAlongLineDecoder } from './decoder/PointAlongLineDecoder';
+import { GeoCoordDecoder } from './decoder/GeoCoordDecoder';
+import { PolygonDecoder } from './decoder/PolygonDecoder';
+import { CircleDecoder } from './decoder/CircleDecoder';
+import { RawBinaryData } from './data/RawBinaryData';
+import { LocationReference } from '../data/LocationReference';
+import { AbstractDecoder } from './decoder/AbstractDecoder';
+import { RawLocationReference } from '../data/raw-location-reference/RawLocationReference';
 
-export default class BinaryDecoder {
+export class BinaryDecoder {
     protected static _VERSIONS = [2, 3];
+
+    public decodeData(locationReference: LocationReference) {
+        const data = locationReference.getLocationReferenceData();
+        if (data === null) {
+            return RawInvalidLocationReference.fromIdAndStatusCode(locationReference.getId(), BinaryReturnCode.NOT_ENOUGH_BYTES);
+        } else {
+            return this._parseBinaryData(locationReference.getId(), data, null);
+        }
+    }
+
+    public getDataFormatIdentifier() {
+        return BinaryConstants.IDENTIFIER;
+    }
+
+    public resolveBinaryData(id: string, data: Buffer) {
+        const binaryData = new RawBinaryData();
+        this._parseBinaryData(id, data, binaryData);
+        return binaryData;
+    }
 
     protected _checkVersion(header: Header) {
         const ver = header.ver;
-        for (let v of BinaryDecoder._VERSIONS) {
+        for (const v of BinaryDecoder._VERSIONS) {
             if (v === ver) {
                 return true;
             }
@@ -70,8 +91,8 @@ export default class BinaryDecoder {
         const hasAttributes = header.af === BinaryConstants.HAS_ATTRIBUTES;
         const areaLocationCode = header.arf;
         const isAreaLocation = ((areaLocationCode === 0 && !isPointLocation && !hasAttributes) || areaLocationCode > 0);
-        let rawLocRef = null;
-        let decoder = null;
+        let rawLocRef: RawLocationReference | null = null;
+        let decoder: AbstractDecoder | null = null;
         if (!isPointLocation && !isAreaLocation && hasAttributes) {
             decoder = new LineDecoder();
         } else if (isPointLocation && !isAreaLocation) {
@@ -85,7 +106,7 @@ export default class BinaryDecoder {
                 if (totalBytes === BinaryConstants.POINT_ALONG_LINE_SIZE || totalBytes === BinaryConstants.POINT_ALONG_LINE_SIZE + BinaryConstants.POINT_OFFSET_SIZE) {
                     decoder = new PointAlongLineDecoder();
                 } else if (totalBytes === BinaryConstants.POINT_WITH_ACCESS_SIZE || totalBytes === BinaryConstants.POINT_WITH_ACCESS_SIZE + BinaryConstants.POINT_OFFSET_SIZE) {
-                    //decoder = new PoiAccessDecoder();
+                    // decoder = new PoiAccessDecoder();
                     throw new Error('PoiAccessDecider not implemented');
                 } else {
                     rawLocRef = RawInvalidLocationReference.fromIdAndStatusCode(id, BinaryReturnCode.INVALID_BYTE_SIZE);
@@ -93,7 +114,7 @@ export default class BinaryDecoder {
             }
         } else if (isAreaLocation && !isPointLocation && hasAttributes) {
             if (totalBytes >= BinaryConstants.MIN_BYTES_CLOSED_LINE_LOCATION) {
-                //decoder = new ClosedLineDecoder();
+                // decoder = new ClosedLineDecoder();
                 throw new Error('ClosedLineDecoder not implemented');
             } else {
                 rawLocRef = RawInvalidLocationReference.fromIdAndStatusCode(id, BinaryReturnCode.INVALID_BYTE_SIZE);
@@ -106,10 +127,10 @@ export default class BinaryDecoder {
                 case BinaryConstants.AREA_CODE_RECTANGLE:
                     /* includes case OpenLRBinaryConstants.AREA_CODE_GRID */
                     if (totalBytes === BinaryConstants.RECTANGLE_SIZE || totalBytes === BinaryConstants.LARGE_RECTANGLE_SIZE) {
-                        //decoder = new RectangleDecoder();
+                        // decoder = new RectangleDecoder();
                         throw new Error('RectangleDecoder not implemented');
                     } else if (totalBytes === BinaryConstants.GRID_SIZE || totalBytes === BinaryConstants.LARGE_GRID_SIZE) {
-                        //decoder = new GridDecoder();
+                        // decoder = new GridDecoder();
                         throw new Error('GridDecoder not implemented');
                     } else {
                         rawLocRef = RawInvalidLocationReference.fromIdAndStatusCode(id, BinaryReturnCode.INVALID_BYTE_SIZE);
@@ -132,26 +153,7 @@ export default class BinaryDecoder {
         return rawLocRef;
     }
 
-    public decodeData(locationReference: LocationReference) {
-        const data = locationReference.getLocationReferenceData();
-        if (data === null) {
-            return RawInvalidLocationReference.fromIdAndStatusCode(locationReference.getId(), BinaryReturnCode.NOT_ENOUGH_BYTES);
-        } else {
-            return this._parseBinaryData(locationReference.getId(), data, null);
-        }
-    }
-
-    public getDataFormatIdentifier() {
-        return BinaryConstants.IDENTIFIER;
-    }
-
-    public resolveBinaryData(id: string, data: Buffer) {
-        const binaryData = new RawBinaryData();
-        this._parseBinaryData(id, data, binaryData);
-        return binaryData;
-    }
-
     public static getVersions() {
         return BinaryDecoder._VERSIONS;
     }
-};
+}

@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import AbstractEncoder from './AbstractEncoder';
-import LocationReference from '../../data/LocationReference';
-import BinaryReturnCode from '../BinaryReturnCode';
-import LocationType from '../../data/LocationType';
-import BitStreamOutput from '../bit-stream/BitStreamOutput';
-import RawLocationReference from '../../data/raw-location-reference/RawLocationReference';
-import GeoCoordinates from '../../map/GeoCoordinates';
+import { AbstractEncoder } from './AbstractEncoder';
+import { LocationReference } from '../../data/LocationReference';
+import { BinaryReturnCode } from '../BinaryReturnCode';
+import { LocationType } from '../../data/LocationType';
+import { BitStreamOutput } from '../bit-stream/BitStreamOutput';
+import { RawLocationReference } from '../../data/raw-location-reference/RawLocationReference';
+import { GeoCoordinates } from '../../map/GeoCoordinates';
 
-export default class GeoCoordEncoder extends AbstractEncoder {
+export class GeoCoordEncoder extends AbstractEncoder {
     public encodeData(rawLocationReference: RawLocationReference, version: number) {
         const coord = rawLocationReference.getGeoCoordinates();
         if (coord === null) {
@@ -42,4 +42,4 @@ export default class GeoCoordEncoder extends AbstractEncoder {
         absCoord.put(out);
         return out.getData();
     }
-};
+}

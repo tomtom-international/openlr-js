@@ -14,50 +14,30 @@
  * limitations under the License.
  */
 
-import BinaryConstants from '../binary/BinaryConstants';
+import * as BinaryConstants from '../binary/BinaryConstants';
 
-export default class Offsets {
+export class Offsets {
     /** The Constant PERCENTAGE. */
     protected static _PERCENTAGE = 100;
 
     /**
      * The positive offset of the binary data (0 if no positive offset available).
      */
-    protected _pOffset: number;
+    protected _pOffset!: number;
 
     /**
      * The negative offset of the binary data (0 if not negative offset available).
      */
-    protected _nOffset: number;
+    protected _nOffset!: number;
 
     /** The p off relative. */
-    protected _pOffRelative: number;
+    protected _pOffRelative!: number;
 
     /** The n off relative. */
-    protected _nOffRelative: number;
+    protected _nOffRelative!: number;
 
     /** The version. */
-    protected _version: number;
-
-    public static fromValues(pOff: number, nOff: number) {
-        const offsets = new Offsets();
-        offsets._pOffset = pOff;
-        offsets._nOffset = nOff;
-        offsets._version = BinaryConstants.BINARY_VERSION_2;
-        offsets._pOffRelative = 0.0;
-        offsets._nOffRelative = 0.0;
-        return offsets;
-    }
-
-    public static fromRelativeValues(pOff: number, nOff: number) {
-        const offsets = new Offsets();
-        offsets._pOffset = 0;
-        offsets._nOffset = 0;
-        offsets._version = BinaryConstants.BINARY_VERSION_3;
-        offsets._pOffRelative = pOff;
-        offsets._nOffRelative = nOff;
-        return offsets;
-    }
+    protected _version!: number;
 
     public hasPositiveOffset() {
         return (this._pOffset !== 0 || this._pOffRelative !== 0);
@@ -88,4 +68,24 @@ export default class Offsets {
         }
         return 0;
     }
-};
+
+    public static fromValues(pOff: number, nOff: number) {
+        const offsets = new Offsets();
+        offsets._pOffset = pOff;
+        offsets._nOffset = nOff;
+        offsets._version = BinaryConstants.BINARY_VERSION_2;
+        offsets._pOffRelative = 0.0;
+        offsets._nOffRelative = 0.0;
+        return offsets;
+    }
+
+    public static fromRelativeValues(pOff: number, nOff: number) {
+        const offsets = new Offsets();
+        offsets._pOffset = 0;
+        offsets._nOffset = 0;
+        offsets._version = BinaryConstants.BINARY_VERSION_3;
+        offsets._pOffRelative = pOff;
+        offsets._nOffRelative = nOff;
+        return offsets;
+    }
+}

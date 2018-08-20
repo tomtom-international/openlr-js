@@ -14,6 +14,6 @@
  * limitations under the License.
  */
 
-export default class BinaryInformation {
+export class BinaryInformation {
     protected static _RFU_VALUE = 0;
-};
+}

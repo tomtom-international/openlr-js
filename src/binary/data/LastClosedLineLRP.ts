@@ -14,16 +14,21 @@
  * limitations under the License.
  */
 
-import BinaryInformation from './BinaryInformation';
-import Attr5 from './Attr5';
-import Attr6 from './Attr6';
-import BitStreamInput from '../bit-stream/BitStreamInput';
-import BitStreamOutput from '../bit-stream/BitStreamOutput';
+import { BinaryInformation } from './BinaryInformation';
+import { Attr5 } from './Attr5';
+import { Attr6 } from './Attr6';
+import { BitStreamInput } from '../bit-stream/BitStreamInput';
+import { BitStreamOutput } from '../bit-stream/BitStreamOutput';
 
-export default class LastClosedLineLRP extends BinaryInformation {
-    protected _attrib5: Attr5;
+export class LastClosedLineLRP extends BinaryInformation {
+    protected _attrib5!: Attr5;
 
-    protected _attrib6: Attr6;
+    protected _attrib6!: Attr6;
+
+    public put(bitStreamOutput: BitStreamOutput) {
+        this._attrib5.put(bitStreamOutput);
+        this._attrib6.put(bitStreamOutput);
+    }
 
     public static fromValues(attrib5: Attr5, attrib6: Attr6) {
         const lastClosedLineLrp = new LastClosedLineLRP();
@@ -39,12 +44,6 @@ export default class LastClosedLineLRP extends BinaryInformation {
         return lastClosedLineLrp;
     }
 
-
-    public put(bitStreamOutput: BitStreamOutput) {
-        this._attrib5.put(bitStreamOutput);
-        this._attrib6.put(bitStreamOutput);
-    }
-
     public get attrib5() {
         return this._attrib5;
     }
@@ -52,4 +51,4 @@ export default class LastClosedLineLRP extends BinaryInformation {
     public get attrib6() {
         return this._attrib6;
     }
-};
+}

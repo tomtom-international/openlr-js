@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import BinaryInformation from './BinaryInformation';
-import BitStreamInput from '../bit-stream/BitStreamInput';
-import BitStreamOutput from '../bit-stream/BitStreamOutput';
+import { BinaryInformation } from './BinaryInformation';
+import { BitStreamInput } from '../bit-stream/BitStreamInput';
+import { BitStreamOutput } from '../bit-stream/BitStreamOutput';
 
-export default class Attr2 extends BinaryInformation {
+export class Attr2 extends BinaryInformation {
     /** Number of bits used for lfrcnp */
     protected static _LFRCNP_BITS = 3;
 
@@ -26,10 +26,15 @@ export default class Attr2 extends BinaryInformation {
     protected static _BEAR_BITS = 5;
 
     /** The lowest functional road class information. */
-    protected _lfrcnp: number;
+    protected _lfrcnp!: number;
 
     /** The bearing information. */
-    protected _bear: number;
+    protected _bear!: number;
+
+    public put(bitStreamOutput: BitStreamOutput) {
+        bitStreamOutput.putBits(this._lfrcnp, Attr2._LFRCNP_BITS);
+        bitStreamOutput.putBits(this._bear, Attr2._BEAR_BITS);
+    }
 
     public static fromValues(lfrcnp: number, bear: number) {
         const attr2 = new Attr2();
@@ -45,11 +50,6 @@ export default class Attr2 extends BinaryInformation {
         return attr2;
     }
 
-    public put(bitStreamOutput: BitStreamOutput) {
-        bitStreamOutput.putBits(this._lfrcnp, Attr2._LFRCNP_BITS);
-        bitStreamOutput.putBits(this._bear, Attr2._BEAR_BITS);
-    }
-
     public get lfrcnp() {
         return this._lfrcnp;
     }
@@ -57,4 +57,4 @@ export default class Attr2 extends BinaryInformation {
     public get bear() {
         return this._bear;
     }
-};
+}

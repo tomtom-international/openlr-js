@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import BinaryConstants from '../BinaryConstants';
-import BitStreamInput from '../bit-stream/BitStreamInput';
-import BitStreamOutput from '../bit-stream/BitStreamOutput';
+import * as BinaryConstants from '../BinaryConstants';
+import { BitStreamInput } from '../bit-stream/BitStreamInput';
+import { BitStreamOutput } from '../bit-stream/BitStreamOutput';
 
 export enum RadiusType {
     /** Small radius (BINARY_VERSION_3: up to 255m) */
@@ -33,9 +33,9 @@ export enum RadiusType {
 
 export const resolveRadius = (bytes: number): RadiusType => {
     return bytes >= RadiusType.UNKNOWN && bytes <= RadiusType.EXTRA_LARGE ? bytes : RadiusType.UNKNOWN;
-}
+};
 
-export default class Radius {
+export class Radius {
     /** The Constant MAX_RADIUS_SMALL. */
     protected static _MAX_RADIUS_SMALL = Math.pow(2, BinaryConstants.SMALL_RADIUS_BITS);
 
@@ -49,7 +49,21 @@ export default class Radius {
     protected static _MAX_RADIUS_EXTRA_LARGE = Math.pow(2, BinaryConstants.EXTRA_LARGE_RADIUS_BITS);
 
     // The radius (up to 4 bytes) according to OpenLR white paper.
-    protected _radius: number;
+    protected _radius!: number;
+
+    public put(bitStreamOutput: BitStreamOutput) {
+        if (this._radius <= Radius._MAX_RADIUS_SMALL) {
+            bitStreamOutput.putBits(this._radius, BinaryConstants.SMALL_RADIUS_BITS);
+        } else if (this._radius <= Radius._MAX_RADIUS_MEDIUM) {
+            bitStreamOutput.putBits(this._radius, BinaryConstants.MEDIUM_RADIUS_BITS);
+        } else if (this._radius <= Radius._MAX_RADIUS_LARGE) {
+            bitStreamOutput.putBits(this._radius, BinaryConstants.LARGE_RADIUS_BITS);
+        } else if (this._radius <= Radius._MAX_RADIUS_EXTRA_LARGE) {
+            bitStreamOutput.putBits(this._radius, BinaryConstants.EXTRA_LARGE_RADIUS_BITS);
+        } else {
+            throw new Error('Invalid range');
+        }
+    }
 
     public static fromValues(radiusValue: number) {
         const radius = new Radius();
@@ -78,20 +92,6 @@ export default class Radius {
         return radius;
     }
 
-    public put(bitStreamOutput: BitStreamOutput) {
-        if (this._radius <= Radius._MAX_RADIUS_SMALL) {
-            bitStreamOutput.putBits(this._radius, BinaryConstants.SMALL_RADIUS_BITS);
-        } else if (this._radius <= Radius._MAX_RADIUS_MEDIUM) {
-            bitStreamOutput.putBits(this._radius, BinaryConstants.MEDIUM_RADIUS_BITS);
-        } else if (this._radius <= Radius._MAX_RADIUS_LARGE) {
-            bitStreamOutput.putBits(this._radius, BinaryConstants.LARGE_RADIUS_BITS);
-        } else if (this._radius <= Radius._MAX_RADIUS_EXTRA_LARGE) {
-            bitStreamOutput.putBits(this._radius, BinaryConstants.EXTRA_LARGE_RADIUS_BITS);
-        } else {
-            throw new Error('Invalid range');
-        }
-    }
-
     public get radius() {
         return this._radius;
     }
@@ -103,4 +103,4 @@ export default class Radius {
             return integer;
         }
     }
-};
+}

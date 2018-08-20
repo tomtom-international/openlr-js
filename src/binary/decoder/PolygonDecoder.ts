@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import AbstractDecoder from './AbstractDecoder';
-import BinaryConstants from '../BinaryConstants';
-import BitStreamInput from '../bit-stream/BitStreamInput';
-import RawBinaryData from '../data/RawBinaryData';
-import AbsoluteCoordinates from '../data/AbsoluteCoordinates';
-import GeoCoordinates from '../../map/GeoCoordinates';
-import RelativeCoordinates from '../data/RelativeCoordinates';
-import RawPolygonLocationReference from '../../data/raw-location-reference/RawPolygonLocationReference';
+import { AbstractDecoder } from './AbstractDecoder';
+import * as BinaryConstants from '../BinaryConstants';
+import { BitStreamInput } from '../bit-stream/BitStreamInput';
+import { RawBinaryData } from '../data/RawBinaryData';
+import { AbsoluteCoordinates } from '../data/AbsoluteCoordinates';
+import { GeoCoordinates } from '../../map/GeoCoordinates';
+import { RelativeCoordinates } from '../data/RelativeCoordinates';
+import { RawPolygonLocationReference } from '../../data/raw-location-reference/RawPolygonLocationReference';
 
-export default class PolygonDecoder extends AbstractDecoder {
+export class PolygonDecoder extends AbstractDecoder {
     public decodeData(id: string, bitStreamInput: BitStreamInput, totalBytes: number, version: number, binaryData: RawBinaryData | null) {
         const remainingBytes = totalBytes - (BinaryConstants.HEADER_SIZE + BinaryConstants.ABS_COORD_SIZE);
         const numRemainingCorners = remainingBytes / BinaryConstants.RELATIVE_COORD_SIZE;
@@ -45,4 +45,4 @@ export default class PolygonDecoder extends AbstractDecoder {
         const rawLocRef = RawPolygonLocationReference.fromPolygonValues(id, cornersCoords);
         return rawLocRef;
     }
-};
+}

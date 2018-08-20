@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-import AbstractEncoder from './AbstractEncoder';
-import LocationReference from '../../data/LocationReference';
-import BinaryReturnCode from '../BinaryReturnCode';
-import BinaryConstants from '../BinaryConstants';
-import LocationType from '../../data/LocationType';
-import BitStreamOutput from '../bit-stream/BitStreamOutput';
-import RawLocationReference from '../../data/raw-location-reference/RawLocationReference';
-import LocationReferencePoint from '../../data/LocationReferencePoint';
-import Offsets from '../../data/Offsets';
-import SideOfRoad from '../../data/location/data/SideOfRoad';
-import Orientation from '../../data/location/data/Orientation';
+import { AbstractEncoder } from './AbstractEncoder';
+import { LocationReference } from '../../data/LocationReference';
+import { BinaryReturnCode } from '../BinaryReturnCode';
+import * as BinaryConstants from '../BinaryConstants';
+import { LocationType } from '../../data/LocationType';
+import { BitStreamOutput } from '../bit-stream/BitStreamOutput';
+import { RawLocationReference } from '../../data/raw-location-reference/RawLocationReference';
+import { LocationReferencePoint } from '../../data/LocationReferencePoint';
+import { Offsets } from '../../data/Offsets';
+import { SideOfRoad } from '../../data/location/data/SideOfRoad';
+import { Orientation } from '../../data/location/data/Orientation';
 
-export default class PointAlongLineEncoder extends AbstractEncoder {
+export class PointAlongLineEncoder extends AbstractEncoder {
     public encodeData(rawLocationReference: RawLocationReference, version: number) {
         if (rawLocationReference.getLocationReferencePoints() === null) {
             return LocationReference.fromValues(rawLocationReference.getId(), BinaryReturnCode.MISSING_DATA, LocationType.POINT_ALONG_LINE, version);
@@ -54,7 +54,6 @@ export default class PointAlongLineEncoder extends AbstractEncoder {
         }
     }
 
-
     protected _generateBinaryPointAlongLineLocation(startLRP: LocationReferencePoint, endLRP: LocationReferencePoint, offsets: Offsets, sideOfRoad: SideOfRoad, orientation: Orientation, version: number) {
         const header = this._generateHeader(version, LocationType.POINT_ALONG_LINE, true);
         const first = this._generateFirstLRPFromLRPAndOrientation(startLRP, orientation);
@@ -73,4 +72,4 @@ export default class PointAlongLineEncoder extends AbstractEncoder {
         }
         return out.getData();
     }
-};
+}

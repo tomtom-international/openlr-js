@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import AbsoluteCoordinates from '../data/AbsoluteCoordinates';
-import AbstractDecoder from './AbstractDecoder';
-import BinaryConstants from '../BinaryConstants';
-import GeoCoordinates from '../../map/GeoCoordinates';
-import RawCircleLocationReference from '../../data/raw-location-reference/RawCircleLocationReference';
-import BitStreamInput from '../bit-stream/BitStreamInput';
-import RawBinaryData from '../data/RawBinaryData';
-import Radius, { resolveRadius } from '../data/Radius';
+import { AbsoluteCoordinates } from '../data/AbsoluteCoordinates';
+import { AbstractDecoder } from './AbstractDecoder';
+import * as BinaryConstants from '../BinaryConstants';
+import { GeoCoordinates } from '../../map/GeoCoordinates';
+import { RawCircleLocationReference } from '../../data/raw-location-reference/RawCircleLocationReference';
+import { BitStreamInput } from '../bit-stream/BitStreamInput';
+import { RawBinaryData } from '../data/RawBinaryData';
+import { Radius, resolveRadius } from '../data/Radius';
 
-export default class CircleDecoder extends AbstractDecoder {
+export class CircleDecoder extends AbstractDecoder {
     protected BASE_SIZE: number = BinaryConstants.HEADER_SIZE + BinaryConstants.ABS_COORD_SIZE;
 
     public decodeData(id: string, bitStreamInput: BitStreamInput, totalBytes: number, version: number, binaryData: RawBinaryData | null) {
@@ -38,4 +38,4 @@ export default class CircleDecoder extends AbstractDecoder {
         }
         return rawLocRef;
     }
-};
+}

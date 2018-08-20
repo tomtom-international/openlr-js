@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-import LocationType from '../LocationType';
-import GeoCoordinates from '../../map/GeoCoordinates';
-import LocationReferencePoint from '../LocationReferencePoint';
-import Offsets from '../Offsets';
-import SideOfRoad from '../location/data/SideOfRoad';
-import Orientation from '../location/data/Orientation';
+import { LocationType } from '../LocationType';
+import { GeoCoordinates } from '../../map/GeoCoordinates';
+import { LocationReferencePoint } from '../LocationReferencePoint';
+import { Offsets } from '../Offsets';
+import { SideOfRoad } from '../location/data/SideOfRoad';
+import { Orientation } from '../location/data/Orientation';
 
-export default class RawLocationReference {
-    protected _locationType: LocationType;
+export class RawLocationReference {
+    protected _locationType!: LocationType;
 
-    protected _id: string;
+    protected _id!: string;
 
-    protected _returnCode: number | null;
+    protected _returnCode!: number | null;
 
     // static fromValues(id: string, locationType: LocationType, returnCode: number) {
     //     const rawLocationReference = new RawLocationReference();
@@ -111,4 +111,4 @@ export default class RawLocationReference {
     public getNumberOfRows() {
         return -1;
     }
-};
+}

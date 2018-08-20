@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import GeoCoordinates from './GeoCoordinates';
-import Node from './Node';
-import FormOfWay from './FormOfWay';
-import FunctionalRoadClass from './FunctionalRoadClass';
+import { GeoCoordinates } from './GeoCoordinates';
+import { Node } from './Node';
+import { FormOfWay } from './FormOfWay';
+import { FunctionalRoadClass } from './FunctionalRoadClass';
 
-export default interface Line {
+export interface Line {
     getStartNode(): Node;
 
     getEndNode(): Node;
@@ -44,5 +44,5 @@ export default interface Line {
 
     getShapeCoordinates(): Array<GeoCoordinates>;
 
-    getNames(): {[key: string]: Array<String>};
+    getNames(): { [Key: string]: Array<string> };
 }

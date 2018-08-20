@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import AbstractDecoder from './AbstractDecoder';
-import FirstLRP from '../data/FirstLRP';
-import LastLRP from '../data/LastLRP';
-import Offset from '../data/Offset';
-import Offsets from '../../data/Offsets';
-import RawPointAlongLineLocationReference from '../../data/raw-location-reference/RawPointAlongLineLocationReference';
-import BitStreamInput from '../bit-stream/BitStreamInput';
-import RawBinaryData from '../data/RawBinaryData';
+import { AbstractDecoder } from './AbstractDecoder';
+import { FirstLRP } from '../data/FirstLRP';
+import { LastLRP } from '../data/LastLRP';
+import { Offset } from '../data/Offset';
+import { Offsets } from '../../data/Offsets';
+import { RawPointAlongLineLocationReference } from '../../data/raw-location-reference/RawPointAlongLineLocationReference';
+import { BitStreamInput } from '../bit-stream/BitStreamInput';
+import { RawBinaryData } from '../data/RawBinaryData';
 
-export default class PointAlongLineDecoder extends AbstractDecoder {
+export class PointAlongLineDecoder extends AbstractDecoder {
     public decodeData(id: string, bitStreamInput: BitStreamInput, totalBytes: number, version: number, binaryData: RawBinaryData | null) {
         const firstLRP = FirstLRP.fromBitStreamInput(bitStreamInput);
         const lrp1 = this._createFirstLRP(1, firstLRP);
@@ -48,4 +48,4 @@ export default class PointAlongLineDecoder extends AbstractDecoder {
 
         return rawLocationReference;
     }
-};
+}

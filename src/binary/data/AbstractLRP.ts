@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import AbstractCoordinate from './AbstractCoordinate';
-import Attr1 from './Attr1';
+import { AbstractCoordinate } from './AbstractCoordinate';
+import { Attr1 } from './Attr1';
 
-export default class AbstractLRP extends AbstractCoordinate {
-    protected _attrib1: Attr1;
+export class AbstractLRP extends AbstractCoordinate {
+    protected _attrib1!: Attr1;
 
     public static fromBitCount(countBits: number) {
         const abstractLrp = new AbstractLRP();
@@ -29,4 +29,4 @@ export default class AbstractLRP extends AbstractCoordinate {
     public get attrib1() {
         return this._attrib1;
     }
-};
+}

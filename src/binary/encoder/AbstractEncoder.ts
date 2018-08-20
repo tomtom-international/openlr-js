@@ -14,33 +14,33 @@
  * limitations under the License.
  */
 
-import BinaryConstants from '../BinaryConstants';
-import Offset from '../data/Offset';
-import Radius from '../data/Radius';
-import LocationType, {AREA_LOCATIONS, POINTS_LOCATIONS} from '../../data/LocationType';
-import Header from '../data/Header';
-import FirstLRP from '../data/FirstLRP';
-import LastLRP from '../data/LastLRP';
-import IntermediateLRP from '../data/IntermediateLRP';
-import LastClosedLineLRP from '../data/LastClosedLineLRP';
-import Attr1 from '../data/Attr1';
-import Attr2 from '../data/Attr2';
-import Attr3 from '../data/Attr3';
-import Attr4 from '../data/Attr4';
-import Attr5 from '../data/Attr5';
-import Attr6 from '../data/Attr6';
-import FunctionalRoadClass, {getId as functionalRoadClassGetId} from '../../map/FunctionalRoadClass';
-import FormOfWay, {getId as formOfWayGetId} from '../../map/FormOfWay';
-import SideOfRoad, {getId as sideOfRoadGetId} from '../../data/location/data/SideOfRoad';
-import Orientation, {getId as orientationGetId} from '../../data/location/data/Orientation';
-import AbsoluteCoordinates from '../data/AbsoluteCoordinates';
-import RelativeCoordinates from '../data/AbsoluteCoordinates';
-import RawLocationReference from '../../data/raw-location-reference/RawLocationReference';
-import Offsets from '../../data/Offsets';
-import LocationReferencePoint from '../../data/LocationReferencePoint';
-import GeoCoordinates from '../../map/GeoCoordinates';
+import * as BinaryConstants from '../BinaryConstants';
+import { Offset } from '../data/Offset';
+import { Radius } from '../data/Radius';
+import { LocationType, AREA_LOCATIONS, POINTS_LOCATIONS } from '../../data/LocationType';
+import { Header } from '../data/Header';
+import { FirstLRP } from '../data/FirstLRP';
+import { LastLRP } from '../data/LastLRP';
+import { IntermediateLRP } from '../data/IntermediateLRP';
+import { LastClosedLineLRP } from '../data/LastClosedLineLRP';
+import { Attr1 } from '../data/Attr1';
+import { Attr2 } from '../data/Attr2';
+import { Attr3 } from '../data/Attr3';
+import { Attr4 } from '../data/Attr4';
+import { Attr5 } from '../data/Attr5';
+import { Attr6 } from '../data/Attr6';
+import { getId as functionalRoadClassGetId } from '../../map/FunctionalRoadClass';
+import { getId as formOfWayGetId } from '../../map/FormOfWay';
+import { SideOfRoad, getId as sideOfRoadGetId } from '../../data/location/data/SideOfRoad';
+import { Orientation, getId as orientationGetId } from '../../data/location/data/Orientation';
+import { AbsoluteCoordinates } from '../data/AbsoluteCoordinates';
+import { RelativeCoordinates } from '../data/RelativeCoordinates';
+import { RawLocationReference } from '../../data/raw-location-reference/RawLocationReference';
+import { Offsets } from '../../data/Offsets';
+import { LocationReferencePoint } from '../../data/LocationReferencePoint';
+import { GeoCoordinates } from '../../map/GeoCoordinates';
 
-export default class AbstractEncoder {
+export class AbstractEncoder {
     public encodeData(rawLocationReference: RawLocationReference, version: number) {
         throw new Error('This method is abstract');
     }
@@ -258,4 +258,4 @@ export default class AbstractEncoder {
     protected _fitsInto2Bytes(value: number) {
         return (value >= -Math.pow(2, 15) && value <= Math.pow(2, 15) - 1);
     }
-};
+}

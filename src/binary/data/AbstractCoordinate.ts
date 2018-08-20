@@ -14,16 +14,26 @@
  * limitations under the License.
  */
 
-import BinaryInformation from './BinaryInformation';
-import BitStreamInput from '../bit-stream/BitStreamInput';
-import BitStreamOutput from '../bit-stream/BitStreamOutput';
+import { BinaryInformation } from './BinaryInformation';
+import { BitStreamInput } from '../bit-stream/BitStreamInput';
+import { BitStreamOutput } from '../bit-stream/BitStreamOutput';
 
-export default class AbstractCoordinate extends BinaryInformation {
-    protected _lon: number;
+export class AbstractCoordinate extends BinaryInformation {
+    protected _lon!: number;
 
-    protected _lat: number;
+    protected _lat!: number;
 
-    protected _coordBits: number;
+    protected _coordBits!: number;
+
+    public putCoordinates(bitStreamOutput: BitStreamOutput) {
+        bitStreamOutput.putBits(this._lon, this._coordBits);
+        bitStreamOutput.putBits(this._lat, this._coordBits);
+    }
+
+    protected _read(bitStreamInput: BitStreamInput) {
+        this._lon = bitStreamInput.getSignedBits(this._coordBits);
+        this._lat = bitStreamInput.getSignedBits(this._coordBits);
+    }
 
     public static fromBitCount(countBits: number) {
         const abstractCoordinate = new AbstractCoordinate();
@@ -38,15 +48,4 @@ export default class AbstractCoordinate extends BinaryInformation {
     public get lat() {
         return this._lat;
     }
-
-    protected _read(bitStreamInput: BitStreamInput) {
-        this._lon = bitStreamInput.getSignedBits(this._coordBits);
-        this._lat = bitStreamInput.getSignedBits(this._coordBits);
-    }
-
-
-    public putCoordinates(bitStreamOutput: BitStreamOutput) {
-        bitStreamOutput.putBits(this._lon, this._coordBits);
-        bitStreamOutput.putBits(this._lat, this._coordBits);
-    }
-};
+}

@@ -24,5 +24,3 @@ export enum Orientation {
 export const getOrientationValues = () => [Orientation.NO_ORIENTATION_OR_UNKNOWN, Orientation.WITH_LINE_DIRECTION, Orientation.AGAINST_LINE_DIRECTION, Orientation.BOTH];
 export const getDefault = () => Orientation.NO_ORIENTATION_OR_UNKNOWN;
 export const getId = (orientation: Orientation): number => orientation;
-
-export default Orientation;

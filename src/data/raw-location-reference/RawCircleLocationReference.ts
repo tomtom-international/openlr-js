@@ -14,28 +14,28 @@
  * limitations under the License.
  */
 
-import RawPointLocationReference from './RawPointLocationReference';
-import LocationType from '../LocationType';
-import GeoCoordinates from '../../map/GeoCoordinates';
+import { RawPointLocationReference } from './RawPointLocationReference';
+import { LocationType } from '../LocationType';
+import { GeoCoordinates } from '../../map/GeoCoordinates';
 
-export default class RawCircleLocationReference extends RawPointLocationReference {
-	protected _center: GeoCoordinates;
-	protected _radius: number;
+export class RawCircleLocationReference extends RawPointLocationReference {
+    protected _center!: GeoCoordinates;
+    protected _radius!: number;
 
-	public static fromCircleValues(id: string, center: GeoCoordinates, radius: number) {
-		const rawCircleLocationReference = new RawCircleLocationReference();
-		rawCircleLocationReference._id = id;
-		rawCircleLocationReference._locationType = LocationType.CIRCLE;
-		rawCircleLocationReference._center = center;
-		rawCircleLocationReference._radius = radius;
-		return rawCircleLocationReference;
-	}
+    public getCenterPoint() {
+        return this._center;
+    }
 
-	public getCenterPoint() {
-		return this._center;
-	}
+    public getRadius() {
+        return this._radius;
+    }
 
-	public getRadius() {
-		return this._radius;
-	}
-};
+    public static fromCircleValues(id: string, center: GeoCoordinates, radius: number) {
+        const rawCircleLocationReference = new RawCircleLocationReference();
+        rawCircleLocationReference._id = id;
+        rawCircleLocationReference._locationType = LocationType.CIRCLE;
+        rawCircleLocationReference._center = center;
+        rawCircleLocationReference._radius = radius;
+        return rawCircleLocationReference;
+    }
+}

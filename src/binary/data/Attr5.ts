@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import BinaryInformation from './BinaryInformation';
-import BitStreamInput from '../bit-stream/BitStreamInput';
-import BitStreamOutput from '../bit-stream/BitStreamOutput';
+import { BinaryInformation } from './BinaryInformation';
+import { BitStreamInput } from '../bit-stream/BitStreamInput';
+import { BitStreamOutput } from '../bit-stream/BitStreamOutput';
 
-export default class Attr5 extends BinaryInformation {
+export class Attr5 extends BinaryInformation {
     /** The Constant RFU. */
     protected static _NR_RFU = 2;
 
@@ -29,10 +29,16 @@ export default class Attr5 extends BinaryInformation {
     protected static _FOW_BITS = 3;
 
     /** The functional road class information. */
-    protected _frc: number;
+    protected _frc!: number;
 
     /** The form of way information. */
-    protected _fow: number;
+    protected _fow!: number;
+
+    public put(bitStreamOutput: BitStreamOutput) {
+        bitStreamOutput.putBits(Attr5._RFU_VALUE, Attr5._NR_RFU);
+        bitStreamOutput.putBits(this._frc, Attr5._FRC_BITS);
+        bitStreamOutput.putBits(this._fow, Attr5._FOW_BITS);
+    }
 
     public static fromValues(frc: number, fow: number) {
         const attr5 = new Attr5();
@@ -52,12 +58,6 @@ export default class Attr5 extends BinaryInformation {
         return attr5;
     }
 
-    public put(bitStreamOutput: BitStreamOutput) {
-        bitStreamOutput.putBits(Attr5._RFU_VALUE, Attr5._NR_RFU);
-        bitStreamOutput.putBits(this._frc, Attr5._FRC_BITS);
-        bitStreamOutput.putBits(this._fow, Attr5._FOW_BITS);
-    }
-
     public get frc() {
         return this._frc;
     }
@@ -65,4 +65,4 @@ export default class Attr5 extends BinaryInformation {
     public get fow() {
         return this._fow;
     }
-};
+}

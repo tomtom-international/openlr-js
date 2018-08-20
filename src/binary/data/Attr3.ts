@@ -14,16 +14,20 @@
  * limitations under the License.
  */
 
-import BinaryInformation from './BinaryInformation';
-import BitStreamInput from '../bit-stream/BitStreamInput';
-import BitStreamOutput from '../bit-stream/BitStreamOutput';
+import { BinaryInformation } from './BinaryInformation';
+import { BitStreamInput } from '../bit-stream/BitStreamInput';
+import { BitStreamOutput } from '../bit-stream/BitStreamOutput';
 
-export default class Attr3 extends BinaryInformation {
+export class Attr3 extends BinaryInformation {
     /** Number of bits used for dnp */
     protected static _DNP_BITS = 8;
 
     /** The distance to next point information. */
-    protected _dnp: number;
+    protected _dnp!: number;
+
+    public put(bitStreamOutput: BitStreamOutput) {
+        bitStreamOutput.putBits(this._dnp, Attr3._DNP_BITS);
+    }
 
     public static fromValues(dnp: number) {
         const attr3 = new Attr3();
@@ -37,11 +41,7 @@ export default class Attr3 extends BinaryInformation {
         return attr3;
     }
 
-    public put(bitStreamOutput: BitStreamOutput) {
-        bitStreamOutput.putBits(this._dnp, Attr3._DNP_BITS);
-    }
-
     public get dnp() {
         return this._dnp;
     }
-};
+}

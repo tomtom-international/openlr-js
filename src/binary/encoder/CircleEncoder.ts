@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import BinaryConstants from '../BinaryConstants';
-import AbstractEncoder from './AbstractEncoder';
-import LocationReference from '../../data/LocationReference';
-import BinaryReturnCode from '../BinaryReturnCode';
-import LocationType from '../../data/LocationType';
-import BitStreamOutput from '../bit-stream/BitStreamOutput';
-import RawLocationReference from '../../data/raw-location-reference/RawLocationReference';
-import GeoCoordinates from '../../map/GeoCoordinates';
+import * as BinaryConstants from '../BinaryConstants';
+import { AbstractEncoder } from './AbstractEncoder';
+import { LocationReference } from '../../data/LocationReference';
+import { BinaryReturnCode } from '../BinaryReturnCode';
+import { LocationType } from '../../data/LocationType';
+import { BitStreamOutput } from '../bit-stream/BitStreamOutput';
+import { RawLocationReference } from '../../data/raw-location-reference/RawLocationReference';
+import { GeoCoordinates } from '../../map/GeoCoordinates';
 
-export default class CircleEncoder extends AbstractEncoder {
+export class CircleEncoder extends AbstractEncoder {
     public encodeData(rawLocationReference: RawLocationReference, version: number) {
         const center = rawLocationReference.getCenterPoint();
         const radius = rawLocationReference.getRadius();
@@ -51,4 +51,4 @@ export default class CircleEncoder extends AbstractEncoder {
         }
         return out.getData();
     }
-};
+}

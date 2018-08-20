@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import BinaryInformation from './BinaryInformation';
-import BitStreamInput from '../bit-stream/BitStreamInput';
-import BitStreamOutput from '../bit-stream/BitStreamOutput';
+import { BinaryInformation } from './BinaryInformation';
+import { BitStreamInput } from '../bit-stream/BitStreamInput';
+import { BitStreamOutput } from '../bit-stream/BitStreamOutput';
 
-export default class Attr1 extends BinaryInformation {
+export class Attr1 extends BinaryInformation {
     /** The Constant SIDE_OR_ORIENTATION_BITS. */
     protected static _SIDE_OR_ORIENTATION_BITS = 2;
 
@@ -29,13 +29,19 @@ export default class Attr1 extends BinaryInformation {
     protected static _FOW_BITS = 3;
 
     /** The functional road class information. */
-    protected _frc: number;
+    protected _frc!: number;
 
     /** The form of way information. */
-    protected _fow: number;
+    protected _fow!: number;
 
     /** The side or orientation. */
-    protected _sideOrOrientation: number;
+    protected _sideOrOrientation!: number;
+
+    public put(bitStreamOutput: BitStreamOutput) {
+        bitStreamOutput.putBits(this._sideOrOrientation, Attr1._SIDE_OR_ORIENTATION_BITS);
+        bitStreamOutput.putBits(this._frc, Attr1._FRC_BITS);
+        bitStreamOutput.putBits(this._fow, Attr1._FOW_BITS);
+    }
 
     public static fromValues(frc: number, fow: number, sideOrOrientation: number) {
         const attr1 = new Attr1();
@@ -53,13 +59,6 @@ export default class Attr1 extends BinaryInformation {
         return attr1;
     }
 
-
-    public put(bitStreamOutput: BitStreamOutput) {
-        bitStreamOutput.putBits(this._sideOrOrientation, Attr1._SIDE_OR_ORIENTATION_BITS);
-        bitStreamOutput.putBits(this._frc, Attr1._FRC_BITS);
-        bitStreamOutput.putBits(this._fow, Attr1._FOW_BITS);
-    }
-
     public get frc() {
         return this._frc;
     }
@@ -71,4 +70,4 @@ export default class Attr1 extends BinaryInformation {
     public get sideOrOrientation() {
         return this._sideOrOrientation;
     }
-};
+}

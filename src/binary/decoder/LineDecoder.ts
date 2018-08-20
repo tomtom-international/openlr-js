@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-import AbstractDecoder from './AbstractDecoder';
-import BinaryConstants from '../BinaryConstants';
-import FirstLRP from '../data/FirstLRP';
-import IntermediateLRP from '../data/IntermediateLRP';
-import LastLRP from '../data/LastLRP';
-import Offset from '../data/Offset';
-import Offsets from '../../data/Offsets';
-import RawLineLocationReference from '../../data/raw-location-reference/RawLineLocationReference';
-import BitStreamInput from '../bit-stream/BitStreamInput';
-import RawBinaryData from '../data/RawBinaryData';
+import { AbstractDecoder } from './AbstractDecoder';
+import * as BinaryConstants from '../BinaryConstants';
+import { FirstLRP } from '../data/FirstLRP';
+import { IntermediateLRP } from '../data/IntermediateLRP';
+import { LastLRP } from '../data/LastLRP';
+import { Offset } from '../data/Offset';
+import { Offsets } from '../../data/Offsets';
+import { RawLineLocationReference } from '../../data/raw-location-reference/RawLineLocationReference';
+import { BitStreamInput } from '../bit-stream/BitStreamInput';
+import { RawBinaryData } from '../data/RawBinaryData';
 
-export default class LineDecoder extends AbstractDecoder {
+export class LineDecoder extends AbstractDecoder {
     public decodeData(id: string, bitStreamInput: BitStreamInput, totalBytes: number, version: number, binaryData: RawBinaryData | null) {
         // Calculate number of intermediates (integer division: get rid of possible offset information)
         const nrIntermediates = Math.floor((totalBytes - (BinaryConstants.MIN_BYTES_LINE_LOCATION)) / BinaryConstants.LRP_SIZE);
@@ -81,7 +81,7 @@ export default class LineDecoder extends AbstractDecoder {
         points.push(p);
         let prevLon = p.getLongitudeDeg();
         let prevLat = p.getLatitudeDeg();
-        for (let intermediate of intermediates) {
+        for (const intermediate of intermediates) {
             const intermediatePoint = this._createIntermediateLRPFromLatitudeLongitude(lrpCount, intermediate, prevLon, prevLat);
             lrpCount++;
             points.push(intermediatePoint);
@@ -100,4 +100,4 @@ export default class LineDecoder extends AbstractDecoder {
         }
         return rawLocRef;
     }
-};
+}

@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import AbsoluteCoordinates from '../data/AbsoluteCoordinates';
-import AbstractDecoder from './AbstractDecoder';
-import GeoCoordinates from '../../map/GeoCoordinates';
-import RawGeoCoordLocationReference from '../../data/raw-location-reference/RawGeoCoordLocationReference';
-import BitStreamInput from '../bit-stream/BitStreamInput';
-import RawBinaryData from '../data/RawBinaryData';
+import { AbsoluteCoordinates } from '../data/AbsoluteCoordinates';
+import { AbstractDecoder } from './AbstractDecoder';
+import { GeoCoordinates } from '../../map/GeoCoordinates';
+import { RawGeoCoordLocationReference } from '../../data/raw-location-reference/RawGeoCoordLocationReference';
+import { BitStreamInput } from '../bit-stream/BitStreamInput';
+import { RawBinaryData } from '../data/RawBinaryData';
 
-export default class GeoCoordDecoder extends AbstractDecoder {
+export class GeoCoordDecoder extends AbstractDecoder {
     public decodeData(id: string, bitStreamInput: BitStreamInput, totalBytes: number, version: number, binaryData: RawBinaryData | null) {
         const absCoord = AbsoluteCoordinates.fromBitStreamInput(bitStreamInput);
         const geoCoord = GeoCoordinates.fromValues(this._calculate32BitRepresentation(absCoord.lon), this._calculate32BitRepresentation(absCoord.lat));
@@ -31,4 +31,4 @@ export default class GeoCoordDecoder extends AbstractDecoder {
         }
         return rawLocRef;
     }
-};
+}

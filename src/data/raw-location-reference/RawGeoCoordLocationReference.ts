@@ -14,12 +14,16 @@
  * limitations under the License.
  */
 
-import RawPointLocationReference from './RawPointLocationReference';
-import LocationType from '../LocationType';
-import GeoCoordinates from '../../map/GeoCoordinates';
+import { RawPointLocationReference } from './RawPointLocationReference';
+import { LocationType } from '../LocationType';
+import { GeoCoordinates } from '../../map/GeoCoordinates';
 
-export default class RawGeoCoordLocationReference extends RawPointLocationReference {
-    protected _geoCoord: GeoCoordinates;
+export class RawGeoCoordLocationReference extends RawPointLocationReference {
+    protected _geoCoord!: GeoCoordinates;
+
+    public getGeoCoordinates() {
+        return this._geoCoord;
+    }
 
     public static fromGeoCoordValues(id: string, geoCoord: GeoCoordinates) {
         const rawGeoCoordLocationReference = new RawGeoCoordLocationReference();
@@ -29,8 +33,4 @@ export default class RawGeoCoordLocationReference extends RawPointLocationRefere
         rawGeoCoordLocationReference._geoCoord = geoCoord;
         return rawGeoCoordLocationReference;
     }
-
-    public getGeoCoordinates() {
-        return this._geoCoord;
-    }
-};
+}

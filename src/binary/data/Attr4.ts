@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import BinaryInformation from './BinaryInformation';
-import BitStreamInput from '../bit-stream/BitStreamInput';
-import BitStreamOutput from '../bit-stream/BitStreamOutput';
+import { BinaryInformation } from './BinaryInformation';
+import { BitStreamInput } from '../bit-stream/BitStreamInput';
+import { BitStreamOutput } from '../bit-stream/BitStreamOutput';
 
-export default class Attr4 extends BinaryInformation {
+export class Attr4 extends BinaryInformation {
     /** Number of unused bits */
     protected static _RFU_BITS = 1;
 
@@ -32,13 +32,20 @@ export default class Attr4 extends BinaryInformation {
     protected static _BEAR_BITS = 5;
 
     /** The positive offset flag information. */
-    protected _pOffsetF: number;
+    protected _pOffsetF!: number;
 
     /** The negative offset flag information. */
-    protected _nOffsetF: number;
+    protected _nOffsetF!: number;
 
     /** The bearing information. */
-    protected _bear: number;
+    protected _bear!: number;
+
+    public put(bitStreamOutput: BitStreamOutput) {
+        bitStreamOutput.putBits(Attr4._RFU_VALUE, Attr4._RFU_BITS);
+        bitStreamOutput.putBits(this._pOffsetF, Attr4._POFFF_BITS);
+        bitStreamOutput.putBits(this._nOffsetF, Attr4._NOFFF_BITS);
+        bitStreamOutput.putBits(this._bear, Attr4._BEAR_BITS);
+    }
 
     public static fromValues(pOffsetF: number, nOffsetF: number, bear: number) {
         const attr4 = new Attr4();
@@ -60,13 +67,6 @@ export default class Attr4 extends BinaryInformation {
         return attr4;
     }
 
-    public put(bitStreamOutput: BitStreamOutput) {
-        bitStreamOutput.putBits(Attr4._RFU_VALUE, Attr4._RFU_BITS);
-        bitStreamOutput.putBits(this._pOffsetF, Attr4._POFFF_BITS);
-        bitStreamOutput.putBits(this._nOffsetF, Attr4._NOFFF_BITS);
-        bitStreamOutput.putBits(this._bear, Attr4._BEAR_BITS);
-    }
-
     public get pOffsetF() {
         return this._pOffsetF;
     }
@@ -78,4 +78,4 @@ export default class Attr4 extends BinaryInformation {
     public get bear() {
         return this._bear;
     }
-};
+}

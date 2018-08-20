@@ -14,22 +14,23 @@
  * limitations under the License.
  */
 
-import SideOfRoad, {getSideOfRoadValues} from '../../data/location/data/SideOfRoad';
-import Orientation, {getOrientationValues} from '../../data/location/data/Orientation';
-import BinaryConstants from '../BinaryConstants';
-import FunctionalRoadClass, {getFRCValues} from '../../map/FunctionalRoadClass';
-import FormOfWay, {getFormOfWayValues} from '../../map/FormOfWay';
-import LocationReferencePoint from '../../data/LocationReferencePoint';
-import BitStreamInput from '../bit-stream/BitStreamInput';
-import RawBinaryData from '../data/RawBinaryData';
-import Attr1 from '../data/Attr1';
-import FirstLRP from '../data/FirstLRP';
-import IntermediateLRP from '../data/IntermediateLRP';
-import LastClosedLineLRP from '../data/LastClosedLineLRP';
-import LastLRP from '../data/LastLRP';
+import { getSideOfRoadValues } from '../../data/location/data/SideOfRoad';
+import { getOrientationValues } from '../../data/location/data/Orientation';
+import * as BinaryConstants from '../BinaryConstants';
+import { FunctionalRoadClass, getFRCValues } from '../../map/FunctionalRoadClass';
+import { getFormOfWayValues } from '../../map/FormOfWay';
+import { LocationReferencePoint } from '../../data/LocationReferencePoint';
+import { BitStreamInput } from '../bit-stream/BitStreamInput';
+import { RawBinaryData } from '../data/RawBinaryData';
+import { Attr1 } from '../data/Attr1';
+import { FirstLRP } from '../data/FirstLRP';
+import { IntermediateLRP } from '../data/IntermediateLRP';
+import { LastClosedLineLRP } from '../data/LastClosedLineLRP';
+import { LastLRP } from '../data/LastLRP';
+import { RawLocationReference } from '../../data/raw-location-reference/RawLocationReference';
 
-export default class AbstractDecoder {
-    public decodeData(id: string, bitStreamInput: BitStreamInput, totalBytes: number, version: number, binaryData: RawBinaryData | null) {
+export class AbstractDecoder {
+    public decodeData(id: string, bitStreamInput: BitStreamInput, totalBytes: number, version: number, binaryData: RawBinaryData | null): RawLocationReference {
         throw new Error('This method is abstract');
     }
 
@@ -112,4 +113,4 @@ export default class AbstractDecoder {
         const sgn = Math.sign(val);
         return Math.round(Math.fround((sgn * BinaryConstants.ROUND_FACTOR) + (val * BinaryConstants.BIT24FACTOR)));
     }
-};
+}

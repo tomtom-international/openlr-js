@@ -14,31 +14,62 @@
  * limitations under the License.
  */
 
-import {Buffer} from 'buffer';
-import BinaryDecoder from '../binary/BinaryDecoder';
-import BitStreamInput from '../binary/bit-stream/BitStreamInput';
-import Header from '../binary/data/Header';
-import BinaryConstants from '../binary/BinaryConstants';
-import LocationType from './LocationType';
+import { BinaryDecoder } from '../binary/BinaryDecoder';
+import { BitStreamInput } from '../binary/bit-stream/BitStreamInput';
+import { Header } from '../binary/data/Header';
+import * as BinaryConstants from '../binary/BinaryConstants';
+import { LocationType } from './LocationType';
 
-export default class LocationReference {
-    /** The unique id. */
-    protected _id: string;
-
-    /** The loc type. */
-    protected _locationType: LocationType;
-
-    /** The error. */
-    protected _returnCode: number | null;
-
-    /** The binary location reference data. Implemented as a Node JS buffer. */
-    protected _data: Buffer | null;
-
-    /** The version. */
-    protected _version: number;
-
+export class LocationReference {
     /** The Constant VERSION_MASK. */
     protected static _VERSION_MASK = 7;
+
+    /** The unique id. */
+    protected _id!: string;
+
+    /** The loc type. */
+    protected _locationType!: LocationType;
+
+    /** The error. */
+    protected _returnCode!: number | null;
+
+    /** The binary location reference data. Implemented as a Node JS buffer. */
+    protected _data!: Buffer | null;
+
+    /** The version. */
+    protected _version!: number;
+
+    public getReturnCode() {
+        return this._returnCode;
+    }
+
+    public getId() {
+        return this._id;
+    }
+
+    public isValid() {
+        return this._returnCode === null;
+    }
+
+    public getDataIdentifier() {
+        return BinaryConstants.IDENTIFIER;
+    }
+
+    public getLocationReferenceData() {
+        if (this.isValid()) {
+            return this._data;
+        } else {
+            return null;
+        }
+    }
+
+    public getLocationType() {
+        return this._locationType;
+    }
+
+    public getVersion() {
+        return this._version;
+    }
 
     public static fromIdAndBuffer(id: string, data: Buffer) {
         const locationReference = new LocationReference();
@@ -65,7 +96,7 @@ export default class LocationReference {
     }
 
     protected static _checkVersion(ver: number) {
-        for (let v of BinaryDecoder.getVersions()) {
+        for (const v of BinaryDecoder.getVersions()) {
             if (ver === v) {
                 return true;
             }
@@ -142,36 +173,4 @@ export default class LocationReference {
         }
         return locationType;
     }
-
-    public getReturnCode() {
-        return this._returnCode;
-    }
-
-    public getId() {
-        return this._id;
-    }
-
-    public isValid() {
-        return this._returnCode === null;
-    }
-
-    public getDataIdentifier() {
-        return BinaryConstants.IDENTIFIER;
-    }
-
-    public getLocationReferenceData() {
-        if (this.isValid()) {
-            return this._data;
-        } else {
-            return null;
-        }
-    }
-
-    public getLocationType() {
-        return this._locationType;
-    }
-
-    public getVersion() {
-        return this._version;
-    }
-};
+}

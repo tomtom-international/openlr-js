@@ -24,5 +24,3 @@ export enum SideOfRoad {
 export const getSideOfRoadValues = () => [SideOfRoad.ON_ROAD_OR_UNKNOWN, SideOfRoad.RIGHT, SideOfRoad.LEFT, SideOfRoad.BOTH];
 export const getDefault = () => SideOfRoad.ON_ROAD_OR_UNKNOWN;
 export const getId = (sideOfRoad: SideOfRoad): number => sideOfRoad;
-
-export default SideOfRoad;

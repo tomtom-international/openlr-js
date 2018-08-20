@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import GeoCoordinates from './GeoCoordinates';
-import Line from './Line';
+import { GeoCoordinates } from './GeoCoordinates';
+import { Line } from './Line';
 
-export default interface Node {
+export interface Node {
     getLatitudeDeg(): number;
 
     getLongitudeDeg(): number;

@@ -1,13 +1,29 @@
-import Offsets from './Offsets';
-import LocationReference from './LocationReference';
-import LocationReferencePoint from './LocationReferencePoint';
-import GeoCoordinates from '../map/GeoCoordinates';
-import RawInvalidLocationReference from './raw-location-reference/RawInvalidLocationReference';
-import RawLineLocationReference from './raw-location-reference/RawLineLocationReference';
-import RawPointAlongLineLocationReference from './raw-location-reference/RawPointAlongLineLocationReference';
-import RawGeoCoordLocationReference from './raw-location-reference/RawGeoCoordLocationReference';
-import RawPolygonLocationReference from './raw-location-reference/RawPolygonLocationReference';
-import RawCircleLocationReference from './raw-location-reference/RawCircleLocationReference';
+/**
+ * Copyright 2017 TomTom International B.V
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { Offsets } from './Offsets';
+import { LocationReference } from './LocationReference';
+import { LocationReferencePoint } from './LocationReferencePoint';
+import { GeoCoordinates } from '../map/GeoCoordinates';
+import { RawInvalidLocationReference } from './raw-location-reference/RawInvalidLocationReference';
+import { RawLineLocationReference } from './raw-location-reference/RawLineLocationReference';
+import { RawPointAlongLineLocationReference } from './raw-location-reference/RawPointAlongLineLocationReference';
+import { RawGeoCoordLocationReference } from './raw-location-reference/RawGeoCoordLocationReference';
+import { RawPolygonLocationReference } from './raw-location-reference/RawPolygonLocationReference';
+import { RawCircleLocationReference } from './raw-location-reference/RawCircleLocationReference';
 
 const constructors: { [Key: string]: any } = {
     Object,
@@ -24,7 +40,7 @@ const constructors: { [Key: string]: any } = {
     RawCircleLocationReference
 };
 
-export default class Serializer {
+export class Serializer {
     public static serialize(instance: any) {
         if (!instance) {
             return instance;
@@ -74,4 +90,4 @@ export default class Serializer {
             }
         }
     }
-};
+}

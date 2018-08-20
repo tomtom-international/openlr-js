@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import BinaryInformation from './BinaryInformation';
-import BitStreamInput from '../bit-stream/BitStreamInput';
-import BitStreamOutput from '../bit-stream/BitStreamOutput';
+import { BinaryInformation } from './BinaryInformation';
+import { BitStreamInput } from '../bit-stream/BitStreamInput';
+import { BitStreamOutput } from '../bit-stream/BitStreamOutput';
 
-export default class Attr6 extends BinaryInformation {
+export class Attr6 extends BinaryInformation {
     /** number of bits used for lfrcnp */
     protected static _NR_RFU = 3;
 
@@ -26,7 +26,12 @@ export default class Attr6 extends BinaryInformation {
     protected static _BEAR_BITS = 5;
 
     /** The bearing information. */
-    protected _bear: number;
+    protected _bear!: number;
+
+    public put(bitStreamOutput: BitStreamOutput) {
+        bitStreamOutput.putBits(Attr6._RFU_VALUE, Attr6._NR_RFU);
+        bitStreamOutput.putBits(this._bear, Attr6._BEAR_BITS);
+    }
 
     public static fromValues(bear: number) {
         const attr6 = new Attr6();
@@ -44,12 +49,7 @@ export default class Attr6 extends BinaryInformation {
         return attr6;
     }
 
-    public put(bitStreamOutput: BitStreamOutput) {
-        bitStreamOutput.putBits(Attr6._RFU_VALUE, Attr6._NR_RFU);
-        bitStreamOutput.putBits(this._bear, Attr6._BEAR_BITS);
-    }
-
     public get bear() {
         return this._bear;
     }
-};
+}

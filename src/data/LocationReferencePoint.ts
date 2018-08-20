@@ -14,65 +14,37 @@
  * limitations under the License.
  */
 
-import GeoCoordinates from '../map/GeoCoordinates';
-import FormOfWay from '../map/FormOfWay';
-import FunctionalRoadClass from '../map/FunctionalRoadClass';
+import { GeoCoordinates } from '../map/GeoCoordinates';
+import { FormOfWay } from '../map/FormOfWay';
+import { FunctionalRoadClass } from '../map/FunctionalRoadClass';
 
-export default class LocationReferencePoint {
+export class LocationReferencePoint {
     /** The bearing of the line referenced by the LRP. */
-    protected _bearing: number;
+    protected _bearing!: number;
 
     /** The distance to the next LRP along the shortest-path. */
-    protected _distanceToNext: number;
+    protected _distanceToNext!: number;
 
     /** The functional road class of the line referenced by the LRP. */
-    protected _frc: FunctionalRoadClass | null;
+    protected _frc!: FunctionalRoadClass | null;
 
     /** The form of way of the line referenced by the LRP. */
-    protected _fow: FormOfWay | null;
+    protected _fow!: FormOfWay | null;
 
     /** The lowest functional road class to the next LRP. */
-    protected _lfrcnp: FunctionalRoadClass | null;
+    protected _lfrcnp!: FunctionalRoadClass | null;
 
     /** indicate that this is the last LRP */
-    protected _isLast: boolean;
+    protected _isLast!: boolean;
 
     /** The longitude coordinate. */
-    protected _longitude: number;
+    protected _longitude!: number;
 
     /** The latitude coordinate. */
-    protected _latitude: number;
+    protected _latitude!: number;
 
     /** The sequence number. */
-    protected _sequenceNumber: number;
-
-    public static fromValues(sequenceNumber: number, frc: FunctionalRoadClass, fow: FormOfWay, longitude: number, latitude: number, bearing: number, distanceToNext: number, lfrcnp: FunctionalRoadClass | null, isLast: boolean) {
-        const lrp = new LocationReferencePoint();
-        lrp._bearing = bearing;
-        lrp._distanceToNext = distanceToNext;
-        lrp._frc = frc;
-        lrp._fow = fow;
-        lrp._lfrcnp = lfrcnp;
-        lrp._isLast = isLast;
-        lrp._longitude = longitude;
-        lrp._latitude = latitude;
-        lrp._sequenceNumber = sequenceNumber;
-        return lrp;
-    }
-
-    public static fromGeoCoordinate(coord: GeoCoordinates) {
-        const lrp = new LocationReferencePoint();
-        lrp._longitude = coord.getLongitudeDeg();
-        lrp._latitude = coord.getLatitudeDeg();
-        lrp._frc = null;
-        lrp._fow = null;
-        lrp._bearing = 0;
-        lrp._lfrcnp = null;
-        lrp._isLast = false;
-        lrp._distanceToNext = 0;
-        lrp._sequenceNumber = 1;
-        return lrp;
-    }
+    protected _sequenceNumber!: number;
 
     public getLongitudeDeg() {
         return this._longitude;
@@ -105,4 +77,32 @@ export default class LocationReferencePoint {
     public isLastLRP() {
         return this._isLast;
     }
-};
+
+    public static fromValues(sequenceNumber: number, frc: FunctionalRoadClass, fow: FormOfWay, longitude: number, latitude: number, bearing: number, distanceToNext: number, lfrcnp: FunctionalRoadClass | null, isLast: boolean) {
+        const lrp = new LocationReferencePoint();
+        lrp._bearing = bearing;
+        lrp._distanceToNext = distanceToNext;
+        lrp._frc = frc;
+        lrp._fow = fow;
+        lrp._lfrcnp = lfrcnp;
+        lrp._isLast = isLast;
+        lrp._longitude = longitude;
+        lrp._latitude = latitude;
+        lrp._sequenceNumber = sequenceNumber;
+        return lrp;
+    }
+
+    public static fromGeoCoordinate(coord: GeoCoordinates) {
+        const lrp = new LocationReferencePoint();
+        lrp._longitude = coord.getLongitudeDeg();
+        lrp._latitude = coord.getLatitudeDeg();
+        lrp._frc = null;
+        lrp._fow = null;
+        lrp._bearing = 0;
+        lrp._lfrcnp = null;
+        lrp._isLast = false;
+        lrp._distanceToNext = 0;
+        lrp._sequenceNumber = 1;
+        return lrp;
+    }
+}

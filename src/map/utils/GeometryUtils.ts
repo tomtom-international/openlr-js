@@ -14,16 +14,24 @@
  * limitations under the License.
  */
 
-import GeoCoordinates from '../GeoCoordinates';
-import GeometricLine from '../../geometry/Line';
-import MapLine from '../../map/Line';
+import { GeoCoordinates } from '../GeoCoordinates';
+import { Line as GeometricLine } from '../../geometry/Line';
+import { Line as MapLine } from '../../map/Line';
 
 export enum BearingDirection {
     IN_DIRECTION = 1,
     AGAINST_DIRECTION = 2
 }
 
-export default class GeometryUtils {
+export class GeometryUtils {
+    public static bearingDirection = {
+        IN_DIRECTION: BearingDirection.IN_DIRECTION,
+        AGAINST_DIRECTION: BearingDirection.AGAINST_DIRECTION
+    };
+
+    /** Degree in a full circle */
+    public static FULL_CIRCLE_DEGREE = 360;
+
     /** The Constant MAX_LAT. */
     public static MAX_LAT = 90;
 
@@ -54,20 +62,8 @@ export default class GeometryUtils {
     /** The Constant METER_PER_KILOMETER. */
     protected static _METER_PER_KILOMETER = 1000.0;
 
-    private constructor() {
-        throw new Error('Cannot instantiate utility class');
-    }
-
-    public static bearingDirection = {
-        IN_DIRECTION: BearingDirection.IN_DIRECTION,
-        AGAINST_DIRECTION: BearingDirection.AGAINST_DIRECTION
-    };
-
     /** The Constant divisionsPerDegree. */
     protected static _DIVISIONS_PER_DEGREE = 100000; // 1000 * 100;
-
-    /** Degree in a full circle */
-    public static FULL_CIRCLE_DEGREE = 360;
 
     /** = DIVISIONS_PER_DEGREE / DIVISIONS_PER_RADIAN */
     protected static _RAD_FACTOR = 0.017453292519943294;
@@ -81,8 +77,8 @@ export default class GeometryUtils {
     /** The Constant OBLATENESS. */
     protected static _OBLATENESS = 1 / GeometryUtils._INVERSE_FLATTENING;
 
-    protected static _toRadians(value: number) {
-        return value * GeometryUtils._RAD_FACTOR;
+    private constructor() {
+        throw new Error('Cannot instantiate utility class');
     }
 
     public static geoCoordinatesDistance(coord1: GeoCoordinates, coord2: GeoCoordinates) {
@@ -123,10 +119,6 @@ export default class GeometryUtils {
         return d * (1 + GeometryUtils._OBLATENESS * h1 * sinF * sinF * cosG * cosG - GeometryUtils._OBLATENESS * h2 * cosF * cosF * sinG * sinG);
     }
 
-    protected static _transformDecaMicroDeg(val: number) {
-        return val * GeometryUtils._DIVISIONS_PER_DEGREE;
-    }
-
     public static geoCoordinatesBearing(coord1: GeoCoordinates, coord2: GeoCoordinates) {
         return GeometryUtils.latitudeLongitudeBearing(coord1.getLongitudeDeg(), coord1.getLatitudeDeg(), coord2.getLongitudeDeg(), coord2.getLatitudeDeg());
     }
@@ -139,10 +131,6 @@ export default class GeometryUtils {
             angle += GeometryUtils.FULL_CIRCLE_DEGREE;
         }
         return angle;
-    }
-
-    protected static _hMult(y: number) {
-        return Math.cos(y * GeometryUtils._RAD_FACTOR);
     }
 
     public static calculateLineBearing(line: MapLine, dir: BearingDirection, pointDistance: number, projectionAlongLine: number) {
@@ -239,7 +227,7 @@ export default class GeometryUtils {
 
     public static lineIntersection(gc1Start: GeoCoordinates, gc1End: GeoCoordinates, gc2Start: GeoCoordinates, gc2End: GeoCoordinates) {
         const line1 = GeometricLine.fromValues(gc1Start.getLongitudeDeg(), gc1Start.getLatitudeDeg(), gc1End.getLongitudeDeg(), gc1End.getLatitudeDeg());
-        const line2 =GeometricLine.fromValues(gc2Start.getLongitudeDeg(), gc2Start.getLatitudeDeg(), gc2End.getLongitudeDeg(), gc2End.getLatitudeDeg());
+        const line2 = GeometricLine.fromValues(gc2Start.getLongitudeDeg(), gc2Start.getLatitudeDeg(), gc2End.getLongitudeDeg(), gc2End.getLatitudeDeg());
         return line1.intersectsLineObject(line2);
     }
 
@@ -319,5 +307,17 @@ export default class GeometryUtils {
 
     public static toRadians(degrees: number) {
         return degrees * (Math.PI / 180);
+    }
+
+    protected static _toRadians(value: number) {
+        return value * GeometryUtils._RAD_FACTOR;
+    }
+
+    protected static _transformDecaMicroDeg(val: number) {
+        return val * GeometryUtils._DIVISIONS_PER_DEGREE;
+    }
+
+    protected static _hMult(y: number) {
+        return Math.cos(y * GeometryUtils._RAD_FACTOR);
     }
 }

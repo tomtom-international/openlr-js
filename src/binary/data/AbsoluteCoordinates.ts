@@ -14,13 +14,17 @@
  * limitations under the License.
  */
 
-import AbstractCoordinate from './AbstractCoordinate';
-import BitStreamInput from '../bit-stream/BitStreamInput';
-import BitStreamOutput from '../bit-stream/BitStreamOutput';
+import { AbstractCoordinate } from './AbstractCoordinate';
+import { BitStreamInput } from '../bit-stream/BitStreamInput';
+import { BitStreamOutput } from '../bit-stream/BitStreamOutput';
 
-export default class AbsoluteCoordinates extends AbstractCoordinate {
+export class AbsoluteCoordinates extends AbstractCoordinate {
     /** Number of bits used for coordinate (absolute) */
     protected static _COORD_BITS = 24;
+
+    public put(bitStreamOutput: BitStreamOutput) {
+        this.putCoordinates(bitStreamOutput);
+    }
 
     public static fromValues(longitude: number, latitude: number) {
         const absoluteCoordinates = new AbsoluteCoordinates();
@@ -36,8 +40,4 @@ export default class AbsoluteCoordinates extends AbstractCoordinate {
         absoluteCoordinates._read(bitStreamInput);
         return absoluteCoordinates;
     }
-
-    public put(bitStreamOutput: BitStreamOutput) {
-        this.putCoordinates(bitStreamOutput);
-    }
-};
+}

@@ -14,18 +14,24 @@
  * limitations under the License.
  */
 
-import AbstractLRP from './AbstractLRP';
-import Attr1 from './Attr1';
-import Attr4 from './Attr4';
-import BitStreamInput from '../bit-stream/BitStreamInput';
-import BitStreamOutput from '../bit-stream/BitStreamOutput';
+import { AbstractLRP } from './AbstractLRP';
+import { Attr1 } from './Attr1';
+import { Attr4 } from './Attr4';
+import { BitStreamInput } from '../bit-stream/BitStreamInput';
+import { BitStreamOutput } from '../bit-stream/BitStreamOutput';
 
-export default class LastLRP extends AbstractLRP {
+export class LastLRP extends AbstractLRP {
     /** Number of bits used for coordinates (relative) */
     protected static _COORD_BITS = 16;
 
     /** The attrib4 information. */
-    protected _attrib4: Attr4;
+    protected _attrib4!: Attr4;
+
+    public put(bitStreamOutput: BitStreamOutput) {
+        this.putCoordinates(bitStreamOutput);
+        this._attrib1.put(bitStreamOutput);
+        this._attrib4.put(bitStreamOutput);
+    }
 
     public static fromValues(lon: number, lat: number, attrib1: Attr1, attrib4: Attr4) {
         const lastLrp = new LastLRP();
@@ -46,13 +52,7 @@ export default class LastLRP extends AbstractLRP {
         return lastLrp;
     }
 
-    public put(bitStreamOutput: BitStreamOutput) {
-        this.putCoordinates(bitStreamOutput);
-        this._attrib1.put(bitStreamOutput);
-        this._attrib4.put(bitStreamOutput);
-    }
-
     public get attrib4() {
         return this._attrib4;
     }
-};
+}

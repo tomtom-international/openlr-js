@@ -14,14 +14,22 @@
  * limitations under the License.
  */
 
-export default class Line {
-    protected _x1: number;
+export class Line {
+    protected _x1!: number;
 
-    protected _y1: number;
+    protected _y1!: number;
 
-    protected _x2: number;
+    protected _x2!: number;
 
-    protected _y2: number;
+    protected _y2!: number;
+
+    public intersectsLineValues(x1: number, y1: number, x2: number, y2: number) {
+        return Line.linesIntersect(x1, y1, x2, y2, this._x1, this._y1, this._x2, this._y2);
+    }
+
+    public intersectsLineObject(line: Line) {
+        return Line.linesIntersect(line.x1, line.y1, line.x2, line.y2, this._x1, this._y1, this._x2, this._y2);
+    }
 
     public static fromValues(x1: number, y1: number, x2: number, y2: number) {
         const line = new Line();
@@ -48,14 +56,6 @@ export default class Line {
         return this._y2;
     }
 
-    public intersectsLineValues(x1: number, y1: number, x2: number, y2: number) {
-        return Line.linesIntersect(x1, y1, x2, y2, this._x1, this._y1, this._x2, this._y2);
-    }
-
-    public intersectsLineObject(line: Line) {
-        return Line.linesIntersect(line.x1, line.y1, line.x2, line.y2, this._x1, this._y1, this._x2, this._y2);
-    }
-
     public static relativeCCW(x1: number, y1: number, x2: number, y2: number, px: number, py: number) {
         x2 -= x1;
         y2 -= y1;
@@ -79,4 +79,4 @@ export default class Line {
     public static linesIntersect(x1: number, y1: number, x2: number, y2: number, x3: number, y3: number, x4: number, y4: number) {
         return ((Line.relativeCCW(x1, y1, x2, y2, x3, y3) * Line.relativeCCW(x1, y1, x2, y2, x4, y4) <= 0) && (Line.relativeCCW(x3, y3, x4, y4, x1, y1) * Line.relativeCCW(x3, y3, x4, y4, x2, y2) <= 0));
     }
-};
+}

@@ -14,14 +14,22 @@
  * limitations under the License.
  */
 
-import GeometryUtils from './utils/GeometryUtils';
+import { GeometryUtils } from './utils/GeometryUtils';
 
-export default class GeoCoordinates {
+export class GeoCoordinates {
     /** The longitude. */
-    protected _longitude: number;
+    protected _longitude!: number;
 
     /** The latitude. */
-    protected _latitude: number;
+    protected _latitude!: number;
+
+    public getLatitudeDeg() {
+        return this._latitude;
+    }
+
+    public getLongitudeDeg() {
+        return this._longitude;
+    }
 
     public static fromValues(longitude: number, latitude: number) {
         if (!GeometryUtils.checkCoordinateBounds(longitude, latitude)) {
@@ -32,12 +40,4 @@ export default class GeoCoordinates {
         geoCoordinates._latitude = latitude;
         return geoCoordinates;
     }
-
-    public getLatitudeDeg() {
-        return this._latitude;
-    }
-
-    public getLongitudeDeg() {
-        return this._longitude;
-    }
-};
+}

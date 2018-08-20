@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import RawLocationReference from './RawLocationReference';
-import LocationType from '../LocationType';
+import { RawLocationReference } from './RawLocationReference';
+import { LocationType } from '../LocationType';
 
-export default class RawInvalidLocationReference extends RawLocationReference {
+export class RawInvalidLocationReference extends RawLocationReference {
     public static fromIdAndStatusCode(id: string, error: number) {
         const rawInvalidLocationReference = new RawInvalidLocationReference();
         rawInvalidLocationReference._id = id;
@@ -33,4 +33,4 @@ export default class RawInvalidLocationReference extends RawLocationReference {
         rawInvalidLocationReference._returnCode = error;
         return rawInvalidLocationReference;
     }
-};
+}

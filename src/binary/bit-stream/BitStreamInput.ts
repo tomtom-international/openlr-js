@@ -14,51 +14,27 @@
  * limitations under the License.
  */
 
-import BitStreamAbstract from './BitStreamAbstract';
+import { BitStreamAbstract } from './BitStreamAbstract';
 
-export default class BitStreamInput extends BitStreamAbstract {
-    protected _bufferFilledBytes: number;
+export class BitStreamInput extends BitStreamAbstract {
+    protected _bufferFilledBytes!: number;
 
-    protected _inBuffer: Buffer;
+    protected _inBuffer!: Buffer;
 
-    public static fromString(string: string, encoding: string) {
-        const bitStreamInput = new BitStreamInput();
-        bitStreamInput._inBuffer = Buffer.from(string, encoding);
-        bitStreamInput._createBuffer(bitStreamInput._inBuffer.length);
-        bitStreamInput._currentBit = 0;
-        bitStreamInput._bufferFilledBytes = 0;
-        bitStreamInput._fillBufferFromInput();
-        return bitStreamInput;
+    public getBits(count: number) {
+        // Get the bits
+        const x = this._getNextBits(count);
+        // Adjust the bit pointers
+        this._currentBit += count;
+        return x;
     }
 
-    public static fromStringAndLength(string: string, encoding: string, length: number) {
-        const bitStreamInput = new BitStreamInput();
-        bitStreamInput._inBuffer = Buffer.from(string, encoding);
-        bitStreamInput._createBuffer(length);
-        bitStreamInput._currentBit = 0;
-        bitStreamInput._bufferFilledBytes = 0;
-        bitStreamInput._fillBufferFromInput();
-        return bitStreamInput;
-    }
-
-    public static fromBuffer(buffer: Buffer) {
-        const bitStreamInput = new BitStreamInput();
-        bitStreamInput._inBuffer = buffer;
-        bitStreamInput._createBuffer(buffer.length);
-        bitStreamInput._currentBit = 0;
-        bitStreamInput._bufferFilledBytes = 0;
-        bitStreamInput._fillBufferFromInput();
-        return bitStreamInput;
-    }
-
-    public static fromBufferAndLength(buffer: Buffer, length: number) {
-        const bitStreamInput = new BitStreamInput();
-        bitStreamInput._inBuffer = buffer;
-        bitStreamInput._createBuffer(length);
-        bitStreamInput._currentBit = 0;
-        bitStreamInput._bufferFilledBytes = 0;
-        bitStreamInput._fillBufferFromInput();
-        return bitStreamInput;
+    public getSignedBits(count: number) {
+        // Get the (signed) bits
+        const x = this._getNextSignedBits(count);
+        // Adjust the bit pointers
+        this._currentBit += count;
+        return x;
     }
 
     protected _getNextBits(count: number) {
@@ -126,22 +102,6 @@ export default class BitStreamInput extends BitStreamAbstract {
         }
     }
 
-    public getBits(count: number) {
-        // Get the bits
-        const x = this._getNextBits(count);
-        // Adjust the bit pointers
-        this._currentBit += count;
-        return x;
-    }
-
-    public getSignedBits(count: number) {
-        // Get the (signed) bits
-        const x = this._getNextSignedBits(count);
-        // Adjust the bit pointers
-        this._currentBit += count;
-        return x;
-    }
-
     protected _fillBufferFromInput() {
         const currentByteIndex = this._currentBit >>> BitStreamAbstract._BIT_BYTE_SHIFT; // Current byte offset
         const remainingBytes = this._bufferFilledBytes - currentByteIndex; // Remaining bytes
@@ -162,4 +122,44 @@ export default class BitStreamInput extends BitStreamAbstract {
         // Set bit pointer according to the part already being processed
         this._currentBit &= BitStreamAbstract._HIGHEST_BIT;
     }
-};
+
+    public static fromString(value: string, encoding: string) {
+        const bitStreamInput = new BitStreamInput();
+        bitStreamInput._inBuffer = Buffer.from(value, encoding);
+        bitStreamInput._createBuffer(bitStreamInput._inBuffer.length);
+        bitStreamInput._currentBit = 0;
+        bitStreamInput._bufferFilledBytes = 0;
+        bitStreamInput._fillBufferFromInput();
+        return bitStreamInput;
+    }
+
+    public static fromStringAndLength(value: string, encoding: string, length: number) {
+        const bitStreamInput = new BitStreamInput();
+        bitStreamInput._inBuffer = Buffer.from(value, encoding);
+        bitStreamInput._createBuffer(length);
+        bitStreamInput._currentBit = 0;
+        bitStreamInput._bufferFilledBytes = 0;
+        bitStreamInput._fillBufferFromInput();
+        return bitStreamInput;
+    }
+
+    public static fromBuffer(buffer: Buffer) {
+        const bitStreamInput = new BitStreamInput();
+        bitStreamInput._inBuffer = buffer;
+        bitStreamInput._createBuffer(buffer.length);
+        bitStreamInput._currentBit = 0;
+        bitStreamInput._bufferFilledBytes = 0;
+        bitStreamInput._fillBufferFromInput();
+        return bitStreamInput;
+    }
+
+    public static fromBufferAndLength(buffer: Buffer, length: number) {
+        const bitStreamInput = new BitStreamInput();
+        bitStreamInput._inBuffer = buffer;
+        bitStreamInput._createBuffer(length);
+        bitStreamInput._currentBit = 0;
+        bitStreamInput._bufferFilledBytes = 0;
+        bitStreamInput._fillBufferFromInput();
+        return bitStreamInput;
+    }
+}

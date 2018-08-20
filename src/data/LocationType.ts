@@ -39,5 +39,3 @@ export enum LocationType {
 
 export const AREA_LOCATIONS = new Set([LocationType.CIRCLE, LocationType.POLYGON, LocationType.CLOSED_LINE, LocationType.RECTANGLE, LocationType.GRID]);
 export const POINTS_LOCATIONS = new Set([LocationType.GEO_COORDINATES, LocationType.POINT_ALONG_LINE, LocationType.POI_WITH_ACCESS_POINT]);
-
-export default LocationType;

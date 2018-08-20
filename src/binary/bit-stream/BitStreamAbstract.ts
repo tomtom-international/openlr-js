@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import {Buffer} from 'buffer';
+import { Buffer } from 'buffer';
 
-export default class BitStreamAbstract {
+export abstract class BitStreamAbstract {
     /** Factor to shift between bit and byte */
     protected static _BIT_BYTE_SHIFT = 3;
 
@@ -66,13 +66,13 @@ export default class BitStreamAbstract {
     protected static _MAX_BIT_SIZE = 32;
 
     /** The internal data buffer */
-    protected _buffer: Buffer;
+    protected _buffer!: Buffer;
 
     /** The buffer size in bytes */
     protected _totalBufferLengthBytes = BitStreamAbstract._DEFAULT_BUFFER_LENGTH;
 
     /** the current bit position in the internal data buffer */
-    protected _currentBit: number;
+    protected _currentBit!: number;
 
     /** Expand buffer the size of the internal data buffer to size new_length. If new_length is smaller than the current size, then nothing will be done. */
     protected _expandBuffer(newLength?: number) {
@@ -97,4 +97,4 @@ export default class BitStreamAbstract {
         this._buffer.copy(copyBuffer, 0, 0, byteLength);
         return copyBuffer;
     }
-};
+}

@@ -54,5 +54,3 @@ export enum FormOfWay {
 
 export const getFormOfWayValues = () => [FormOfWay.UNDEFINED, FormOfWay.MOTORWAY, FormOfWay.MULTIPLE_CARRIAGEWAY, FormOfWay.SINGLE_CARRIAGEWAY, FormOfWay.ROUNDABOUT, FormOfWay.TRAFFIC_SQUARE, FormOfWay.SLIPROAD];
 export const getId = (formOfWay: FormOfWay): number => formOfWay;
-
-export default FormOfWay;

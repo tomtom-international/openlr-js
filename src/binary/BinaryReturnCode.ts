@@ -28,5 +28,3 @@ export enum BinaryReturnCode {
 }
 
 export const getId = (returnCode: BinaryReturnCode): number => returnCode;
-
-export default BinaryReturnCode;

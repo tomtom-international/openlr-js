@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import BinaryInformation from './BinaryInformation';
-import BitStreamInput from '../bit-stream/BitStreamInput';
-import BitStreamOutput from '../bit-stream/BitStreamOutput';
+import { BinaryInformation } from './BinaryInformation';
+import { BitStreamInput } from '../bit-stream/BitStreamInput';
+import { BitStreamOutput } from '../bit-stream/BitStreamOutput';
 
-export default class Header extends BinaryInformation {
+export class Header extends BinaryInformation {
     protected static _RFU_BITS = 1;
 
     protected static _AREA_FLAG_BIT0 = 1;
@@ -35,16 +35,27 @@ export default class Header extends BinaryInformation {
     protected static _VERSION_BITS = 3;
 
     /** The area flag information. */
-    protected _arf: number;
+    protected _arf!: number;
 
     /** The attribute flag information. */
-    protected _af: number;
+    protected _af!: number;
 
     /** The poflag information */
-    protected _pf: number;
+    protected _pf!: number;
 
     /** The version information. */
-    protected _ver: number;
+    protected _ver!: number;
+
+    public put(bitStreamOutput: BitStreamOutput) {
+        bitStreamOutput.putBits(BinaryInformation._RFU_VALUE, Header._RFU_BITS);
+        const arf1 = this._arf / 2;
+        const arf0 = this._arf % 2;
+        bitStreamOutput.putBits(arf1, Header._AREA_FLAG_BIT1);
+        bitStreamOutput.putBits(this._pf, Header._POINT_FLAG_BITS);
+        bitStreamOutput.putBits(arf0, Header._AREA_FLAG_BIT0);
+        bitStreamOutput.putBits(this._af, Header._ATTR_FLAG_BITS);
+        bitStreamOutput.putBits(this._ver, Header._VERSION_BITS);
+    }
 
     public static fromValues(arfValue: number, afValue: number, pfValue: number, verValue: number) {
         const header = new Header();
@@ -70,17 +81,6 @@ export default class Header extends BinaryInformation {
         return header;
     }
 
-    public put(bitStreamOutput: BitStreamOutput) {
-        bitStreamOutput.putBits(BinaryInformation._RFU_VALUE, Header._RFU_BITS);
-        const arf1 = this._arf / 2;
-        const arf0 = this._arf % 2;
-        bitStreamOutput.putBits(arf1, Header._AREA_FLAG_BIT1);
-        bitStreamOutput.putBits(this._pf, Header._POINT_FLAG_BITS);
-        bitStreamOutput.putBits(arf0, Header._AREA_FLAG_BIT0);
-        bitStreamOutput.putBits(this._af, Header._ATTR_FLAG_BITS);
-        bitStreamOutput.putBits(this._ver, Header._VERSION_BITS);
-    }
-
     public get arf() {
         return this._arf;
     }
@@ -96,4 +96,4 @@ export default class Header extends BinaryInformation {
     public get ver() {
         return this._ver;
     }
-};
+}

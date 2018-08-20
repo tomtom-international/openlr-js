@@ -14,16 +14,20 @@
  * limitations under the License.
  */
 
-import BinaryInformation from './BinaryInformation';
-import BitStreamInput from '../bit-stream/BitStreamInput';
-import BitStreamOutput from '../bit-stream/BitStreamOutput';
+import { BinaryInformation } from './BinaryInformation';
+import { BitStreamInput } from '../bit-stream/BitStreamInput';
+import { BitStreamOutput } from '../bit-stream/BitStreamOutput';
 
-export default class Offset extends BinaryInformation {
+export class Offset extends BinaryInformation {
     /** Number of bits used for offset */
     protected static _OFFSET_BITS = 8;
 
     /** The offset information. */
-    protected _offset: number;
+    protected _offset!: number;
+
+    public put(bitStreamOutput: BitStreamOutput) {
+        bitStreamOutput.putBits(this._offset, Offset._OFFSET_BITS);
+    }
 
     public static fromValues(offsetValue: number) {
         const offset = new Offset();
@@ -37,11 +41,7 @@ export default class Offset extends BinaryInformation {
         return offset;
     }
 
-    public put(bitStreamOutput: BitStreamOutput) {
-        bitStreamOutput.putBits(this._offset, Offset._OFFSET_BITS);
-    }
-
     public get offset() {
         return this._offset;
     }
-};
+}

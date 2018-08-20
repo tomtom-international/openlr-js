@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import AbstractEncoder from './AbstractEncoder';
-import LocationReference from '../../data/LocationReference';
-import BinaryReturnCode from '../BinaryReturnCode';
-import LocationType from '../../data/LocationType';
-import BitStreamOutput from '../bit-stream/BitStreamOutput';
-import RawLocationReference from '../../data/raw-location-reference/RawLocationReference';
-import Offsets from '../../data/Offsets';
-import LocationReferencePoint from '../../data/LocationReferencePoint';
+import { AbstractEncoder } from './AbstractEncoder';
+import { LocationReference } from '../../data/LocationReference';
+import { BinaryReturnCode } from '../BinaryReturnCode';
+import { LocationType } from '../../data/LocationType';
+import { BitStreamOutput } from '../bit-stream/BitStreamOutput';
+import { RawLocationReference } from '../../data/raw-location-reference/RawLocationReference';
+import { Offsets } from '../../data/Offsets';
+import { LocationReferencePoint } from '../../data/LocationReferencePoint';
 
-export default class LineEncoder extends AbstractEncoder {
+export class LineEncoder extends AbstractEncoder {
     public encodeData(rawLocationReference: RawLocationReference, version: number) {
         const locationReferences = rawLocationReference.getLocationReferencePoints();
         if (locationReferences !== null) {
@@ -41,7 +41,7 @@ export default class LineEncoder extends AbstractEncoder {
             }
             return LocationReference.fromIdAndBuffer(rawLocationReference.getId(), this._generateBinaryLineLocation(locationReferences, offsets, version));
         } else {
-            return LocationReference.fromValues(rawLocationReference.getId(), BinaryReturnCode.MISSING_DATA, LocationType.LINE_LOCATION, version)
+            return LocationReference.fromValues(rawLocationReference.getId(), BinaryReturnCode.MISSING_DATA, LocationType.LINE_LOCATION, version);
         }
     }
 
@@ -55,8 +55,8 @@ export default class LineEncoder extends AbstractEncoder {
         const out = BitStreamOutput.fromValues();
         header.put(out);
         firstLRP.put(out);
-        for (let i = 0; i < lrps.length; i++) {
-            lrps[i].put(out);
+        for (const lrp of lrps) {
+            lrp.put(out);
         }
         lastLRP.put(out);
         if (pOff !== null) {
@@ -67,4 +67,4 @@ export default class LineEncoder extends AbstractEncoder {
         }
         return out.getData();
     }
-};
+}

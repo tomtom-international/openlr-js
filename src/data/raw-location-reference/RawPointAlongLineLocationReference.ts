@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import RawPointLocationReference from './RawPointLocationReference';
-import LocationType from '../LocationType';
-import LocationReferencePoint from '../LocationReferencePoint';
-import Offsets from '../Offsets';
-import SideOfRoad from '../location/data/SideOfRoad';
-import Orientation from '../location/data/Orientation';
+import { RawPointLocationReference } from './RawPointLocationReference';
+import { LocationType } from '../LocationType';
+import { LocationReferencePoint } from '../LocationReferencePoint';
+import { Offsets } from '../Offsets';
+import { SideOfRoad } from '../location/data/SideOfRoad';
+import { Orientation } from '../location/data/Orientation';
 
-export default class RawPointAlongLineLocationReference extends RawPointLocationReference {
+export class RawPointAlongLineLocationReference extends RawPointLocationReference {
     public static fromPointAlongLineValues(id: string, lrp1: LocationReferencePoint, lrp2: LocationReferencePoint, offsets: Offsets, sideOfRoad: SideOfRoad, orientation: Orientation) {
         const rawPointAlongLineLocationReference = new RawPointAlongLineLocationReference();
         rawPointAlongLineLocationReference._id = id;
@@ -33,4 +33,4 @@ export default class RawPointAlongLineLocationReference extends RawPointLocation
         rawPointAlongLineLocationReference._sideOfRoad = sideOfRoad;
         return rawPointAlongLineLocationReference;
     }
-};
+}

@@ -31,5 +31,3 @@ export const lower = (frc: FunctionalRoadClass): number => Math.min(frc + 1, Fun
 export const higher = (frc: FunctionalRoadClass): number => Math.max(frc - 1, FunctionalRoadClass.FRC_0);
 export const getHighestFrc = FunctionalRoadClass.FRC_0;
 export const getLowestFrc = FunctionalRoadClass.FRC_7;
-
-export default FunctionalRoadClass;

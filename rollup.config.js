@@ -14,9 +14,10 @@ if (process.env.ROLLUP_UGLIFY === 'true') {
 }
 
 export default {
-    input: 'lib-es5/index.js',
+    input: 'lib/es5/index.js',
     output: {
-        format: 'umd'
+        format: 'umd',
+        exports: 'named'
     },
     name: 'OpenLR',
     plugins
