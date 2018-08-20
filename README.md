@@ -1,6 +1,6 @@
 # Read Me for openlr-js
 
-Copyright (C) 2017, TomTom International BV. All rights reserved.
+Copyright (C) 2018, TomTom International BV. All rights reserved.
 ----
 
 [downloads-image]: https://img.shields.io/npm/dm/openlr-js.svg
@@ -51,6 +51,23 @@ npm install --save openlr-js
 <script>
 // window.OpenLR contains exports
 </script>
+```
+
+## Migration from version 2 to version 3
+
+In addition to adding new geometries to version 3, we have also made a small change to the library structure.
+If you were using version 2 before and would like to start using version 3, be aware that we are now using named exports across the board, and moved the library folders.
+If you never used any imports beyond the main exports, then there is no need to change anything.
+If you used any imports from files other than the main export, then you will have to change a bit.
+
+```js
+// If all you ever used was this, then nothing needs to change:
+import {...} from 'openlr-js';
+
+// If you used imports from other files, then you will have to change 'lib-esX' to 'lib/esX' and make sure to use named imports:
+import RawGeoCoordLocationReference from 'openlr-js/lib-es6/data/raw-location-reference/RawGeoCoordLocationReference';
+// becomes
+import { RawGeoCoordLocationReference } from 'openlr-js/lib/es6/data/raw-location-reference/RawGeoCoordLocationReference';
 ```
 
 ## Example Usage
