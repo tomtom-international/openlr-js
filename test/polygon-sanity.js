@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { Buffer } from 'buffer';
-import { BinaryDecoder, BinaryEncoder, LocationReference, Serializer } from '../lib-es6';
+const { Buffer } = require('buffer');
+const { BinaryDecoder, BinaryEncoder, LocationReference, Serializer } = require('../lib-es5');
 
 const binaryDecoder = new BinaryDecoder();
 const binaryEncoder = new BinaryEncoder();

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import './line-sanity';
-import './point-along-line-sanity';
-import './geo-coord-sanity';
-import './polygon-sanity';
-import './circle-sanity';
+require('./line-sanity');
+require('./point-along-line-sanity');
+require('./geo-coord-sanity');
+require('./polygon-sanity');
+require('./circle-sanity');
 
 console.log('Completed sanity tests');
