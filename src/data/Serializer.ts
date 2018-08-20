@@ -7,6 +7,7 @@ import RawLineLocationReference from './raw-location-reference/RawLineLocationRe
 import RawPointAlongLineLocationReference from './raw-location-reference/RawPointAlongLineLocationReference';
 import RawGeoCoordLocationReference from './raw-location-reference/RawGeoCoordLocationReference';
 import RawPolygonLocationReference from './raw-location-reference/RawPolygonLocationReference';
+import RawCircleLocationReference from './raw-location-reference/RawCircleLocationReference';
 
 const constructors: {[key: string]: any} = {
     Object,
@@ -19,7 +20,8 @@ const constructors: {[key: string]: any} = {
     RawLineLocationReference,
     RawPointAlongLineLocationReference,
     RawGeoCoordLocationReference,
-    RawPolygonLocationReference
+    RawPolygonLocationReference,
+    RawCircleLocationReference
 };
 
 export default class Serializer {

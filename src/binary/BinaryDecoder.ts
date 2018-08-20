@@ -23,6 +23,7 @@ import LineDecoder from './decoder/LineDecoder';
 import PointAlongLineDecoder from './decoder/PointAlongLineDecoder';
 import GeoCoordDecoder from './decoder/GeoCoordDecoder';
 import PolygonDecoder from './decoder/PolygonDecoder'
+import CircleDecoder from './decoder/CircleDecoder';
 import RawBinaryData from './data/RawBinaryData';
 import LocationReference from '../data/LocationReference';
 
@@ -100,8 +101,8 @@ export default class BinaryDecoder {
         } else {
             switch (areaLocationCode) {
                 case BinaryConstants.AREA_CODE_CIRCLE:
-                    //decoder = new CircleDecoder();
-                    throw new Error('CircleDecoder not implemented');
+                    decoder = new CircleDecoder();
+                    break;
                 case BinaryConstants.AREA_CODE_RECTANGLE:
                     /* includes case OpenLRBinaryConstants.AREA_CODE_GRID */
                     if (totalBytes === BinaryConstants.RECTANGLE_SIZE || totalBytes === BinaryConstants.LARGE_RECTANGLE_SIZE) {
