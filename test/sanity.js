@@ -17,5 +17,7 @@
 import './line-sanity';
 import './point-along-line-sanity';
 import './geo-coord-sanity';
+import './polygon-sanity';
+import './circle-sanity';
 
 console.log('Completed sanity tests');

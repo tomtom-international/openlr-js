@@ -22,8 +22,9 @@ import Header from './data/Header';
 import LineDecoder from './decoder/LineDecoder';
 import PointAlongLineDecoder from './decoder/PointAlongLineDecoder';
 import GeoCoordDecoder from './decoder/GeoCoordDecoder';
+import PolygonDecoder from './decoder/PolygonDecoder'
+import CircleDecoder from './decoder/CircleDecoder';
 import RawBinaryData from './data/RawBinaryData';
-import {Buffer} from 'buffer';
 import LocationReference from '../data/LocationReference';
 
 export default class BinaryDecoder {
@@ -100,8 +101,8 @@ export default class BinaryDecoder {
         } else {
             switch (areaLocationCode) {
                 case BinaryConstants.AREA_CODE_CIRCLE:
-                    //decoder = new CircleDecoder();
-                    throw new Error('CircleDecoder not implemented');
+                    decoder = new CircleDecoder();
+                    break;
                 case BinaryConstants.AREA_CODE_RECTANGLE:
                     /* includes case OpenLRBinaryConstants.AREA_CODE_GRID */
                     if (totalBytes === BinaryConstants.RECTANGLE_SIZE || totalBytes === BinaryConstants.LARGE_RECTANGLE_SIZE) {
@@ -116,8 +117,7 @@ export default class BinaryDecoder {
                     break;
                 case BinaryConstants.AREA_CODE_POLYGON:
                     if (!hasAttributes && totalBytes >= BinaryConstants.MIN_BYTES_POLYGON) {
-                        //decoder = new PolygonDecoder();
-                        throw new Error('PolygonDecoder not implemented');
+                        decoder = new PolygonDecoder();
                     } else {
                         rawLocRef = RawInvalidLocationReference.fromIdAndStatusCode(id, BinaryReturnCode.INVALID_BYTE_SIZE);
                     }

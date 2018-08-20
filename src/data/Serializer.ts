@@ -6,8 +6,10 @@ import RawInvalidLocationReference from './raw-location-reference/RawInvalidLoca
 import RawLineLocationReference from './raw-location-reference/RawLineLocationReference';
 import RawPointAlongLineLocationReference from './raw-location-reference/RawPointAlongLineLocationReference';
 import RawGeoCoordLocationReference from './raw-location-reference/RawGeoCoordLocationReference';
+import RawPolygonLocationReference from './raw-location-reference/RawPolygonLocationReference';
+import RawCircleLocationReference from './raw-location-reference/RawCircleLocationReference';
 
-const constructors: {[key: string]: any} = {
+const constructors: { [Key: string]: any } = {
     Object,
     Array,
     Offsets,
@@ -17,7 +19,9 @@ const constructors: {[key: string]: any} = {
     RawInvalidLocationReference,
     RawLineLocationReference,
     RawPointAlongLineLocationReference,
-    RawGeoCoordLocationReference
+    RawGeoCoordLocationReference,
+    RawPolygonLocationReference,
+    RawCircleLocationReference
 };
 
 export default class Serializer {
@@ -33,13 +37,13 @@ export default class Serializer {
                 case 'Object':
                 case 'Array':
                 default:
-                    const properties: {[key: string]: any} = instance.constructor.name === 'Array' ? [] : {};
+                    const properties: { [Key: string]: any } = instance.constructor.name === 'Array' ? [] : {};
                     for (const property in instance) {
                         if (instance.hasOwnProperty(property)) {
                             properties[property] = Serializer.serialize(instance[property]);
                         }
                     }
-                    return {type: instance.constructor.name, properties};
+                    return { type: instance.constructor.name, properties };
             }
         }
     }

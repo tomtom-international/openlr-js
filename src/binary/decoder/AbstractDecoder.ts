@@ -110,6 +110,6 @@ export default class AbstractDecoder {
 
     protected _get24BitRepresentation(val: number) {
         const sgn = Math.sign(val);
-        return Math.round((sgn * BinaryConstants.ROUND_FACTOR) + (val * BinaryConstants.BIT24FACTOR));
+        return Math.round(Math.fround((sgn * BinaryConstants.ROUND_FACTOR) + (val * BinaryConstants.BIT24FACTOR)));
     }
 };

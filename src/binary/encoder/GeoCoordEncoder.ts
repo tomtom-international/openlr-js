@@ -24,17 +24,13 @@ import GeoCoordinates from '../../map/GeoCoordinates';
 
 export default class GeoCoordEncoder extends AbstractEncoder {
     public encodeData(rawLocationReference: RawLocationReference, version: number) {
-        if (rawLocationReference === null) {
-            return LocationReference.fromValues('', BinaryReturnCode.MISSING_DATA, LocationType.GEO_COORDINATES, version);
+        const coord = rawLocationReference.getGeoCoordinates();
+        if (coord === null) {
+            return LocationReference.fromValues(rawLocationReference.getId(), BinaryReturnCode.MISSING_DATA, LocationType.GEO_COORDINATES, version);
+        } else if (version < 3) {
+            return LocationReference.fromValues(rawLocationReference.getId(), BinaryReturnCode.INVALID_VERSION, LocationType.GEO_COORDINATES, version);
         } else {
-            const coord = rawLocationReference.getGeoCoordinates();
-            if (coord === null) {
-                return LocationReference.fromValues('', BinaryReturnCode.MISSING_DATA, LocationType.GEO_COORDINATES, version);
-            } else if (version < 3) {
-                return LocationReference.fromValues('', BinaryReturnCode.INVALID_VERSION, LocationType.GEO_COORDINATES, version);
-            } else {
-                return LocationReference.fromIdAndBuffer(rawLocationReference.getId(), this._generateBinaryGeoCoordLocation(coord, version));
-            }
+            return LocationReference.fromIdAndBuffer(rawLocationReference.getId(), this._generateBinaryGeoCoordLocation(coord, version));
         }
     }
 

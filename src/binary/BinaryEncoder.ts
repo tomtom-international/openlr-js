@@ -21,6 +21,8 @@ import LocationType from '../data/LocationType';
 import LineEncoder from './encoder/LineEncoder';
 import PointAlongLineEncoder from './encoder/PointAlongLineEncoder';
 import GeoCoordEncoder from './encoder/GeoCoordEncoder';
+import PolygonEncoder from './encoder/PolygonEncoder';
+import CircleEncoder from './encoder/CircleEncoder'
 import RawLocationReference from '../data/raw-location-reference/RawLocationReference';
 
 export default class BinaryEncoder {
@@ -75,8 +77,8 @@ export default class BinaryEncoder {
                 encoder = new PointAlongLineEncoder();
                 break;
             case LocationType.CIRCLE:
-                //encoder = new CircleEncoder();
-                throw new Error('CircleEncoder not implemented');
+                encoder = new CircleEncoder();
+                break;
             case LocationType.RECTANGLE:
                 //encoder = new RectangleEncoder();
                 throw new Error('RectangleEncoder not implemented');
@@ -84,8 +86,8 @@ export default class BinaryEncoder {
                 //encoder = new GridEncoder();
                 throw new Error('GridEncoder not implemented');
             case LocationType.POLYGON:
-                //encoder = new PolygonEncoder();
-                throw new Error('PolygonEncoder not implemented');
+                encoder = new PolygonEncoder();
+                break;
             case LocationType.CLOSED_LINE:
                 //encoder = new ClosedLineEncoder();
                 throw new Error('ClosedLineEncoder not implemented');
