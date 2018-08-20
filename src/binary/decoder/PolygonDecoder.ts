@@ -25,43 +25,25 @@ import RawPolygonLocationReference from '../../data/raw-location-reference/RawPo
 
 export default class PolygonDecoder extends AbstractDecoder {
     public decodeData(id: string, bitStreamInput: BitStreamInput, totalBytes: number, version: number, binaryData: RawBinaryData | null) {
-        if (version < BinaryConstants.BINARY_VERSION_3) {
-            throw new Error('PolygonDecoder invalid version ' + version);
-        }
-
         const remainingBytes = totalBytes - (BinaryConstants.HEADER_SIZE + BinaryConstants.ABS_COORD_SIZE);
-		if (remainingBytes % BinaryConstants.RELATIVE_COORD_SIZE != 0) {
-            throw new Error('PolygonDecoder invalid binary data');
-        }
-
         const numRemainingCorners = remainingBytes / BinaryConstants.RELATIVE_COORD_SIZE;
-		if (numRemainingCorners < 2) {
-            throw new Error('PolygonDecoder invalid binary data');
-        }
-
         const cornersCoords: Array<GeoCoordinates> = [];
+        const firstCornerAbsCoord = AbsoluteCoordinates.fromBitStreamInput(bitStreamInput);
+        const firstCornerCoord = GeoCoordinates.fromValues(this._calculate32BitRepresentation(firstCornerAbsCoord.lon), this._calculate32BitRepresentation(firstCornerAbsCoord.lat));
 
-        try {
-            const firstCornerAbsCoord = AbsoluteCoordinates.fromBitStreamInput(bitStreamInput);
-            const firstCornerCoord = GeoCoordinates.fromValues(this._calculate32BitRepresentation(firstCornerAbsCoord.lon), this._calculate32BitRepresentation(firstCornerAbsCoord.lat));
+        cornersCoords.push(firstCornerCoord);
 
-			cornersCoords.push(firstCornerCoord);
-			let prevCornerAbsCoord = firstCornerAbsCoord;
-
-            let counter = numRemainingCorners;
-			while (counter > 0) {
-                counter--;
-				const remainingCoord = RelativeCoordinates.fromBitStreamInput(bitStreamInput);
-                const lon = this._calculate32BitRepresentation(prevCornerAbsCoord.lon) + Math.fround(remainingCoord.lon / BinaryConstants.DECA_MICRO_DEG_FACTOR);
-                const lat = this._calculate32BitRepresentation(prevCornerAbsCoord.lat) + Math.fround(remainingCoord.lat / BinaryConstants.DECA_MICRO_DEG_FACTOR);
-				const cornerCoord = GeoCoordinates.fromValues(lon, lat);
-                cornersCoords.push(cornerCoord);
-                prevCornerAbsCoord = AbsoluteCoordinates.fromValues(this._get24BitRepresentation(cornerCoord.getLongitudeDeg()), this._get24BitRepresentation(cornerCoord.getLatitudeDeg()));
-            }
-		} catch (error) {
-            throw new Error('PolygonDecoder invalid binary data');
+        let prevCornerAbsCoord = firstCornerAbsCoord;
+        let counter = numRemainingCorners;
+        while (counter > 0) {
+            counter--;
+            const remainingCoord = RelativeCoordinates.fromBitStreamInput(bitStreamInput);
+            const lon = this._calculate32BitRepresentation(prevCornerAbsCoord.lon) + Math.fround(remainingCoord.lon / BinaryConstants.DECA_MICRO_DEG_FACTOR);
+            const lat = this._calculate32BitRepresentation(prevCornerAbsCoord.lat) + Math.fround(remainingCoord.lat / BinaryConstants.DECA_MICRO_DEG_FACTOR);
+            const cornerCoord = GeoCoordinates.fromValues(lon, lat);
+            cornersCoords.push(cornerCoord);
+            prevCornerAbsCoord = AbsoluteCoordinates.fromValues(this._get24BitRepresentation(cornerCoord.getLongitudeDeg()), this._get24BitRepresentation(cornerCoord.getLatitudeDeg()));
         }
-
         const rawLocRef = RawPolygonLocationReference.fromPolygonValues(id, cornersCoords);
 		return rawLocRef;
     }

@@ -41,7 +41,6 @@ export default class PolygonEncoder extends AbstractEncoder {
 
         let lr: LocationReference | null = null;
 
-
 		try {
             lr = LocationReference.fromIdAndBuffer(rawLocationReference.getId(), this._generateBinaryPolygonLocation(cornerPoints, version));
 		} catch (error) {
@@ -65,8 +64,6 @@ export default class PolygonEncoder extends AbstractEncoder {
                 const relCornerCoord = RelativeCoordinates.fromValues(relRepValLon, relRepValLat);
                 relCornerCoords.push(relCornerCoord);
                 prevCoord = geoCoord;
-            } else {
-                throw new Error('PolygonEncoder invalid invalid relative coordinates');
             }
         }
 
