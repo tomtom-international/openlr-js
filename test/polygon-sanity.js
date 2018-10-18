@@ -21,7 +21,7 @@ const binaryDecoder = new BinaryDecoder();
 const binaryEncoder = new BinaryEncoder();
 
 const openLrString = 'E/2WTyfN7j0qA/MmW/olEdbrDA==';
-const exptedEncodedOpenLrString = 'E/2WTyfN7j0qA/MmW/olEdbrDQ==';
+const exptedEncodedOpenLrString = 'E/2WTyfN7j0qA/MmW/okEdbrDg==';
 
 const openLrBinary = Buffer.from(openLrString, 'base64');
 const locationReference = LocationReference.fromIdAndBuffer('binary', openLrBinary);
