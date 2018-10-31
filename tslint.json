@@ -67,9 +67,6 @@
                 "order": "instance-sandwich"
             }
         ],
-        "no-unused-variable": [
-            true
-        ],
         "linebreak-style": [
             true,
             "LF"

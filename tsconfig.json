@@ -4,6 +4,8 @@
         "sourceMap": true,
         "allowSyntheticDefaultImports": false,
         "noImplicitAny": true,
+        "noImplicitThis": true,
+        "noUnusedLocals": true,
         "strict": true,
         "declaration": true,
         "typeRoots": [
