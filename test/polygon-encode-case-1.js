@@ -17,7 +17,6 @@ const { BinaryEncoder } = require('../lib/es5');
 const { RawPolygonLocationReference } = require('../lib/es5/data/raw-location-reference/RawPolygonLocationReference');
 const { GeoCoordinates } = require('../lib/es5/map/GeoCoordinates');
 
-const binaryEncoder = new BinaryEncoder();
 const coordinates = [
     [-0.129898533096366, 51.50871146282117],
     [-0.13016675399785527, 51.50899525912013],
@@ -109,12 +108,13 @@ const coordinates = [
     [-0.12843404697423466, 51.50828743446897],
     [-0.129898533096366, 51.50871146282117]
 ];
+const expectedOpenLrString = 'E//oWiSg4f/lABz/n//6/+n/uAAR/+0AGv/t/0f/wgAO//AAlwA3/+H/1gAl//YAagAEACv//wB4//QAEAAKABAAFAAN//UAF//7/7X/2f8D/5gAX/5b/u7/4v4V/8n/N//q/6r/+f/8/+sAVAABA6wAYABFAAoAIv/+AJr/9AA7//sAOP/4AD4AEwAQAIT/+QB9/+kAZ//fAFIAbwAh/+sAJgAzABYAEwAj//wABf8ZACoABgAOADcAIwA9ACAAJQAVAFUALQDZAGkAYv+3AEMAH//yADAASwAZAA0AQABXACEAOgAWAGMAIwBxABwAVQAiAEf/hQAaAAX/uQB/AFcAFv/lABr/nwAf/+4AAv8v/6b/x/+5/9L/6wASAE4AFQAnACEAGwAuABP/pAAh/7n/pP/C/97/4//o/2r/uwAJ//T/Rf+5/7T/5/+N/8wAAf/HABP/4P97/7j/2P/z/48ALv9uACo=';
 
+const binaryEncoder = new BinaryEncoder();
 const rawLocationReference = RawPolygonLocationReference.fromPolygonValues('polygon', coordinates.map(([longitude, latitude]) => GeoCoordinates.fromValues(longitude, latitude)));
 const encodedLocationReference = binaryEncoder.encodeDataFromRLR(rawLocationReference);
 const encodedOpenLrBinary = encodedLocationReference.getLocationReferenceData();
 const encodedOpenLrString = encodedOpenLrBinary.toString('base64');
-const expectedOpenLrString = 'E//oWiSg4f/lABz/n//6/+n/uAAR/+0AGv/t/0f/wgAO//AAlwA3/+H/1gAl//YAagAEACv//wB4//QAEAAKABAAFAAN//UAF//7/7X/2f8D/5gAX/5b/u7/4v4V/8n/N//q/6r/+f/8/+sAVAABA6wAYABFAAoAIv/+AJr/9AA7//sAOP/4AD4AEwAQAIT/+QB9/+kAZ//fAFIAbwAh/+sAJgAzABYAEwAj//wABf8ZACoABgAOADcAIwA9ACAAJQAVAFUALQDZAGkAYv+3AEMAH//yADAASwAZAA0AQABXACEAOgAWAGMAIwBxABwAVQAiAEf/hQAaAAX/uQB/AFcAFv/lABr/nwAf/+4AAv8v/6b/x/+5/9L/6wASAE4AFQAnACEAGwAuABP/pAAh/7n/pP/C/97/4//o/2r/uwAJ//T/Rf+5/7T/5/+N/8wAAf/HABP/4P97/7j/2P/z/48ALv9uACo=';
 
 if (expectedOpenLrString !== encodedOpenLrString) {
     throw new Error('Expected OpenLR string to be equal: ' + expectedOpenLrString + ' and ' + encodedOpenLrString);

@@ -18,6 +18,8 @@ require('./line-sanity');
 require('./point-along-line-sanity');
 require('./geo-coord-sanity');
 require('./polygon-sanity');
+require('./polygon-decode-case-1');
+require('./polygon-encode-case-1');
 require('./circle-sanity');
 
 console.log('Completed sanity tests');

@@ -26,7 +26,7 @@
     "build:es5": "tsc --target ES5 --module CommonJS --outDir lib/es5 --declarationDir lib/es5",
     "build:es6": "tsc --target ES6 --module ES6 --outDir lib/es6 --declarationDir lib/es6",
     "lint": "tslint --project tsconfig.json",
-    "sanity": "node test/sanity.js --source-maps"
+    "test": "node test/sanity.js --source-maps"
   },
   "dependencies": {
     "buffer": "^5.2.1"
