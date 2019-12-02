@@ -38,11 +38,11 @@ export class BinaryEncoder {
         return BinaryEncoder._VERSIONS;
     }
 
-    public encodeDataFromRLR(rawLocationReference: RawLocationReference) {
+    public encodeDataFromRLR(rawLocationReference: RawLocationReference): LocationReference {
         return this.encodeDataFromRLRAndVersion(rawLocationReference, BinaryEncoder._VERSIONS[BinaryEncoder._VERSIONS.length - 1]);
     }
 
-    public encodeDataFromRLRAndVersion(rawLocationReference: RawLocationReference, version: number) {
+    public encodeDataFromRLRAndVersion(rawLocationReference: RawLocationReference, version: number): LocationReference {
         const locationType = rawLocationReference.getLocationType();
         if (!this._checkVersion(version, locationType)) {
             return LocationReference.fromValues(rawLocationReference.getId(), BinaryReturnCode.INVALID_VERSION, locationType, version);

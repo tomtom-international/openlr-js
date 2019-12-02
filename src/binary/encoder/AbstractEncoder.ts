@@ -35,13 +35,14 @@ import { SideOfRoad, getId as sideOfRoadGetId } from '../../data/location/data/S
 import { Orientation, getId as orientationGetId } from '../../data/location/data/Orientation';
 import { AbsoluteCoordinates } from '../data/AbsoluteCoordinates';
 import { RelativeCoordinates } from '../data/RelativeCoordinates';
+import { LocationReference } from '../../data/LocationReference';
 import { RawLocationReference } from '../../data/raw-location-reference/RawLocationReference';
 import { Offsets } from '../../data/Offsets';
 import { LocationReferencePoint } from '../../data/LocationReferencePoint';
 import { GeoCoordinates } from '../../map/GeoCoordinates';
 
 export class AbstractEncoder {
-    public encodeData(rawLocationReference: RawLocationReference, version: number) {
+    public encodeData(rawLocationReference: RawLocationReference, version: number): LocationReference {
         throw new Error('This method is abstract');
     }
 
