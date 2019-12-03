@@ -23,6 +23,11 @@ import { BitStreamOutput } from '../bit-stream/BitStreamOutput';
 import { RawLocationReference } from '../../data/raw-location-reference/RawLocationReference';
 import { GeoCoordinates } from '../../map/GeoCoordinates';
 import { RelativeCoordinates } from '../data/RelativeCoordinates';
+import { RawGeoCoordLocationReference } from '../../data/raw-location-reference/RawGeoCoordLocationReference';
+import { GeoCoordEncoder } from './GeoCoordEncoder';
+import { Buffer } from 'buffer';
+import { BinaryDecoder } from '../BinaryDecoder';
+import { Serializer } from '../../data/Serializer';
 
 export class PolygonEncoder extends AbstractEncoder {
     public encodeData(rawLocationReference: RawLocationReference, version: number) {
@@ -46,14 +51,37 @@ export class PolygonEncoder extends AbstractEncoder {
         return lr;
     }
 
+    protected _processCornerPoints(cornerPoints: Array<GeoCoordinates>, version: number) {
+        const binaryEncoder = new GeoCoordEncoder();
+        const binaryDecoder = new BinaryDecoder();
+        return cornerPoints.map((geoCoordinates) => {
+            const rawGeoCoordLocationReference = RawGeoCoordLocationReference.fromGeoCoordValues('point', geoCoordinates);
+            const encodedPointReference = binaryEncoder.encodeData(rawGeoCoordLocationReference, version);
+            if (encodedPointReference) {
+                const encodedPointOpenLrBinary = encodedPointReference.getLocationReferenceData();
+                if (encodedPointOpenLrBinary) {
+                    const openLrString = encodedPointOpenLrBinary.toString('base64');
+                    const openLrBinary = Buffer.from(openLrString, 'base64');
+                    const locationReference = LocationReference.fromIdAndBuffer('binary', openLrBinary);
+                    const rawLocationReference = binaryDecoder.decodeData(locationReference);
+                    const serializedRawLocationReference = Serializer.serialize(rawLocationReference);
+                    const deserializerRawLocationReference = Serializer.deserialize(serializedRawLocationReference);
+                    const geoCoordinates = deserializerRawLocationReference.getGeoCoordinates();
+                    return geoCoordinates;
+                }
+            }
+        });
+    }
+
     protected _generateBinaryPolygonLocation(cornerPoints: Array<GeoCoordinates>, version: number) {
-        let prevCoord = cornerPoints[0];
+        const convertedCornerPoints = this._processCornerPoints(cornerPoints, version);
+        let prevCoord = convertedCornerPoints[0];
         const firstCornerPoint = this._generateAbsCoord(prevCoord);
 
         const relCornerCoords: Array<RelativeCoordinates> = [];
 
-        for (let i = 1; i < cornerPoints.length; i++) {
-            const geoCoord = cornerPoints[i];
+        for (let i = 1; i < convertedCornerPoints.length; i++) {
+            const geoCoord = convertedCornerPoints[i];
 
             const relRepValLon = this._getRelativeRepresentation(prevCoord.getLongitudeDeg(), geoCoord.getLongitudeDeg());
             const relRepValLat = this._getRelativeRepresentation(prevCoord.getLatitudeDeg(), geoCoord.getLatitudeDeg());
