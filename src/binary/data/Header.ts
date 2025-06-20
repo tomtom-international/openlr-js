@@ -46,6 +46,22 @@ export class Header extends BinaryInformation {
     /** The version information. */
     protected _ver!: number;
 
+    public get arf() {
+        return this._arf;
+    }
+
+    public get af() {
+        return this._af;
+    }
+
+    public get pf() {
+        return this._pf;
+    }
+
+    public get ver() {
+        return this._ver;
+    }
+
     public put(bitStreamOutput: BitStreamOutput) {
         bitStreamOutput.putBits(BinaryInformation._RFU_VALUE, Header._RFU_BITS);
         const arf1 = this._arf / 2;
@@ -79,21 +95,5 @@ export class Header extends BinaryInformation {
         header._af = bitStreamInput.getBits(Header._ATTR_FLAG_BITS);
         header._ver = bitStreamInput.getBits(Header._VERSION_BITS);
         return header;
-    }
-
-    public get arf() {
-        return this._arf;
-    }
-
-    public get af() {
-        return this._af;
-    }
-
-    public get pf() {
-        return this._pf;
-    }
-
-    public get ver() {
-        return this._ver;
     }
 }

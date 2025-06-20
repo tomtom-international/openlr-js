@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
+import { Buffer } from 'buffer';
 import { BitStreamAbstract } from './BitStreamAbstract';
+import {BufferEncoding} from 'rollup';
 
 export class BitStreamInput extends BitStreamAbstract {
     protected _bufferFilledBytes!: number;
@@ -125,7 +127,7 @@ export class BitStreamInput extends BitStreamAbstract {
 
     public static fromString(value: string, encoding: string) {
         const bitStreamInput = new BitStreamInput();
-        bitStreamInput._inBuffer = Buffer.from(value, encoding);
+        bitStreamInput._inBuffer = Buffer.from(value, encoding as BufferEncoding);
         bitStreamInput._createBuffer(bitStreamInput._inBuffer.length);
         bitStreamInput._currentBit = 0;
         bitStreamInput._bufferFilledBytes = 0;
@@ -135,7 +137,7 @@ export class BitStreamInput extends BitStreamAbstract {
 
     public static fromStringAndLength(value: string, encoding: string, length: number) {
         const bitStreamInput = new BitStreamInput();
-        bitStreamInput._inBuffer = Buffer.from(value, encoding);
+        bitStreamInput._inBuffer = Buffer.from(value, encoding as BufferEncoding);
         bitStreamInput._createBuffer(length);
         bitStreamInput._currentBit = 0;
         bitStreamInput._bufferFilledBytes = 0;

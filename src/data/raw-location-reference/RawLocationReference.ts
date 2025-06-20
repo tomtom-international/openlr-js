@@ -28,22 +28,6 @@ export class RawLocationReference {
 
     protected _returnCode!: number | null;
 
-    // static fromValues(id: string, locationType: LocationType, returnCode: number) {
-    //     const rawLocationReference = new RawLocationReference();
-    //     rawLocationReference._id = id;
-    //     rawLocationReference._locationType = locationType;
-    //     rawLocationReference._returnCode = returnCode;
-    //     return rawLocationReference;
-    // }
-
-    // static fromIdAndLocationType(id: string, locationType: LocationType) {
-    //     const rawLocationReference = new RawLocationReference();
-    //     rawLocationReference._id = id;
-    //     rawLocationReference._locationType = locationType;
-    //     rawLocationReference._returnCode = null;
-    //     return rawLocationReference;
-    // }
-
     public getId() {
         return this._id;
     }
@@ -110,5 +94,21 @@ export class RawLocationReference {
 
     public getNumberOfRows() {
         return -1;
+    }
+
+    static fromValues(id: string, locationType: LocationType, returnCode: number) {
+        const rawLocationReference = new RawLocationReference();
+        rawLocationReference._id = id;
+        rawLocationReference._locationType = locationType;
+        rawLocationReference._returnCode = returnCode;
+        return rawLocationReference;
+    }
+
+    static fromIdAndLocationType(id: string, locationType: LocationType) {
+        const rawLocationReference = new RawLocationReference();
+        rawLocationReference._id = id;
+        rawLocationReference._locationType = locationType;
+        rawLocationReference._returnCode = null;
+        return rawLocationReference;
     }
 }

@@ -25,6 +25,14 @@ export class AbstractCoordinate extends BinaryInformation {
 
     protected _coordBits!: number;
 
+    public get lon() {
+        return this._lon;
+    }
+
+    public get lat() {
+        return this._lat;
+    }
+
     public putCoordinates(bitStreamOutput: BitStreamOutput) {
         bitStreamOutput.putBits(this._lon, this._coordBits);
         bitStreamOutput.putBits(this._lat, this._coordBits);
@@ -39,13 +47,5 @@ export class AbstractCoordinate extends BinaryInformation {
         const abstractCoordinate = new AbstractCoordinate();
         abstractCoordinate._coordBits = countBits;
         return abstractCoordinate;
-    }
-
-    public get lon() {
-        return this._lon;
-    }
-
-    public get lat() {
-        return this._lat;
     }
 }

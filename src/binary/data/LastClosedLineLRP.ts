@@ -25,6 +25,14 @@ export class LastClosedLineLRP extends BinaryInformation {
 
     protected _attrib6!: Attr6;
 
+    public get attrib5() {
+        return this._attrib5;
+    }
+
+    public get attrib6() {
+        return this._attrib6;
+    }
+
     public put(bitStreamOutput: BitStreamOutput) {
         this._attrib5.put(bitStreamOutput);
         this._attrib6.put(bitStreamOutput);
@@ -42,13 +50,5 @@ export class LastClosedLineLRP extends BinaryInformation {
         lastClosedLineLrp._attrib5 = Attr5.fromBitStreamInput(bitStreamInput);
         lastClosedLineLrp._attrib6 = Attr6.fromBitStreamInput(bitStreamInput);
         return lastClosedLineLrp;
-    }
-
-    public get attrib5() {
-        return this._attrib5;
-    }
-
-    public get attrib6() {
-        return this._attrib6;
     }
 }

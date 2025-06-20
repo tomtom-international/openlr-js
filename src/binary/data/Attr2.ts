@@ -31,6 +31,14 @@ export class Attr2 extends BinaryInformation {
     /** The bearing information. */
     protected _bear!: number;
 
+    public get lfrcnp() {
+        return this._lfrcnp;
+    }
+
+    public get bear() {
+        return this._bear;
+    }
+
     public put(bitStreamOutput: BitStreamOutput) {
         bitStreamOutput.putBits(this._lfrcnp, Attr2._LFRCNP_BITS);
         bitStreamOutput.putBits(this._bear, Attr2._BEAR_BITS);
@@ -48,13 +56,5 @@ export class Attr2 extends BinaryInformation {
         attr2._lfrcnp = bitStreamInput.getBits(Attr2._LFRCNP_BITS);
         attr2._bear = bitStreamInput.getBits(Attr2._BEAR_BITS);
         return attr2;
-    }
-
-    public get lfrcnp() {
-        return this._lfrcnp;
-    }
-
-    public get bear() {
-        return this._bear;
     }
 }

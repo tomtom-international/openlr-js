@@ -18,7 +18,10 @@ import { Buffer } from 'buffer';
 import { BinaryDecoder } from './binary/BinaryDecoder';
 import { BinaryEncoder } from './binary/BinaryEncoder';
 import { LocationReference } from './data/LocationReference';
+import { LocationReferencePoint } from './data/LocationReferencePoint';
 import { RawLocationReference } from './data/raw-location-reference/RawLocationReference';
+import { RawLineLocationReference } from './data/raw-location-reference/RawLineLocationReference';
 import { Serializer } from './data/Serializer';
+import { Offsets } from './data/Offsets';
 
-export { Buffer, BinaryDecoder, BinaryEncoder, LocationReference, RawLocationReference, Serializer };
+export { Buffer, BinaryDecoder, BinaryEncoder, LocationReference, LocationReferencePoint, Offsets, RawLocationReference, RawLineLocationReference, Serializer };

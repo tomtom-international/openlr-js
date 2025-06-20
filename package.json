@@ -1,5 +1,6 @@
 {
   "license": "Apache-2.0",
+  "type": "commonjs",
   "author": {
     "name": "Wouter van Heeswijk",
     "email": "woutervh@gmail.com",
@@ -21,25 +22,22 @@
   "scripts": {
     "clean": "rimraf lib/browser lib/es5 lib/es6",
     "build": "npm run clean && npm run lint && npm run build:es6 && npm run build:es5 && npm run build:browser && npm run build:browser:min",
-    "build:browser": "cross-env ROLLUP_UGLIFY=false rollup --config --output.file lib/browser/bundle.js",
-    "build:browser:min": "cross-env ROLLUP_UGLIFY=true rollup --config --output.file lib/browser/bundle.min.js",
+    "build:browser": "cross-env rollup --config --bundleConfigAsCjs --output.file lib/browser/bundle.js",
+    "build:browser:min": "cross-env rollup --config --bundleConfigAsCjs --output.file lib/browser/bundle.min.js",
     "build:es5": "tsc --target ES5 --module CommonJS --outDir lib/es5 --declarationDir lib/es5",
     "build:es6": "tsc --target ES6 --module ES6 --outDir lib/es6 --declarationDir lib/es6",
     "lint": "tslint --project tsconfig.json",
-    "test": "node test/sanity.js --source-maps"
+    "test": "node test/sanity.cjs --source-maps"
   },
   "dependencies": {
-    "buffer": "^5.2.1"
+    "buffer": "^6.0.3"
   },
   "devDependencies": {
-    "@types/node": "^10.7.1",
-    "cross-env": "^6.0.3",
-    "rimraf": "^3.0.0",
-    "rollup": "^1.27.8",
-    "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-node-resolve": "^5.2.0",
-    "rollup-plugin-uglify": "^6.0.3",
-    "tslint": "^5.11.0",
-    "typescript": "^3.0.1"
+    "@rollup/plugin-commonjs": "^28.0.6",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "@types/node": "^24.0.3",
+    "rimraf": "^6.0.1",
+    "rollup": "^4.44.0",
+    "typescript": "^5.8.3"
   }
 }

@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import { Buffer } from 'buffer';
 import { BinaryDecoder } from '../binary/BinaryDecoder';
 import { BitStreamInput } from '../binary/bit-stream/BitStreamInput';
 import { Header } from '../binary/data/Header';

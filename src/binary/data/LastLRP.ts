@@ -27,6 +27,10 @@ export class LastLRP extends AbstractLRP {
     /** The attrib4 information. */
     protected _attrib4!: Attr4;
 
+    public get attrib4() {
+        return this._attrib4;
+    }
+
     public put(bitStreamOutput: BitStreamOutput) {
         this.putCoordinates(bitStreamOutput);
         this._attrib1.put(bitStreamOutput);
@@ -50,9 +54,5 @@ export class LastLRP extends AbstractLRP {
         lastLrp._attrib1 = Attr1.fromBitStreamInput(bitStreamInput);
         lastLrp._attrib4 = Attr4.fromBitStreamInput(bitStreamInput);
         return lastLrp;
-    }
-
-    public get attrib4() {
-        return this._attrib4;
     }
 }

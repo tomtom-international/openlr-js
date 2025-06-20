@@ -25,6 +25,10 @@ export class Offset extends BinaryInformation {
     /** The offset information. */
     protected _offset!: number;
 
+    public get offset() {
+        return this._offset;
+    }
+
     public put(bitStreamOutput: BitStreamOutput) {
         bitStreamOutput.putBits(this._offset, Offset._OFFSET_BITS);
     }
@@ -39,9 +43,5 @@ export class Offset extends BinaryInformation {
         const offset = new Offset();
         offset._offset = bitStreamInput.getBits(Offset._OFFSET_BITS);
         return offset;
-    }
-
-    public get offset() {
-        return this._offset;
     }
 }

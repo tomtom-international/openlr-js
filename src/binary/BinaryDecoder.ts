@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import { Buffer } from 'buffer';
 import * as BinaryConstants from './BinaryConstants';
 import { BinaryReturnCode } from './BinaryReturnCode';
 import { BitStreamInput } from './bit-stream/BitStreamInput';

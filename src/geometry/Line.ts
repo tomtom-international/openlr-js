@@ -23,6 +23,22 @@ export class Line {
 
     protected _y2!: number;
 
+    public get x1() {
+        return this._x1;
+    }
+
+    public get y1() {
+        return this._y1;
+    }
+
+    public get x2() {
+        return this._x2;
+    }
+
+    public get y2() {
+        return this._y2;
+    }
+
     public intersectsLineValues(x1: number, y1: number, x2: number, y2: number) {
         return Line.linesIntersect(x1, y1, x2, y2, this._x1, this._y1, this._x2, this._y2);
     }
@@ -38,22 +54,6 @@ export class Line {
         line._x2 = x2;
         line._y2 = y2;
         return line;
-    }
-
-    public get x1() {
-        return this._x1;
-    }
-
-    public get y1() {
-        return this._y1;
-    }
-
-    public get x2() {
-        return this._x2;
-    }
-
-    public get y2() {
-        return this._y2;
     }
 
     public static relativeCCW(x1: number, y1: number, x2: number, y2: number, px: number, py: number) {

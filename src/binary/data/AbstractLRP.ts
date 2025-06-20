@@ -20,13 +20,13 @@ import { Attr1 } from './Attr1';
 export class AbstractLRP extends AbstractCoordinate {
     protected _attrib1!: Attr1;
 
+    public get attrib1() {
+        return this._attrib1;
+    }
+
     public static fromBitCount(countBits: number) {
         const abstractLrp = new AbstractLRP();
         abstractLrp._coordBits = countBits;
         return abstractLrp;
-    }
-
-    public get attrib1() {
-        return this._attrib1;
     }
 }

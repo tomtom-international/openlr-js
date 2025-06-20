@@ -31,6 +31,14 @@ export class IntermediateLRP extends AbstractLRP {
     /** The attrib3. */
     protected _attrib3!: Attr3;
 
+    public get attrib2() {
+        return this._attrib2;
+    }
+
+    public get attrib3() {
+        return this._attrib3;
+    }
+
     public put(bitStreamOutput: BitStreamOutput) {
         this.putCoordinates(bitStreamOutput);
         this._attrib1.put(bitStreamOutput);
@@ -57,13 +65,5 @@ export class IntermediateLRP extends AbstractLRP {
         intermediateLrp._attrib2 = Attr2.fromBitStreamInput(bitStreamInput);
         intermediateLrp._attrib3 = Attr3.fromBitStreamInput(bitStreamInput);
         return intermediateLrp;
-    }
-
-    public get attrib2() {
-        return this._attrib2;
-    }
-
-    public get attrib3() {
-        return this._attrib3;
     }
 }
