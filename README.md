@@ -1,6 +1,6 @@
 # Read Me for openlr-js
 
-Copyright (C) 2018, TomTom International BV. All rights reserved.
+Copyright (C) 2018-2025, TomTom International BV. All rights reserved.
 ----
 
 [downloads-image]: https://img.shields.io/npm/dm/openlr-js.svg

@@ -1,5 +1,5 @@
-/**
- * Copyright 2020 TomTom International B.V
+/*
+ * Copyright (c) 2020-2025 TomTom International B.V.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ const {
   RawLineLocationReference
 } = require("../lib/es5")
 
+const almostEqual = (x, y) => Math.abs(x - y) < 0.0001
 const binaryDecoder = new BinaryDecoder()
 const binaryEncoder = new BinaryEncoder()
 
@@ -95,7 +96,7 @@ locationReference = LocationReference.fromIdAndBuffer("binary", openLrBinary)
 rawLocationReference = binaryDecoder.decodeData(locationReference)
 locations.map((location, i) => {
     let locationReferencePoint = rawLocationReference.getLocationReferencePoints()[i]
-    if (!almost(locationReferencePoint.getLongitudeDeg(), location.lng) || !almost(locationReferencePoint.getLatitudeDeg(), location.lat)) {
+    if (!almostEqual(locationReferencePoint.getLongitudeDeg(), location.lng) || !almostEqual(locationReferencePoint.getLatitudeDeg(), location.lat)) {
       throw new Error("Expected location to be equal: " + location.lng + "," + location.lat + " !== " + locationReferencePoint.getLongitudeDeg() + "," + locationReferencePoint.getLatitudeDeg())
     }
   }
