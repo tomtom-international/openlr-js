@@ -1,4 +1,4 @@
-import * as OpenLR from "openlr-js";
+import * as OpenLR from 'openlr-js';
 
 // Set up the line positions
 const locations = [
@@ -8,7 +8,7 @@ const locations = [
 
 // Create raw location reference
 const rawLineLocationReference = OpenLR.RawLineLocationReference.fromLineValues(
-    "binary",
+    'binary',
     locations.map((location, i) => {
         return OpenLR.LocationReferencePoint.fromValues(
             i,
@@ -32,5 +32,5 @@ const encodedLocationReference = binaryEncoder.encodeDataFromRLR(rawLineLocation
 // Display base64 encoded OpenLR binary
 const locationReferenceData = encodedLocationReference.getLocationReferenceData();
 if (locationReferenceData) {
-    console.log(locationReferenceData.toString("base64")); // prints: CwNhbCU+jzjgAQD0/344AA==
+    console.log(locationReferenceData.toString('base64')); // prints: CwNhbCU+jzjgAQD0/344AA==
 }

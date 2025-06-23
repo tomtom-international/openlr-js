@@ -70,10 +70,18 @@ import RawGeoCoordLocationReference from 'openlr-js/lib-es6/data/raw-location-re
 import { RawGeoCoordLocationReference } from 'openlr-js/lib/es6/data/raw-location-reference/RawGeoCoordLocationReference';
 ```
 
+It is now also possible to import what you need from the index file:
+
+```js
+import { Buffer, BinaryEncoder, BinaryDecoder, RawGeoCoordLocationReference } from 'openlr-js';
+// or:
+import * as OpenLR from "openlr-js";
+```
+
 ## Example Usage
 
 The following examples will give you a quick overview of how to use the library.
-For more examples, you may also check out the tests in the `test/` folder.
+For more examples, you may also check out the [examples](./examples) or the tests in the `test/` folder.
 
 ### Decoding OpenLR to a JSON Object 
 
