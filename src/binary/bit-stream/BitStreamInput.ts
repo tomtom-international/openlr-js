@@ -16,7 +16,6 @@
 
 import { Buffer } from 'buffer';
 import { BitStreamAbstract } from './BitStreamAbstract';
-import {BufferEncoding} from 'rollup';
 
 export class BitStreamInput extends BitStreamAbstract {
     protected _bufferFilledBytes!: number;
