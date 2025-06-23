@@ -8,11 +8,7 @@ Copyright (C) 2018-2025, TomTom International BV. All rights reserved.
 [npm-url]: https://npmjs.org/package/openlr-js
 [jsdelivr-image]: https://data.jsdelivr.com/v1/package/npm/openlr-js/badge
 [jsdelivr-url]: https://www.jsdelivr.com/package/npm/openlr-js
-[dependency-status-image]: https://david-dm.org/tomtom-international/openlr-js.svg
-[dependency-status-url]: https://david-dm.org/tomtom-international/openlr-js
-[devDependency-status-image]: https://david-dm.org/tomtom-international/openlr-js/dev-status.svg
-[devDependency-status-url]: https://david-dm.org/tomtom-international/openlr-js#info=devDependencies
-[![npm][npm-image]][npm-url] [![downloads][downloads-image]][npm-url] [![jsdelivr download][jsdelivr-image]][jsdelivr-url] [![dependency  status][dependency-status-image]][dependency-status-url] [![devDependency  status][devDependency-status-image]][devDependency-status-url]
+[![npm][npm-image]][npm-url] [![downloads][downloads-image]][npm-url] [![jsdelivr download][jsdelivr-image]][jsdelivr-url]
 
 This library contains an OpenLR implementation for JavaScript.
 
