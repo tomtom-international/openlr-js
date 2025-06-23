@@ -16,6 +16,7 @@
 
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
+import terser from '@rollup/plugin-terser';
 
 const plugins = [
     resolve({
@@ -26,10 +27,22 @@ const plugins = [
 
 export default {
     input: 'lib/es5/index.js',
-    output: {
-        format: 'umd',
-        exports: 'named',
-        name: 'OpenLR'
-    },
+    output: [
+        {
+            file: 'lib/browser/bundle.js',
+            format: 'umd',
+            exports: 'named',
+            name: 'OpenLR'
+        },
+        {
+            file: 'lib/browser/bundle.min.js',
+            format: 'umd',
+            exports: 'named',
+            name: 'OpenLR',
+            plugins: [
+                terser()
+            ]
+        }
+    ],
     plugins
 };
