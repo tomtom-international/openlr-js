@@ -1,5 +1,5 @@
-/**
- * Copyright 2020 TomTom International B.V
+/*
+ * Copyright (c) 2020-2025 TomTom International B.V.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +28,14 @@ export class FirstLRP extends AbstractLRP {
 
     protected _attrib3!: Attr3;
 
+    public get attrib2() {
+        return this._attrib2;
+    }
+
+    public get attrib3() {
+        return this._attrib3;
+    }
+
     public put(bitStreamOutput: BitStreamOutput) {
         this.putCoordinates(bitStreamOutput);
         this._attrib1.put(bitStreamOutput);
@@ -54,13 +62,5 @@ export class FirstLRP extends AbstractLRP {
         firstLrp._attrib2 = Attr2.fromBitStreamInput(bitStreamInput);
         firstLrp._attrib3 = Attr3.fromBitStreamInput(bitStreamInput);
         return firstLrp;
-    }
-
-    public get attrib2() {
-        return this._attrib2;
-    }
-
-    public get attrib3() {
-        return this._attrib3;
     }
 }

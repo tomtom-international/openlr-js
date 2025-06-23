@@ -1,5 +1,5 @@
-/**
- * Copyright 2020 TomTom International B.V
+/*
+ * Copyright (c) 2020-2025 TomTom International B.V.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,6 +40,18 @@ export class Attr4 extends BinaryInformation {
     /** The bearing information. */
     protected _bear!: number;
 
+    public get pOffsetF() {
+        return this._pOffsetF;
+    }
+
+    public get nOffsetF() {
+        return this._nOffsetF;
+    }
+
+    public get bear() {
+        return this._bear;
+    }
+
     public put(bitStreamOutput: BitStreamOutput) {
         bitStreamOutput.putBits(Attr4._RFU_VALUE, Attr4._RFU_BITS);
         bitStreamOutput.putBits(this._pOffsetF, Attr4._POFFF_BITS);
@@ -65,17 +77,5 @@ export class Attr4 extends BinaryInformation {
         attr4._nOffsetF = bitStreamInput.getBits(Attr4._NOFFF_BITS);
         attr4._bear = bitStreamInput.getBits(Attr4._BEAR_BITS);
         return attr4;
-    }
-
-    public get pOffsetF() {
-        return this._pOffsetF;
-    }
-
-    public get nOffsetF() {
-        return this._nOffsetF;
-    }
-
-    public get bear() {
-        return this._bear;
     }
 }

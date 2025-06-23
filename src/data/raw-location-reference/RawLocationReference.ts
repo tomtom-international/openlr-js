@@ -1,5 +1,5 @@
-/**
- * Copyright 2020 TomTom International B.V
+/*
+ * Copyright (c) 2020-2025 TomTom International B.V.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,22 +27,6 @@ export class RawLocationReference {
     protected _id!: string;
 
     protected _returnCode!: number | null;
-
-    // static fromValues(id: string, locationType: LocationType, returnCode: number) {
-    //     const rawLocationReference = new RawLocationReference();
-    //     rawLocationReference._id = id;
-    //     rawLocationReference._locationType = locationType;
-    //     rawLocationReference._returnCode = returnCode;
-    //     return rawLocationReference;
-    // }
-
-    // static fromIdAndLocationType(id: string, locationType: LocationType) {
-    //     const rawLocationReference = new RawLocationReference();
-    //     rawLocationReference._id = id;
-    //     rawLocationReference._locationType = locationType;
-    //     rawLocationReference._returnCode = null;
-    //     return rawLocationReference;
-    // }
 
     public getId() {
         return this._id;
@@ -110,5 +94,21 @@ export class RawLocationReference {
 
     public getNumberOfRows() {
         return -1;
+    }
+
+    static fromValues(id: string, locationType: LocationType, returnCode: number) {
+        const rawLocationReference = new RawLocationReference();
+        rawLocationReference._id = id;
+        rawLocationReference._locationType = locationType;
+        rawLocationReference._returnCode = returnCode;
+        return rawLocationReference;
+    }
+
+    static fromIdAndLocationType(id: string, locationType: LocationType) {
+        const rawLocationReference = new RawLocationReference();
+        rawLocationReference._id = id;
+        rawLocationReference._locationType = locationType;
+        rawLocationReference._returnCode = null;
+        return rawLocationReference;
     }
 }

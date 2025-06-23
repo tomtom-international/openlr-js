@@ -1,5 +1,5 @@
-/**
- * Copyright 2020 TomTom International B.V
+/*
+ * Copyright (c) 2020-2025 TomTom International B.V.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,14 @@ export class AbstractCoordinate extends BinaryInformation {
 
     protected _coordBits!: number;
 
+    public get lon() {
+        return this._lon;
+    }
+
+    public get lat() {
+        return this._lat;
+    }
+
     public putCoordinates(bitStreamOutput: BitStreamOutput) {
         bitStreamOutput.putBits(this._lon, this._coordBits);
         bitStreamOutput.putBits(this._lat, this._coordBits);
@@ -39,13 +47,5 @@ export class AbstractCoordinate extends BinaryInformation {
         const abstractCoordinate = new AbstractCoordinate();
         abstractCoordinate._coordBits = countBits;
         return abstractCoordinate;
-    }
-
-    public get lon() {
-        return this._lon;
-    }
-
-    public get lat() {
-        return this._lat;
     }
 }

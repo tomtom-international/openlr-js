@@ -1,5 +1,5 @@
-/**
- * Copyright 2020 TomTom International B.V
+/*
+ * Copyright (c) 2020-2025 TomTom International B.V.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ const { BinaryDecoder, BinaryEncoder, LocationReference, Serializer } = require(
 const binaryDecoder = new BinaryDecoder();
 const binaryEncoder = new BinaryEncoder();
 
-const openLrString = 'IwXBoSPT4w==';
+const openLrString = 'KwRboCNGfhJRAf/O/7SSQ04=';
 const openLrBinary = Buffer.from(openLrString, 'base64');
 const locationReference = LocationReference.fromIdAndBuffer('binary', openLrBinary);
 const rawLocationReference = binaryDecoder.decodeData(locationReference);

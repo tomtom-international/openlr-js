@@ -1,5 +1,5 @@
-/**
- * Copyright 2020 TomTom International B.V
+/*
+ * Copyright (c) 2020-2025 TomTom International B.V.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,6 +34,14 @@ export class Attr5 extends BinaryInformation {
     /** The form of way information. */
     protected _fow!: number;
 
+    public get frc() {
+        return this._frc;
+    }
+
+    public get fow() {
+        return this._fow;
+    }
+
     public put(bitStreamOutput: BitStreamOutput) {
         bitStreamOutput.putBits(Attr5._RFU_VALUE, Attr5._NR_RFU);
         bitStreamOutput.putBits(this._frc, Attr5._FRC_BITS);
@@ -56,13 +64,5 @@ export class Attr5 extends BinaryInformation {
         attr5._frc = bitStreamInput.getBits(Attr5._FRC_BITS);
         attr5._fow = bitStreamInput.getBits(Attr5._FOW_BITS);
         return attr5;
-    }
-
-    public get frc() {
-        return this._frc;
-    }
-
-    public get fow() {
-        return this._fow;
     }
 }

@@ -3,7 +3,7 @@
     "rules": {
         "file-header": [
             true,
-            "Copyright 2020 TomTom International B.V"
+            "Copyright .* TomTom International B.V."
         ],
         "interface-name": [
             false

@@ -1,5 +1,5 @@
-/**
- * Copyright 2020 TomTom International B.V
+/*
+ * Copyright (c) 2020-2025 TomTom International B.V.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import { Buffer } from 'buffer';
 import * as BinaryConstants from './BinaryConstants';
 import { BinaryReturnCode } from './BinaryReturnCode';
 import { BitStreamInput } from './bit-stream/BitStreamInput';

@@ -1,5 +1,5 @@
-/**
- * Copyright 2020 TomTom International B.V
+/*
+ * Copyright (c) 2020-2025 TomTom International B.V.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import { Buffer } from 'buffer';
 import { BitStreamAbstract } from './BitStreamAbstract';
 
 export class BitStreamInput extends BitStreamAbstract {
@@ -125,7 +126,7 @@ export class BitStreamInput extends BitStreamAbstract {
 
     public static fromString(value: string, encoding: string) {
         const bitStreamInput = new BitStreamInput();
-        bitStreamInput._inBuffer = Buffer.from(value, encoding);
+        bitStreamInput._inBuffer = Buffer.from(value, encoding as BufferEncoding);
         bitStreamInput._createBuffer(bitStreamInput._inBuffer.length);
         bitStreamInput._currentBit = 0;
         bitStreamInput._bufferFilledBytes = 0;
@@ -135,7 +136,7 @@ export class BitStreamInput extends BitStreamAbstract {
 
     public static fromStringAndLength(value: string, encoding: string, length: number) {
         const bitStreamInput = new BitStreamInput();
-        bitStreamInput._inBuffer = Buffer.from(value, encoding);
+        bitStreamInput._inBuffer = Buffer.from(value, encoding as BufferEncoding);
         bitStreamInput._createBuffer(length);
         bitStreamInput._currentBit = 0;
         bitStreamInput._bufferFilledBytes = 0;

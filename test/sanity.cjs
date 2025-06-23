@@ -1,5 +1,5 @@
-/**
- * Copyright 2020 TomTom International B.V
+/*
+ * Copyright (c) 2020-2025 TomTom International B.V.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-require('./line-sanity');
-require('./point-along-line-sanity');
-require('./geo-coord-sanity');
-require('./polygon-sanity');
-require('./polygon-decode-case-1');
-require('./polygon-encode-case-1');
-require('./circle-sanity');
+require('./line-sanity.cjs');
+require('./point-along-line-sanity.cjs');
+require('./geo-coord-sanity.cjs');
+require('./polygon-sanity.cjs');
+require('./polygon-decode-case-1.cjs');
+require('./polygon-encode-case-1.cjs');
+require('./circle-sanity.cjs');
 
 console.log('Completed sanity tests');

@@ -1,5 +1,5 @@
-/**
- * Copyright 2020 TomTom International B.V
+/*
+ * Copyright (c) 2020-2025 TomTom International B.V.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,6 +51,10 @@ export class Radius {
     // The radius (up to 4 bytes) according to OpenLR white paper.
     protected _radius!: number;
 
+    public get radius() {
+        return this._radius;
+    }
+
     public put(bitStreamOutput: BitStreamOutput) {
         if (this._radius <= Radius._MAX_RADIUS_SMALL) {
             bitStreamOutput.putBits(this._radius, BinaryConstants.SMALL_RADIUS_BITS);
@@ -90,10 +94,6 @@ export class Radius {
                 throw new Error('Invalid value range');
         }
         return radius;
-    }
-
-    public get radius() {
-        return this._radius;
     }
 
     protected static _intToLong(integer: number) {

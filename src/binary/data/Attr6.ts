@@ -1,5 +1,5 @@
-/**
- * Copyright 2020 TomTom International B.V
+/*
+ * Copyright (c) 2020-2025 TomTom International B.V.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +28,10 @@ export class Attr6 extends BinaryInformation {
     /** The bearing information. */
     protected _bear!: number;
 
+    public get bear() {
+        return this._bear;
+    }
+
     public put(bitStreamOutput: BitStreamOutput) {
         bitStreamOutput.putBits(Attr6._RFU_VALUE, Attr6._NR_RFU);
         bitStreamOutput.putBits(this._bear, Attr6._BEAR_BITS);
@@ -47,9 +51,5 @@ export class Attr6 extends BinaryInformation {
         const attr6 = new Attr6();
         attr6._bear = bitStreamInput.getBits(Attr6._BEAR_BITS);
         return attr6;
-    }
-
-    public get bear() {
-        return this._bear;
     }
 }

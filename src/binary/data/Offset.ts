@@ -1,5 +1,5 @@
-/**
- * Copyright 2020 TomTom International B.V
+/*
+ * Copyright (c) 2020-2025 TomTom International B.V.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,10 @@ export class Offset extends BinaryInformation {
     /** The offset information. */
     protected _offset!: number;
 
+    public get offset() {
+        return this._offset;
+    }
+
     public put(bitStreamOutput: BitStreamOutput) {
         bitStreamOutput.putBits(this._offset, Offset._OFFSET_BITS);
     }
@@ -39,9 +43,5 @@ export class Offset extends BinaryInformation {
         const offset = new Offset();
         offset._offset = bitStreamInput.getBits(Offset._OFFSET_BITS);
         return offset;
-    }
-
-    public get offset() {
-        return this._offset;
     }
 }

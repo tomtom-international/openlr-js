@@ -1,5 +1,5 @@
-/**
- * Copyright 2020 TomTom International B.V
+/*
+ * Copyright (c) 2020-2025 TomTom International B.V.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,10 @@ export class Attr3 extends BinaryInformation {
     /** The distance to next point information. */
     protected _dnp!: number;
 
+    public get dnp() {
+        return this._dnp;
+    }
+
     public put(bitStreamOutput: BitStreamOutput) {
         bitStreamOutput.putBits(this._dnp, Attr3._DNP_BITS);
     }
@@ -39,9 +43,5 @@ export class Attr3 extends BinaryInformation {
         const attr3 = new Attr3();
         attr3._dnp = bitStreamInput.getBits(Attr3._DNP_BITS);
         return attr3;
-    }
-
-    public get dnp() {
-        return this._dnp;
     }
 }

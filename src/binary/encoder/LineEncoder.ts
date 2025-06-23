@@ -1,5 +1,5 @@
-/**
- * Copyright 2020 TomTom International B.V
+/*
+ * Copyright (c) 2020-2025 TomTom International B.V.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ export class LineEncoder extends AbstractEncoder {
         const locationReferences = rawLocationReference.getLocationReferencePoints();
         if (locationReferences !== null) {
             const offsets = rawLocationReference.getOffsets();
-            if (locationReferences === null || offsets === null || locationReferences.length <= 0) {
+            if (offsets === null || locationReferences.length <= 0) {
                 return LocationReference.fromValues(rawLocationReference.getId(), BinaryReturnCode.MISSING_DATA, LocationType.LINE_LOCATION, version);
             }
             let returnCode = this._checkOffsets(offsets, true, locationReferences);

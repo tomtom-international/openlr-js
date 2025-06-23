@@ -1,5 +1,5 @@
-/**
- * Copyright 2020 TomTom International B.V
+/*
+ * Copyright (c) 2020-2025 TomTom International B.V.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,7 +42,6 @@ export class PolygonDecoder extends AbstractDecoder {
             cornersCoords.push(cornerCoord);
             prevCornerAbsCoord = AbsoluteCoordinates.fromValues(this._get24BitRepresentation(cornerCoord.getLongitudeDeg()), this._get24BitRepresentation(cornerCoord.getLatitudeDeg()));
         }
-        const rawLocRef = RawPolygonLocationReference.fromPolygonValues(id, cornersCoords);
-        return rawLocRef;
+        return RawPolygonLocationReference.fromPolygonValues(id, cornersCoords);
     }
 }
