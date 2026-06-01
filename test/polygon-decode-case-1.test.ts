@@ -1,22 +1,6 @@
-/*
- * Copyright (c) 2020-2025 TomTom International B.V.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-const assert = require('assert');
-const { Buffer } = require('buffer');
-const { BinaryDecoder, LocationReference } = require('../lib/es5');
+import { Buffer } from 'buffer';
+import { describe, expect, it } from 'vitest';
+import { BinaryDecoder, LocationReference, RawPolygonLocationReference } from '../src/index';
 
 const openLrString = 'E//oWiSg4f/lABz/n//6/+n/uAAR/+0AGv/t/0f/wgAO//AAlwA3/+H/1gAl//YAagAEACv//wB4//QAEAAKABAAFAAN//UAF//7/7X/2f8D/5gAX/5b/u7/4v4V/8n/N//q/6r/+f/8/+sAVAABA6wAYABFAAoAIv/+AJr/9AA7//sAOP/4AD4AEwAQAIT/+QB9/+kAZ//fAFIAbwAh/+sAJgAzABYAEwAj//wABf8ZACoABgAOADcAIwA9ACAAJQAVAFUALQDZAGkAYv+3AEMAH//yADAASwAZAA0AQABXACEAOgAWAGMAIwBxABwAVQAiAEf/hQAaAAX/uQB/AFcAFv/lABr/nwAf/+4AAv8v/6b/x/+5/9L/6wASAE4AFQAnACEAGwAuABP/pAAh/7n/pP/C/97/4//o/2r/uwAJ//T/Rf+5/7T/5/+N/8wAAf/HABP/4P97/7j/2P/z/48ALv9uACo=';
 const expectedCoordinates = [
@@ -111,10 +95,14 @@ const expectedCoordinates = [
     [-0.12998072721468468, 51.50890746274849]
 ]
 
-const binaryDecoder = new BinaryDecoder();
-const openLrBinary = Buffer.from(openLrString, 'base64');
-const locationReference = LocationReference.fromIdAndBuffer('binary', openLrBinary);
-const rawLocationReference = binaryDecoder.decodeData(locationReference);
-const coordinates = rawLocationReference.getCornerPoints().map((coordinates) => [coordinates.getLongitudeDeg(), coordinates.getLatitudeDeg()]);
+describe('polygon decode case 1', () => {
+    it('decodes the corner points to the expected coordinates', () => {
+        const binaryDecoder = new BinaryDecoder();
+        const openLrBinary = Buffer.from(openLrString, 'base64');
+        const locationReference = LocationReference.fromIdAndBuffer('binary', openLrBinary);
+        const rawLocationReference = binaryDecoder.decodeData(locationReference) as RawPolygonLocationReference;
+        const coordinates = rawLocationReference.getCornerPoints().map((corner) => [corner.getLongitudeDeg(), corner.getLatitudeDeg()]);
 
-assert.deepStrictEqual(expectedCoordinates, coordinates);
+        expect(coordinates).toStrictEqual(expectedCoordinates);
+    });
+});

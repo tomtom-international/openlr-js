@@ -26,7 +26,7 @@ const plugins = [
 ];
 
 export default {
-    input: 'lib/es5/index.js',
+    input: 'lib/es6/index.js',
     output: [
         {
             file: 'lib/browser/bundle.js',

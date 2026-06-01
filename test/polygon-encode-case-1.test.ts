@@ -1,22 +1,6 @@
-/*
- * Copyright (c) 2020-2025 TomTom International B.V.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-const { BinaryEncoder } = require('../lib/es5');
-const { RawPolygonLocationReference } = require('../lib/es5/data/raw-location-reference/RawPolygonLocationReference');
-const { GeoCoordinates } = require('../lib/es5/map/GeoCoordinates');
+import { describe, expect, it } from 'vitest';
+import { BinaryEncoder, RawPolygonLocationReference } from '../src/index';
+import { GeoCoordinates } from '../src/map/GeoCoordinates';
 
 const coordinates = [
     [-0.129898533096366, 51.50871146282117],
@@ -111,12 +95,13 @@ const coordinates = [
 ];
 const expectedOpenLrString = 'E//oWiSg4f/lABz/n//6/+n/uAAR/+0AGv/t/0f/wgAO//AAlwA3/+H/1gAl//YAagAEACv//wB4//QAEAAKABAAFAAN//UAF//7/7X/2f8D/5gAX/5b/u7/4v4V/8n/N//q/6r/+f/8/+sAVAABA6wAYABFAAoAIv/+AJr/9AA7//sAOP/4AD4AEwAQAIT/+QB9/+kAZ//fAFIAbwAh/+sAJgAzABYAEwAj//wABf8ZACoABgAOADcAIwA9ACAAJQAVAFUALQDZAGkAYv+3AEMAH//yADAASwAZAA0AQABXACEAOgAWAGMAIwBxABwAVQAiAEf/hQAaAAX/uQB/AFcAFv/lABr/nwAf/+4AAv8v/6b/x/+5/9L/6wASAE4AFQAnACEAGwAuABP/pAAh/7n/pP/C/97/4//o/2r/uwAJ//T/Rf+5/7T/5/+N/8wAAf/HABP/4P97/7j/2P/z/48ALv9uACo=';
 
-const binaryEncoder = new BinaryEncoder();
-const rawLocationReference = RawPolygonLocationReference.fromPolygonValues('polygon', coordinates.map(([longitude, latitude]) => GeoCoordinates.fromValues(longitude, latitude)));
-const encodedLocationReference = binaryEncoder.encodeDataFromRLR(rawLocationReference);
-const encodedOpenLrBinary = encodedLocationReference.getLocationReferenceData();
-const encodedOpenLrString = encodedOpenLrBinary.toString('base64');
+describe('polygon encode case 1', () => {
+    it('encodes the coordinates to the expected OpenLR string', () => {
+        const binaryEncoder = new BinaryEncoder();
+        const rawLocationReference = RawPolygonLocationReference.fromPolygonValues('polygon', coordinates.map(([longitude, latitude]) => GeoCoordinates.fromValues(longitude, latitude)));
+        const encodedLocationReference = binaryEncoder.encodeDataFromRLR(rawLocationReference);
+        const encodedOpenLrString = encodedLocationReference.getLocationReferenceData().toString('base64');
 
-if (expectedOpenLrString !== encodedOpenLrString) {
-    throw new Error('Expected OpenLR string to be equal: ' + expectedOpenLrString + ' and ' + encodedOpenLrString);
-}
+        expect(encodedOpenLrString).toBe(expectedOpenLrString);
+    });
+});
