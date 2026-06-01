@@ -16,6 +16,7 @@
 
 require('./line-sanity.cjs');
 require('./point-along-line-sanity.cjs');
+require('./point-along-line-without-offset.cjs');
 require('./geo-coord-sanity.cjs');
 require('./polygon-sanity.cjs');
 require('./polygon-decode-case-1.cjs');
