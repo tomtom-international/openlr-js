@@ -59,15 +59,14 @@ export class PointAlongLineEncoder extends AbstractEncoder {
         const first = this._generateFirstLRPFromLRPAndOrientation(startLRP, orientation);
         const lrps = [startLRP, endLRP];
         const pOff = this._generateOffset(offsets, true, version, lrps);
-        if (pOff === null) {
-            throw new Error('Positive offset cannot be null');
-        }
         const last = this._generateLastLrpFromPointsAndOffsetAndSideOfRoad(lrps, pOff, sideOfRoad);
         const out = BitStreamOutput.fromValues();
         header.put(out);
         first.put(out);
         last.put(out);
-        pOff.put(out);
+        if (pOff !== null) {
+            pOff.put(out);
+        }
         return out.getData();
     }
 }
