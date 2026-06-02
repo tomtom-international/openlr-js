@@ -218,7 +218,7 @@ npm install        # install dependencies
 npm test           # run the test suite (vitest)
 npm run lint       # lint sources (eslint)
 npm run typecheck  # type-check without emitting
-npm run build      # build ES6, ES5 and browser (UMD) bundles
+npm run build      # build lib/es6 (ESM), lib/es5 (CommonJS), and browser (UMD) bundles
 ```
 
 Tests live in `test/` (`*.test.ts`) and import directly from `src/`, so no build step is
