@@ -17,7 +17,7 @@ Java binaries and the OpenLR specification can be found at [OpenLR.org](http://w
 Currently only supports **geo-coordinate**, **line**, **point along line**, **polygon** and **circle** geometries encoding/decoding to/from **binary**.
 This project is open to contributions, and will likely support more OpenLR geometries in future.
 
-Supports both [Node.js](http://nodejs.org) (v4+) and web browsers by using the [Buffer](https://www.npmjs.com/package/buffer) package.
+Supports [Node.js](http://nodejs.org) (v18+ at runtime; v20+ for development tooling), web browsers (via the [Buffer](https://www.npmjs.com/package/buffer) package), and TypeScript/bundler toolchains. TypeScript type definitions are bundled with the package.
 
 ## License
 
@@ -208,6 +208,22 @@ If you're using NetBeans, filter:
 `nb-configuration.xml *.orig`
 
 The local `.gitignore` file in the Git repository itself to reflect those file only that are produced by executing regular compile, build or release commands, such as: `target/ out/`
+
+## Development
+
+This project is written in TypeScript. Common tasks:
+
+```bash
+npm install        # install dependencies
+npm test           # run the test suite (vitest)
+npm run lint       # lint sources (eslint)
+npm run typecheck  # type-check without emitting
+npm run build      # build lib/es6 (ESM), lib/es5 (CommonJS), and browser (UMD) bundles
+```
+
+Tests live in `test/` (`*.test.ts`) and import directly from `src/`, so no build step is
+needed before running them. Continuous integration runs lint, type-check, tests and the build
+on every push and pull request across a matrix of Node.js versions.
 
 ## Bug reports and new feature requests
 
