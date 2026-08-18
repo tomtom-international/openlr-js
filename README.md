@@ -199,9 +199,35 @@ point, so it has to lie within roughly 0.32 degrees of it. Omit the positive off
 and `_pOffset` both `0`) and the access point is implicitly the first location reference point, which
 encodes to 20 instead of 21 bytes.
 
-`GeoCoordinates`, `SideOfRoad` and `Orientation` are exported from the package index, so a location
-reference can also be built programmatically with
-`RawPoiAccessLocationReference.fromPoiAccessValues(...)` instead of going through `Serializer`.
+`GeoCoordinates`, `FunctionalRoadClass`, `FormOfWay`, `SideOfRoad` and `Orientation` are all exported
+from the package index, so a location reference can equally be built programmatically instead of
+going through `Serializer`:
+
+```js
+import {BinaryEncoder, FormOfWay, FunctionalRoadClass, GeoCoordinates, LocationReferencePoint, Offsets, Orientation, RawPoiAccessLocationReference, SideOfRoad} from 'openlr-js';
+
+const firstLRP = LocationReferencePoint.fromValues(1, FunctionalRoadClass.FRC_2, FormOfWay.MULTIPLE_CARRIAGEWAY, 6.128300428361281, 49.60596442198941, 196.875, 88, FunctionalRoadClass.FRC_2, false);
+const lastLRP = LocationReferencePoint.fromValues(2, FunctionalRoadClass.FRC_2, FormOfWay.MULTIPLE_CARRIAGEWAY, 6.127800428361281, 49.60520442198941, 39.375, 0, FunctionalRoadClass.FRC_7, true);
+
+const rawLocationReference = RawPoiAccessLocationReference.fromPoiAccessValues(
+    'binary',
+    firstLRP,
+    lastLRP,
+    Offsets.fromRelativeValues(30.6640625, 0.0),
+    GeoCoordinates.fromValues(6.127000428361281, 49.60727442198941),
+    SideOfRoad.LEFT,
+    Orientation.NO_ORIENTATION_OR_UNKNOWN
+);
+
+const openLrString = new BinaryEncoder().encodeDataFromRLR(rawLocationReference).getLocationReferenceData().toString('base64');
+```
+
+Mind the two `Offsets` factories: `fromRelativeValues` takes the offset as a percentage of the
+distance to the next LRP, which is how a decoded version 3 location reference reports it, while
+`fromValues` takes absolute meters. Both encode fine to version 3 — the encoder converts either into
+the on-wire bucket — but they mean different things, so passing meters to `fromRelativeValues` (or
+the reverse) silently moves the access point. For the example above, `fromRelativeValues(30.6640625,
+0)` and `fromValues(28, 0)` encode to bucket 78 and 81 respectively.
 
 ### In browser
 

@@ -1,6 +1,6 @@
 import { Buffer } from 'buffer';
 import { describe, expect, it } from 'vitest';
-import { BinaryDecoder, BinaryEncoder, GeoCoordinates, LocationReference, LocationType, Offsets, Orientation, RawPoiAccessLocationReference, Serializer, SideOfRoad } from '../src/index';
+import { BinaryDecoder, BinaryEncoder, FormOfWay, FunctionalRoadClass, GeoCoordinates, LocationReference, LocationReferencePoint, LocationType, Offsets, Orientation, RawPoiAccessLocationReference, Serializer, SideOfRoad } from '../src/index';
 
 const binaryDecoder = new BinaryDecoder();
 const binaryEncoder = new BinaryEncoder();
@@ -212,6 +212,29 @@ describe('poi-with-access-point location reference', () => {
                 expect(reDecoded.getOrientation()).toBe(orientation);
             }
         }
+    });
+
+    /*
+     * Everything this test needs comes from the package index, with no deep module imports: a
+     * consumer can describe a point of interest and its access point from scratch and encode it.
+     * The values are the whitepaper reference example's, so the expected bytes are its own.
+     */
+    it('encodes a location reference built entirely from the public exports', () => {
+        const firstLRP = LocationReferencePoint.fromValues(1, FunctionalRoadClass.FRC_2, FormOfWay.MULTIPLE_CARRIAGEWAY, 6.128300428361281, 49.60596442198941, 196.875, 88, FunctionalRoadClass.FRC_2, false);
+        const lastLRP = LocationReferencePoint.fromValues(2, FunctionalRoadClass.FRC_2, FormOfWay.MULTIPLE_CARRIAGEWAY, 6.127800428361281, 49.60520442198941, 39.375, 0, FunctionalRoadClass.FRC_7, true);
+
+        const rawLocationReference = RawPoiAccessLocationReference.fromPoiAccessValues(
+            'binary',
+            firstLRP,
+            lastLRP,
+            Offsets.fromRelativeValues(30.6640625, 0.0),
+            GeoCoordinates.fromValues(6.127000428361281, 49.60727442198941),
+            SideOfRoad.LEFT,
+            Orientation.NO_ORIENTATION_OR_UNKNOWN
+        );
+
+        const encodedLocationReference = binaryEncoder.encodeDataFromRLR(rawLocationReference);
+        expect(encodedLocationReference.getLocationReferenceData().toString('base64')).toBe(roundTrippingOpenLrString);
     });
 
     it('encodes a location reference built without a positive offset', () => {

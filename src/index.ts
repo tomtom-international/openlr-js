@@ -32,6 +32,8 @@ import {RawLineLocationReference} from './data/raw-location-reference/RawLineLoc
 import {Serializer} from './data/Serializer'
 import {Offsets} from './data/Offsets'
 import {GeoCoordinates} from './map/GeoCoordinates'
+import {FunctionalRoadClass} from './map/FunctionalRoadClass'
+import {FormOfWay} from './map/FormOfWay'
 import {SideOfRoad} from './data/location/data/SideOfRoad'
 import {Orientation} from './data/location/data/Orientation'
 
@@ -46,6 +48,8 @@ export {
     POINTS_LOCATIONS,
     Offsets,
     GeoCoordinates,
+    FunctionalRoadClass,
+    FormOfWay,
     SideOfRoad,
     Orientation,
     RawLocationReference,
