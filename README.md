@@ -14,7 +14,7 @@ This library contains an OpenLR implementation for JavaScript.
 
 Java binaries and the OpenLR specification can be found at [OpenLR.org](http://www.openlr.org).
 
-Currently only supports **geo-coordinate**, **line**, **point along line**, **polygon** and **circle** geometries encoding/decoding to/from **binary**.
+Currently only supports **geo-coordinate**, **line**, **point along line**, **POI with access point**, **polygon** and **circle** geometries encoding/decoding to/from **binary**.
 This project is open to contributions, and will likely support more OpenLR geometries in future.
 
 Supports [Node.js](http://nodejs.org) (v18+ at runtime; v20+ for development tooling), web browsers (via the [Buffer](https://www.npmjs.com/package/buffer) package), and TypeScript/bundler toolchains. TypeScript type definitions are bundled with the package.
@@ -168,6 +168,40 @@ This produces the following OpenLR string:
 ```
 CwNhbCU+jzPLAwD0/34zGw==
 ```
+
+### Encoding a POI with access point
+
+A POI with access point carries the exact coordinate of the object (`_geoCoord`) alongside the two
+location reference points and the optional positive offset describing the access point on the
+network. This is the location type to use when an offset along a line is not precise enough to place
+a point-like object.
+
+```js
+import {BinaryEncoder, Serializer} from 'openlr-js';
+
+const binaryEncoder = new BinaryEncoder();
+
+const jsonObject = {"type":"RawPoiAccessLocationReference","properties":{"_id":"binary","_locationType":4,"_returnCode":null,"_points":{"type":"Array","properties":[{"type":"LocationReferencePoint","properties":{"_bearing":196.875,"_distanceToNext":88,"_frc":2,"_fow":2,"_lfrcnp":2,"_isLast":false,"_longitude":6.128300428361281,"_latitude":49.60596442198941,"_sequenceNumber":1}},{"type":"LocationReferencePoint","properties":{"_bearing":39.375,"_distanceToNext":0,"_frc":2,"_fow":2,"_lfrcnp":7,"_isLast":true,"_longitude":6.127800428361281,"_latitude":49.60520442198941,"_sequenceNumber":2}}]},"_offsets":{"type":"Offsets","properties":{"_pOffset":0,"_nOffset":0,"_version":3,"_pOffRelative":30.6640625,"_nOffRelative":0}},"_geoCoord":{"type":"GeoCoordinates","properties":{"_longitude":6.127000428361281,"_latitude":49.60727442198941}},"_orientation":0,"_sideOfRoad":2}};
+const rawLocationReference = Serializer.deserialize(jsonObject);
+const locationReference = binaryEncoder.encodeDataFromRLR(rawLocationReference);
+const openLrString = locationReference.getLocationReferenceData().toString('base64');
+console.log(openLrString);
+```
+
+This produces the following OpenLR string:
+
+```
+KwRboCNGfhJRAf/O/7SSQ07/fgCD
+```
+
+The point of interest is stored as a two byte coordinate relative to the first location reference
+point, so it has to lie within roughly 0.32 degrees of it. Omit the positive offset (`_pOffRelative`
+and `_pOffset` both `0`) and the access point is implicitly the first location reference point, which
+encodes to 20 instead of 21 bytes.
+
+`GeoCoordinates`, `SideOfRoad` and `Orientation` are exported from the package index, so a location
+reference can also be built programmatically with
+`RawPoiAccessLocationReference.fromPoiAccessValues(...)` instead of going through `Serializer`.
 
 ### In browser
 

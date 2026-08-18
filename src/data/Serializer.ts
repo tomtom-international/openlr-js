@@ -21,6 +21,7 @@ import { GeoCoordinates } from '../map/GeoCoordinates';
 import { RawInvalidLocationReference } from './raw-location-reference/RawInvalidLocationReference';
 import { RawLineLocationReference } from './raw-location-reference/RawLineLocationReference';
 import { RawPointAlongLineLocationReference } from './raw-location-reference/RawPointAlongLineLocationReference';
+import { RawPoiAccessLocationReference } from './raw-location-reference/RawPoiAccessLocationReference';
 import { RawGeoCoordLocationReference } from './raw-location-reference/RawGeoCoordLocationReference';
 import { RawPolygonLocationReference } from './raw-location-reference/RawPolygonLocationReference';
 import { RawCircleLocationReference } from './raw-location-reference/RawCircleLocationReference';
@@ -35,6 +36,7 @@ const constructors: { [Key: string]: any } = {
     RawInvalidLocationReference,
     RawLineLocationReference,
     RawPointAlongLineLocationReference,
+    RawPoiAccessLocationReference,
     RawGeoCoordLocationReference,
     RawPolygonLocationReference,
     RawCircleLocationReference
