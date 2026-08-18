@@ -137,7 +137,7 @@ export class LocationReference {
                 } else if (totalBytes === BinaryConstants.POINT_WITH_ACCESS_SIZE || totalBytes === BinaryConstants.POINT_WITH_ACCESS_SIZE + BinaryConstants.POINT_OFFSET_SIZE) {
                     locationType = LocationType.POI_WITH_ACCESS_POINT;
                 } else {
-                    throw new Error('Bye size does not match point location');
+                    throw new Error('Byte size does not match point location');
                 }
             }
         } else if (isAreaLocation && !isPointLocation && hasAttributes) {

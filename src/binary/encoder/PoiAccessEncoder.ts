@@ -23,43 +23,49 @@ import { BitStreamOutput } from '../bit-stream/BitStreamOutput';
 import { RawLocationReference } from '../../data/raw-location-reference/RawLocationReference';
 import { LocationReferencePoint } from '../../data/LocationReferencePoint';
 import { Offsets } from '../../data/Offsets';
+import { GeoCoordinates } from '../../map/GeoCoordinates';
 import { SideOfRoad } from '../../data/location/data/SideOfRoad';
 import { Orientation } from '../../data/location/data/Orientation';
 
-export class PointAlongLineEncoder extends AbstractEncoder {
+export class PoiAccessEncoder extends AbstractEncoder {
     public encodeData(rawLocationReference: RawLocationReference, version: number) {
-        if (rawLocationReference.getLocationReferencePoints() === null) {
-            return LocationReference.fromValues(rawLocationReference.getId(), BinaryReturnCode.MISSING_DATA, LocationType.POINT_ALONG_LINE, version);
-        }
         const locationReferencePoints = rawLocationReference.getLocationReferencePoints();
-        if (locationReferencePoints === null || locationReferencePoints.length <= 0) {
-            return LocationReference.fromValues(rawLocationReference.getId(), BinaryReturnCode.MISSING_DATA, LocationType.POINT_ALONG_LINE, version);
+        if (locationReferencePoints === null || locationReferencePoints.length < 2) {
+            return LocationReference.fromValues(rawLocationReference.getId(), BinaryReturnCode.MISSING_DATA, LocationType.POI_WITH_ACCESS_POINT, version);
         } else {
             const startLRP = locationReferencePoints[0];
             const endLRP = locationReferencePoints[1];
             const offsets = rawLocationReference.getOffsets();
+            const coord = rawLocationReference.getGeoCoordinates();
             const sideOfRoad = rawLocationReference.getSideOfRoad();
             const orientation = rawLocationReference.getOrientation();
-            if (startLRP === null || endLRP === null || offsets === null || sideOfRoad === null || orientation === null) {
-                return LocationReference.fromValues(rawLocationReference.getId(), BinaryReturnCode.MISSING_DATA, LocationType.POINT_ALONG_LINE, version);
+            if (startLRP === null || endLRP === null || offsets === null || coord === null || sideOfRoad === null || orientation === null) {
+                return LocationReference.fromValues(rawLocationReference.getId(), BinaryReturnCode.MISSING_DATA, LocationType.POI_WITH_ACCESS_POINT, version);
             }
             if (version < BinaryConstants.BINARY_VERSION_3) {
-                return LocationReference.fromValues(rawLocationReference.getId(), BinaryReturnCode.INVALID_VERSION, LocationType.POINT_ALONG_LINE, version);
+                return LocationReference.fromValues(rawLocationReference.getId(), BinaryReturnCode.INVALID_VERSION, LocationType.POI_WITH_ACCESS_POINT, version);
             }
             const returnCode = this._checkOffsets(offsets, true, locationReferencePoints);
             if (!returnCode) {
-                return LocationReference.fromValues(rawLocationReference.getId(), BinaryReturnCode.INVALID_OFFSET, LocationType.POINT_ALONG_LINE, version);
+                return LocationReference.fromValues(rawLocationReference.getId(), BinaryReturnCode.INVALID_OFFSET, LocationType.POI_WITH_ACCESS_POINT, version);
             }
-            return LocationReference.fromIdAndBuffer(rawLocationReference.getId(), this._generateBinaryPointAlongLineLocation(startLRP, endLRP, offsets, sideOfRoad, orientation, version));
+            // The point of interest is stored as a two byte relative coordinate, so it has to be
+            // close enough to the first LRP to fit into that range.
+            const relCoord = this._generateRelativeCoordinates(startLRP, coord);
+            if (!this._fitsInto2Bytes(relCoord.lon) || !this._fitsInto2Bytes(relCoord.lat)) {
+                return LocationReference.fromValues(rawLocationReference.getId(), BinaryReturnCode.INVALID_BINARY_DATA, LocationType.POI_WITH_ACCESS_POINT, version);
+            }
+            return LocationReference.fromIdAndBuffer(rawLocationReference.getId(), this._generateBinaryPoiAccessLocation(startLRP, endLRP, offsets, coord, sideOfRoad, orientation, version));
         }
     }
 
-    protected _generateBinaryPointAlongLineLocation(startLRP: LocationReferencePoint, endLRP: LocationReferencePoint, offsets: Offsets, sideOfRoad: SideOfRoad, orientation: Orientation, version: number) {
-        const header = this._generateHeader(version, LocationType.POINT_ALONG_LINE, true);
+    protected _generateBinaryPoiAccessLocation(startLRP: LocationReferencePoint, endLRP: LocationReferencePoint, offsets: Offsets, coord: GeoCoordinates, sideOfRoad: SideOfRoad, orientation: Orientation, version: number) {
+        const header = this._generateHeader(version, LocationType.POI_WITH_ACCESS_POINT, true);
         const first = this._generateFirstLRPFromLRPAndOrientation(startLRP, orientation);
         const lrps = [startLRP, endLRP];
         const pOff = this._generateOffset(offsets, true, version, lrps);
         const last = this._generateLastLrpFromPointsAndOffsetAndSideOfRoad(lrps, pOff, sideOfRoad);
+        const relCoord = this._generateRelativeCoordinates(startLRP, coord);
         const out = BitStreamOutput.fromValues();
         header.put(out);
         first.put(out);
@@ -67,6 +73,7 @@ export class PointAlongLineEncoder extends AbstractEncoder {
         if (pOff !== null) {
             pOff.put(out);
         }
+        relCoord.put(out);
         return out.getData();
     }
 }

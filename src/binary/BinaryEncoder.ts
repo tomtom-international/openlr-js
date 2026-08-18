@@ -20,6 +20,7 @@ import { BinaryReturnCode } from './BinaryReturnCode';
 import { LocationType } from '../data/LocationType';
 import { LineEncoder } from './encoder/LineEncoder';
 import { PointAlongLineEncoder } from './encoder/PointAlongLineEncoder';
+import { PoiAccessEncoder } from './encoder/PoiAccessEncoder';
 import { GeoCoordEncoder } from './encoder/GeoCoordEncoder';
 import { PolygonEncoder } from './encoder/PolygonEncoder';
 import { CircleEncoder } from './encoder/CircleEncoder';
@@ -56,8 +57,8 @@ export class BinaryEncoder {
                 encoder = new LineEncoder();
                 break;
             case LocationType.POI_WITH_ACCESS_POINT:
-                // encoder = new PoiAccessEncoder();
-                throw new Error('PoiAccessEncoder not implemented');
+                encoder = new PoiAccessEncoder();
+                break;
             case LocationType.POINT_ALONG_LINE:
                 encoder = new PointAlongLineEncoder();
                 break;

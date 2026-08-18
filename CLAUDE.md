@@ -14,7 +14,8 @@ public constructors, `protected` fields with `_underscore` names exposed via `ge
 and explicit bit-level manipulation. Keep that style when editing existing code — consistency
 with the Java original matters more than idiomatic-JS refactors.
 
-Supported geometries: **geo-coordinate**, **line**, **point along line**, **polygon**, **circle**.
+Supported geometries: **geo-coordinate**, **line**, **point along line**, **POI with access point**,
+**polygon**, **circle**.
 
 ## Commands
 

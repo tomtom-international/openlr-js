@@ -22,6 +22,7 @@ import { RawInvalidLocationReference } from '../data/raw-location-reference/RawI
 import { Header } from './data/Header';
 import { LineDecoder } from './decoder/LineDecoder';
 import { PointAlongLineDecoder } from './decoder/PointAlongLineDecoder';
+import { PoiAccessDecoder } from './decoder/PoiAccessDecoder';
 import { GeoCoordDecoder } from './decoder/GeoCoordDecoder';
 import { PolygonDecoder } from './decoder/PolygonDecoder';
 import { CircleDecoder } from './decoder/CircleDecoder';
@@ -107,8 +108,7 @@ export class BinaryDecoder {
                 if (totalBytes === BinaryConstants.POINT_ALONG_LINE_SIZE || totalBytes === BinaryConstants.POINT_ALONG_LINE_SIZE + BinaryConstants.POINT_OFFSET_SIZE) {
                     decoder = new PointAlongLineDecoder();
                 } else if (totalBytes === BinaryConstants.POINT_WITH_ACCESS_SIZE || totalBytes === BinaryConstants.POINT_WITH_ACCESS_SIZE + BinaryConstants.POINT_OFFSET_SIZE) {
-                    // decoder = new PoiAccessDecoder();
-                    throw new Error('PoiAccessDecider not implemented');
+                    decoder = new PoiAccessDecoder();
                 } else {
                     rawLocRef = RawInvalidLocationReference.fromIdAndStatusCode(id, BinaryReturnCode.INVALID_BYTE_SIZE);
                 }

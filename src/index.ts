@@ -25,11 +25,17 @@ import {RawCircleLocationReference} from './data/raw-location-reference/RawCircl
 import {RawGeoCoordLocationReference} from './data/raw-location-reference/RawGeoCoordLocationReference'
 import {RawInvalidLocationReference} from './data/raw-location-reference/RawInvalidLocationReference'
 import {RawPointAlongLineLocationReference} from './data/raw-location-reference/RawPointAlongLineLocationReference'
+import {RawPoiAccessLocationReference} from './data/raw-location-reference/RawPoiAccessLocationReference'
 import {RawPointLocationReference} from './data/raw-location-reference/RawPointLocationReference'
 import {RawPolygonLocationReference} from './data/raw-location-reference/RawPolygonLocationReference'
 import {RawLineLocationReference} from './data/raw-location-reference/RawLineLocationReference'
 import {Serializer} from './data/Serializer'
 import {Offsets} from './data/Offsets'
+import {GeoCoordinates} from './map/GeoCoordinates'
+import {FunctionalRoadClass} from './map/FunctionalRoadClass'
+import {FormOfWay} from './map/FormOfWay'
+import {SideOfRoad} from './data/location/data/SideOfRoad'
+import {Orientation} from './data/location/data/Orientation'
 
 export {
     Buffer,
@@ -41,11 +47,17 @@ export {
     AREA_LOCATIONS,
     POINTS_LOCATIONS,
     Offsets,
+    GeoCoordinates,
+    FunctionalRoadClass,
+    FormOfWay,
+    SideOfRoad,
+    Orientation,
     RawLocationReference,
     RawCircleLocationReference,
     RawGeoCoordLocationReference,
     RawInvalidLocationReference,
     RawPointAlongLineLocationReference,
+    RawPoiAccessLocationReference,
     RawPointLocationReference,
     RawPolygonLocationReference,
     RawLineLocationReference,
