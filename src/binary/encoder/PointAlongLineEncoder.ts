@@ -44,7 +44,7 @@ export class PointAlongLineEncoder extends AbstractEncoder {
                 return LocationReference.fromValues(rawLocationReference.getId(), BinaryReturnCode.MISSING_DATA, LocationType.POINT_ALONG_LINE, version);
             }
             if (version < BinaryConstants.BINARY_VERSION_3) {
-                return LocationReference.fromValues(rawLocationReference.getId(), BinaryReturnCode.INVALID_VERSION, LocationType.POI_WITH_ACCESS_POINT, version);
+                return LocationReference.fromValues(rawLocationReference.getId(), BinaryReturnCode.INVALID_VERSION, LocationType.POINT_ALONG_LINE, version);
             }
             const returnCode = this._checkOffsets(offsets, true, locationReferencePoints);
             if (!returnCode) {
