@@ -13,10 +13,26 @@ const binaryEncoder = new BinaryEncoder();
 const referenceOpenLrString = 'KwRboCNGfhJRAf/O/7SSQ03/fgCD';
 
 /*
+ * The reference example carries orientation NO_ORIENTATION_OR_UNKNOWN, which is all-zero bits, so
+ * on its own it cannot distinguish a correctly written orientation from a dropped one. This vector
+ * is the same location with SideOfRoad.RIGHT and Orientation.AGAINST_LINE_DIRECTION, both non-zero
+ * and different from each other, so it pins the two fields independently and in the right bytes.
+ */
+const nonZeroOrientationOpenLrString = 'KwRboCNGfpJRAf/O/7RSQ07/fgCD';
+
+/*
  * The same location with the positive offset in bucket 78 instead of 77. Decoding resolves an
- * offset bucket to the middle of the bucket, so only a value that re-quantises onto itself
- * survives a decode/encode cycle byte for byte. Bucket 78 is that value here, which is also why
- * the whitepaper's "point along line" example (see test/point-along-line.test.ts) uses it.
+ * offset bucket to the middle of that bucket, so only a bucket that re-quantises onto itself
+ * survives a decode/encode cycle byte for byte: DNP bucket 1 decodes to an estimated 88 meter,
+ * offset bucket 77 resolves to 30.2734375% which is 27 meter, and 27 of 88 meter encodes back as
+ * bucket floor(256 * 27 / 88) = 78. Only 88 of the 255 non-zero buckets are fixed points of that
+ * map, and 77 is not one of them.
+ *
+ * This is a property of the offset code shared by all location types (AbstractDecoder
+ * ._calculateRelativeDistance -> Offsets.getPositiveOffset -> AbstractEncoder
+ * ._calculateRelativeInterval), not of this location type. The whitepaper's own "point along line"
+ * example shifts 77 -> 78 in exactly the same way, which is why test/point-along-line.test.ts
+ * pins a bucket 78 vector rather than the whitepaper's bucket 77 one.
  */
 const roundTrippingOpenLrString = 'KwRboCNGfhJRAf/O/7SSQ07/fgCD';
 
@@ -154,6 +170,48 @@ describe('poi-with-access-point location reference', () => {
         expect(reDecoded.getGeoCoordinates()!.getLongitudeDeg()).toBeCloseTo(6.12699, 4);
         expect(reDecoded.getGeoCoordinates()!.getLatitudeDeg()).toBeCloseTo(49.60728, 4);
         expect(reDecoded.getSideOfRoad()).toBe(SideOfRoad.LEFT);
+    });
+
+    it('round-trips a non-zero orientation and side of road', () => {
+        const rawLocationReference = decode(nonZeroOrientationOpenLrString);
+
+        expect(rawLocationReference.getSideOfRoad()).toBe(SideOfRoad.RIGHT);
+        expect(rawLocationReference.getOrientation()).toBe(Orientation.AGAINST_LINE_DIRECTION);
+
+        const encodedLocationReference = binaryEncoder.encodeDataFromRLR(Serializer.deserialize(Serializer.serialize(rawLocationReference)));
+        expect(encodedLocationReference.getLocationReferenceData().toString('base64')).toBe(nonZeroOrientationOpenLrString);
+    });
+
+    /*
+     * Orientation lives in the first LRP's attribute byte and side of road in the last LRP's, so a
+     * mix-up between the two is the realistic hazard in this layout. Sweeping every combination
+     * pins both fields against being swapped, dropped or defaulted.
+     */
+    it('preserves every side of road and orientation combination', () => {
+        const decoded = decode(roundTrippingOpenLrString);
+        const locationReferencePoints = decoded.getLocationReferencePoints()!;
+        const sidesOfRoad = [SideOfRoad.ON_ROAD_OR_UNKNOWN, SideOfRoad.RIGHT, SideOfRoad.LEFT, SideOfRoad.BOTH];
+        const orientations = [Orientation.NO_ORIENTATION_OR_UNKNOWN, Orientation.WITH_LINE_DIRECTION, Orientation.AGAINST_LINE_DIRECTION, Orientation.BOTH];
+
+        for (const sideOfRoad of sidesOfRoad) {
+            for (const orientation of orientations) {
+                const rawLocationReference = RawPoiAccessLocationReference.fromPoiAccessValues(
+                    'binary',
+                    locationReferencePoints[0],
+                    locationReferencePoints[1],
+                    decoded.getOffsets()!,
+                    decoded.getGeoCoordinates()!,
+                    sideOfRoad,
+                    orientation
+                );
+
+                const encodedOpenLrBinary = binaryEncoder.encodeDataFromRLR(rawLocationReference).getLocationReferenceData();
+                const reDecoded = binaryDecoder.decodeData(LocationReference.fromIdAndBuffer('binary', encodedOpenLrBinary));
+
+                expect(reDecoded.getSideOfRoad()).toBe(sideOfRoad);
+                expect(reDecoded.getOrientation()).toBe(orientation);
+            }
+        }
     });
 
     it('encodes a location reference built without a positive offset', () => {
